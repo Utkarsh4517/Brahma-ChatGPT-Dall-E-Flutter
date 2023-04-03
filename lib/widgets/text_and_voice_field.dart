@@ -54,7 +54,10 @@ class _TextAndVoiceFieldState extends ConsumerState<TextAndVoiceField> {
         ToggleButton(
           inputMode: _inputMode,
           sendTextMessage: () {
-            sendTextMessage(_messageController.text);
+
+            final message = _messageController.text;
+            _messageController.clear();
+            sendTextMessage(message);
           },
           sendVoiceMessage: sendVoiceMessage,
         )
@@ -69,6 +72,7 @@ class _TextAndVoiceFieldState extends ConsumerState<TextAndVoiceField> {
   }
 
   void sendVoiceMessage() {}
+
   void sendTextMessage(String message) async {
     addToChatList(message, true, DateTime.now().toString());
     final aiResponse = await _openAI.getResponse(message);
