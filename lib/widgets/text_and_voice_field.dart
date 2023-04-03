@@ -20,6 +20,7 @@ class TextAndVoiceField extends ConsumerStatefulWidget {
 class _TextAndVoiceFieldState extends ConsumerState<TextAndVoiceField> {
   InputMode _inputMode = InputMode.voice;
   final _messageController = TextEditingController();
+  var _isReplying = false; 
   AIHandler _openAI = AIHandler();
 
   @override
@@ -52,6 +53,7 @@ class _TextAndVoiceFieldState extends ConsumerState<TextAndVoiceField> {
           width: 6,
         ),
         ToggleButton(
+          isReplying: _isReplying,
           inputMode: _inputMode,
           sendTextMessage: () {
 
@@ -74,9 +76,17 @@ class _TextAndVoiceFieldState extends ConsumerState<TextAndVoiceField> {
   void sendVoiceMessage() {}
 
   void sendTextMessage(String message) async {
+    setReplyingstate(true);
     addToChatList(message, true, DateTime.now().toString());
     final aiResponse = await _openAI.getResponse(message);
     addToChatList(aiResponse, false, DateTime.now().toString());
+    setReplyingstate(false);
+  }
+
+  void setReplyingstate(bool isReplying){
+    setState(() {
+      _isReplying = isReplying;
+    });
   }
 
   void addToChatList(String message, bool isMe, String id) {
