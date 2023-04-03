@@ -2,22 +2,26 @@ import 'package:chat_gpt_sdk/chat_gpt_sdk.dart';
 
 class AIHandler {
   final _openAI = OpenAI.instance.build(
-    token: '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',
+    token: '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',
     baseOption: HttpSetup(
       receiveTimeout: const Duration(milliseconds: 20000),
     ),
   );
 
   Future<String> getResponse(String message) async {
-    try {
-      final request = CompleteText(prompt: message, model: kChatGptTurbo0301Model);
-      final response = await _openAI.onCompletion(request: request);
-      if(response != null){
-        return response.choices[0].text.trim();
+     try {
+      final request = ChatCompleteText(messages: [
+        Map.of({"role": "user", "content": message})
+      ], maxToken: 200, model: kChatGptTurbo0301Model);
+
+      final response = await _openAI.onChatCompletion(request: request);
+      if (response != null) {
+        return response.choices[0].message.content.trim();
       }
-      return 'Something went wrong';
+
+      return 'Some thing went wrong';
     } catch (e) {
-      return 'Bad Response';
+      return e.toString();
     }
   }
   void dispose(){
