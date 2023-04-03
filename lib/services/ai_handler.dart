@@ -1,8 +1,10 @@
 import 'package:chat_gpt_sdk/chat_gpt_sdk.dart';
 
+import '../constants/api_key.dart';
+
 class AIHandler {
   final _openAI = OpenAI.instance.build(
-    token: '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',
+    token: '$openAIAPIKey',
     baseOption: HttpSetup(
       receiveTimeout: const Duration(milliseconds: 20000),
     ),
