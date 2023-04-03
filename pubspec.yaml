@@ -37,6 +37,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter_riverpod: ^2.3.2
   chat_gpt_sdk: ^2.0.6
+  speech_to_text: ^6.1.1
 
 dev_dependencies:
   flutter_test:
