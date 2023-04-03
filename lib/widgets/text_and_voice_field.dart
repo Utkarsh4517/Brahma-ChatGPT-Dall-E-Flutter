@@ -22,6 +22,7 @@ class _TextAndVoiceFieldState extends ConsumerState<TextAndVoiceField> {
   InputMode _inputMode = InputMode.voice;
   final _messageController = TextEditingController();
   var _isReplying = false;
+  var _isListening = false;
   final AIHandler _openAI = AIHandler();
   final VoiceHandler voiceHandler = VoiceHandler();
 
@@ -62,6 +63,7 @@ class _TextAndVoiceFieldState extends ConsumerState<TextAndVoiceField> {
         ),
         ToggleButton(
           isReplying: _isReplying,
+          isListening: _isListening,
           inputMode: _inputMode,
           sendTextMessage: () {
             final message = _messageController.text;
@@ -83,8 +85,11 @@ class _TextAndVoiceFieldState extends ConsumerState<TextAndVoiceField> {
   void sendVoiceMessage() async {
     if(voiceHandler.speechToText.isListening) {
       await voiceHandler.stopListening();
+      setListeningstate(false);
     } else {
+      setListeningstate(true);
       final result = await voiceHandler.startListening();
+      setListeningstate(false);
       sendTextMessage(result);
     }
   }
@@ -97,6 +102,7 @@ class _TextAndVoiceFieldState extends ConsumerState<TextAndVoiceField> {
     final aiResponse = await _openAI.getResponse(message);
     removeTyping();
     addToChatList(aiResponse, false, DateTime.now().toString());
+
     setReplyingstate(false);
   }
 
@@ -105,6 +111,13 @@ class _TextAndVoiceFieldState extends ConsumerState<TextAndVoiceField> {
       _isReplying = isReplying;
     });
   }
+
+    void setListeningstate(bool isListening) {
+    setState(() {
+      _isListening = isListening;
+    });
+  }
+
 
   void removeTyping() {
     final chats = ref.read(chatsProvider.notifier);
