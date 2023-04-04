@@ -43,10 +43,6 @@ class _TextAndVoiceFieldState extends ConsumerState<TextAndVoiceField> {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10),
-      decoration: BoxDecoration(
-        color: const Color.fromARGB(255, 250, 223, 220),
-        borderRadius: BorderRadius.circular(15),
-      ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [

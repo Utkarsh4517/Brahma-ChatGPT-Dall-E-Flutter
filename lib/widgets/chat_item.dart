@@ -26,11 +26,11 @@ class ChatItem extends StatelessWidget {
               width: 15,
             ),
           Container(
-            padding: const EdgeInsets.all(15),
+            padding: const EdgeInsets.symmetric(vertical:10, horizontal: 15),
             constraints:
                 BoxConstraints(maxWidth: MediaQuery.of(context).size.width * 0.60),
             decoration: BoxDecoration(
-              color: isMe ? Colors.pink : Colors.black,
+              color: isMe ? Colors.green : Colors.blue,
               borderRadius: BorderRadius.only(
                 topLeft: const Radius.circular(15),
                 topRight: const Radius.circular(15),
@@ -69,7 +69,7 @@ class ProfileContainer extends StatelessWidget {
       width: 40,
       height: 40,
       decoration: BoxDecoration(
-        color: isMe ? Colors.pink : Colors.black,
+        color: isMe ? const Color.fromARGB(255, 56, 180, 60) : Colors.blueAccent,
         borderRadius: BorderRadius.only(
           topLeft: const Radius.circular(10),
           topRight: const Radius.circular(10),

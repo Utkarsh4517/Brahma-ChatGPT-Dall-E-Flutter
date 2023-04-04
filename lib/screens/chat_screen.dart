@@ -10,8 +10,6 @@ class ChatScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -36,7 +34,8 @@ class ChatScreen extends StatelessWidget {
               height: MediaQuery.of(context).size.height * 0.65,
               decoration: BoxDecoration(
                 borderRadius:
-                    BorderRadius.circular(20), // Update the border radius here
+                    BorderRadius.circular(20),
+                    color: Colors.black,// Update the border radius here
               ),
               child: Consumer(builder: (context, ref, child) {
                 final chats = ref.watch(chatsProvider);
