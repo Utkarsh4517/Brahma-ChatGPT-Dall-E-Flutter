@@ -41,38 +41,52 @@ class _TextAndVoiceFieldState extends ConsumerState<TextAndVoiceField> {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Expanded(
-          child: TextField(
-            controller: _messageController,
-            onChanged: (value) {
-              value.isNotEmpty
-                  ? setInputMode(InputMode.text)
-                  : setInputMode(InputMode.voice);
-            },
-            decoration: InputDecoration(
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12),
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10),
+      decoration: BoxDecoration(
+        color: const Color.fromARGB(255, 250, 223, 220),
+        borderRadius: BorderRadius.circular(15),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Expanded(
+            child: TextField(
+              controller: _messageController,
+              onChanged: (value) {
+                value.isNotEmpty
+                    ? setInputMode(InputMode.text)
+                    : setInputMode(InputMode.voice);
+              },
+              decoration: InputDecoration(
+                filled: true,
+                fillColor: Colors.white,
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                hintText: 'Ask me anything!',
+                hintStyle: const TextStyle(
+                  color: Color.fromARGB(90, 0, 0, 0),
+                ),
               ),
             ),
           ),
-        ),
-        const SizedBox(
-          width: 6,
-        ),
-        ToggleButton(
-          isReplying: _isReplying,
-          isListening: _isListening,
-          inputMode: _inputMode,
-          sendTextMessage: () {
-            final message = _messageController.text;
-            _messageController.clear();
-            sendTextMessage(message);
-          },
-          sendVoiceMessage: sendVoiceMessage,
-        )
-      ],
+          const SizedBox(
+            width: 10,
+          ),
+          ToggleButton(
+            isReplying: _isReplying,
+            isListening: _isListening,
+            inputMode: _inputMode,
+            sendTextMessage: () {
+              final message = _messageController.text;
+              _messageController.clear();
+              sendTextMessage(message);
+            },
+            sendVoiceMessage: sendVoiceMessage,
+          )
+        ],
+      ),
     );
   }
 
@@ -83,7 +97,7 @@ class _TextAndVoiceFieldState extends ConsumerState<TextAndVoiceField> {
   }
 
   void sendVoiceMessage() async {
-    if(voiceHandler.speechToText.isListening) {
+    if (voiceHandler.speechToText.isListening) {
       await voiceHandler.stopListening();
       setListeningstate(false);
     } else {
@@ -112,12 +126,11 @@ class _TextAndVoiceFieldState extends ConsumerState<TextAndVoiceField> {
     });
   }
 
-    void setListeningstate(bool isListening) {
+  void setListeningstate(bool isListening) {
     setState(() {
       _isListening = isListening;
     });
   }
-
 
   void removeTyping() {
     final chats = ref.read(chatsProvider.notifier);

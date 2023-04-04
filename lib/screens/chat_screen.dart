@@ -23,40 +23,40 @@ class ChatScreen extends StatelessWidget {
         elevation: 0,
       ),
       body: SingleChildScrollView(
-  child: Column(
-    children: [
-      const SizedBox(height: 30,),
-      Container(
-        width: MediaQuery.of(context).size.width * 0.95,
-        height: MediaQuery.of(context).size.height * 0.65,
-        decoration: BoxDecoration(
-          color: Color.fromARGB(255, 255, 226, 99),
-          borderRadius: BorderRadius.circular(20), // Update the border radius here
-        ),
-        child: Consumer(
-          builder: (context, ref, child) {
-            final chats = ref.watch(chatsProvider);
-            return ListView.builder(
-              itemCount: chats.length,
-              itemBuilder: (context, index) =>  ChatItem(
-                text: chats[index].message,
-                isMe: chats[index].isMe,
+        child: Column(
+          children: [
+            const SizedBox(
+              height: 30,
+            ),
+            Container(
+              width: MediaQuery.of(context).size.width * 0.95,
+              height: MediaQuery.of(context).size.height * 0.65,
+              decoration: BoxDecoration(
+                color: const Color.fromARGB(255, 250, 223, 220),
+                borderRadius:
+                    BorderRadius.circular(20), // Update the border radius here
               ),
-            );
-          }
+              child: Consumer(builder: (context, ref, child) {
+                final chats = ref.watch(chatsProvider);
+                return ListView.builder(
+                  itemCount: chats.length,
+                  itemBuilder: (context, index) => ChatItem(
+                    text: chats[index].message,
+                    isMe: chats[index].isMe,
+                  ),
+                );
+              }),
+            ),
+            const SizedBox(
+              height: 80,
+            ),
+            const Padding(
+              padding: EdgeInsets.all(12),
+              child: TextAndVoiceField(),
+            ),
+          ],
         ),
       ),
-      const Padding(
-        padding: EdgeInsets.all(12.0),
-        child: TextAndVoiceField(),
-      ),
-      const SizedBox(
-        height: 10,
-      ),
-    ],
-  ),
-),
-
     );
   }
 }
