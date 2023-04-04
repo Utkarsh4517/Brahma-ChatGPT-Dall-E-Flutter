@@ -1,3 +1,4 @@
+import 'package:brahma/main.dart';
 import 'package:brahma/provider/chats_provider.dart';
 import 'package:brahma/widgets/chat_item.dart';
 import 'package:brahma/widgets/text_and_voice_field.dart';
@@ -9,6 +10,8 @@ class ChatScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -32,7 +35,6 @@ class ChatScreen extends StatelessWidget {
               width: MediaQuery.of(context).size.width * 0.95,
               height: MediaQuery.of(context).size.height * 0.65,
               decoration: BoxDecoration(
-                color: const Color.fromARGB(255, 250, 223, 220),
                 borderRadius:
                     BorderRadius.circular(20), // Update the border radius here
               ),
