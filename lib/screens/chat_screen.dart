@@ -49,7 +49,7 @@ class ChatScreen extends StatelessWidget {
               }),
             ),
             const SizedBox(
-              height: 80,
+              height: 40,
             ),
             const Padding(
               padding: EdgeInsets.all(12),

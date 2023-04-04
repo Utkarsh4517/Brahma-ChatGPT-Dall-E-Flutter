@@ -1,3 +1,4 @@
+import 'package:brahma/widgets/nav_bar.dart';
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:brahma/screens/chat_screen.dart';
 import 'package:flutter/material.dart';
@@ -41,7 +42,7 @@ class MyApp extends StatelessWidget {
           colorScheme: lightColorScheme,
         ),
         debugShowCheckedModeBanner: false,
-        home: const ChatScreen(),
+        home: const NavBar(),
       );
     });
   }
