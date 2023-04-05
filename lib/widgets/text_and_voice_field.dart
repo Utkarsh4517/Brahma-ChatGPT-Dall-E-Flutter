@@ -99,6 +99,24 @@ class _TextAndVoiceFieldState extends ConsumerState<TextAndVoiceField> {
                 ),
                 child: const Icon(Icons.stop_circle),
               ),
+              const SizedBox(
+                width: 10,
+              ),
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.35,
+                child: ElevatedButton(
+                  onPressed: () {
+                    stopSpeaking();
+                  },
+                  style: ElevatedButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                  child: const Text('Try Image Generation!', style: TextStyle(fontSize: 11),)
+                ),
+              ),
             ],
           ),
           const SizedBox(
