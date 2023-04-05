@@ -26,9 +26,9 @@ class ChatItem extends StatelessWidget {
               width: 15,
             ),
           Container(
-            padding: const EdgeInsets.symmetric(vertical:10, horizontal: 15),
-            constraints:
-                BoxConstraints(maxWidth: MediaQuery.of(context).size.width * 0.60),
+            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+            constraints: BoxConstraints(
+                maxWidth: MediaQuery.of(context).size.width * 0.60),
             decoration: BoxDecoration(
               color: isMe ? Colors.green : Colors.blue,
               borderRadius: BorderRadius.only(
@@ -43,6 +43,11 @@ class ChatItem extends StatelessWidget {
               style: const TextStyle(color: Colors.white),
             ),
           ),
+          if (!isMe)
+            IconButton(
+              onPressed: () {},
+              icon: const Icon(Icons.copy_outlined, color: Colors.grey, size: 20,),
+            ),
           if (isMe)
             const SizedBox(
               width: 15,
@@ -69,7 +74,8 @@ class ProfileContainer extends StatelessWidget {
       width: 40,
       height: 40,
       decoration: BoxDecoration(
-        color: isMe ? const Color.fromARGB(255, 56, 180, 60) : Colors.blueAccent,
+        color:
+            isMe ? const Color.fromARGB(255, 56, 180, 60) : Colors.blueAccent,
         borderRadius: BorderRadius.only(
           topLeft: const Radius.circular(10),
           topRight: const Radius.circular(10),
