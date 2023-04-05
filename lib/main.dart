@@ -7,14 +7,14 @@ void main() {
   runApp(const ProviderScope(child: MyApp()));
 }
 
-Color brandColor = const Color(0XFFFADFDC);
+//Color brandColor = const Color(0XFFFADFDC);
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return DynamicColorBuilder(
+    /*return DynamicColorBuilder(
         builder: (ColorScheme? lightDynamic, ColorScheme? dark) {
       ColorScheme lightColorScheme;
       ColorScheme darkColorScheme;
@@ -30,14 +30,15 @@ class MyApp extends StatelessWidget {
           brightness: Brightness.dark,
         );
       }
+      */
       return MaterialApp(
         theme: ThemeData(
           useMaterial3: true,
-          colorScheme: lightColorScheme,
+          //colorScheme: lightColorScheme,
         ),
         debugShowCheckedModeBanner: false,
         home: const ChatScreen(),
       );
-    });
+    } //);
   }
-}
+//}
