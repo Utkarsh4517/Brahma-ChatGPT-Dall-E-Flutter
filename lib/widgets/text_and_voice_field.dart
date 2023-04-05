@@ -156,6 +156,7 @@ class _TextAndVoiceFieldState extends ConsumerState<TextAndVoiceField> {
                         hintText: 'ask me anything!',
                         hintStyle: const TextStyle(
                           color: Color.fromARGB(90, 0, 0, 0),
+                          fontWeight: FontWeight.w300
                         ),
                       ),
                     ),

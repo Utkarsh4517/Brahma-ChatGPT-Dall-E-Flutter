@@ -15,6 +15,7 @@ class ChatScreen extends StatefulWidget {
 
 class _ChatScreenState extends State<ChatScreen> {
   TextAndVoiceField textAndVoiceField = const TextAndVoiceField();
+  final _scrollController = ScrollController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,8 +49,13 @@ class _ChatScreenState extends State<ChatScreen> {
                   color: Colors.black, // Update the border radius here
                 ),
                 child: Consumer(builder: (context, ref, child) {
+                  WidgetsBinding.instance.addPostFrameCallback((_) {
+                  // This code will run after the ChatItem has been built
+                  jumpToBottom();
+                });
                   final chats = ref.watch(chatsProvider);
                   return ListView.builder(
+                    controller: _scrollController,
                     itemCount: chats.length,
                     itemBuilder: (context, index) => ChatItem(
                       text: chats[index].message,
@@ -70,5 +76,8 @@ class _ChatScreenState extends State<ChatScreen> {
         ),
       ),
     );
+  }
+  void jumpToBottom(){
+    _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
   }
 }
