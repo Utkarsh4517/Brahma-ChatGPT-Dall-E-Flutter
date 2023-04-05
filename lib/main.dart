@@ -42,7 +42,7 @@ class MyApp extends StatelessWidget {
           colorScheme: lightColorScheme,
         ),
         debugShowCheckedModeBanner: false,
-        home: const NavBar(),
+        home: const ChatScreen(),
       );
     });
   }

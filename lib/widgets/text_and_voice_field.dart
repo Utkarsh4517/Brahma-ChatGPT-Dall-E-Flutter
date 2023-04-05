@@ -1,5 +1,6 @@
 import 'package:brahma/models/chat_model.dart';
 import 'package:brahma/provider/chats_provider.dart';
+import 'package:brahma/screens/chat_screen.dart';
 import 'package:brahma/services/ai_handler.dart';
 import 'package:brahma/services/voice_handler.dart';
 import 'package:brahma/widgets/toggle_button.dart';
