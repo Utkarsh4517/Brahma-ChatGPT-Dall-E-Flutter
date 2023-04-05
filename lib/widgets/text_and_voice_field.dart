@@ -1,6 +1,7 @@
 import 'package:brahma/models/chat_model.dart';
 import 'package:brahma/provider/chats_provider.dart';
 import 'package:brahma/screens/chat_screen.dart';
+import 'package:brahma/screens/dalle_screen.dart';
 import 'package:brahma/services/ai_handler.dart';
 import 'package:brahma/services/voice_handler.dart';
 import 'package:brahma/widgets/toggle_button.dart';
@@ -105,17 +106,24 @@ class _TextAndVoiceFieldState extends ConsumerState<TextAndVoiceField> {
               SizedBox(
                 width: MediaQuery.of(context).size.width * 0.35,
                 child: ElevatedButton(
-                  onPressed: () {
-                    stopSpeaking();
-                  },
-                  style: ElevatedButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
+                    onPressed: () {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const ImageScreen(),
+                        ),
+                      );
+                    },
+                    style: ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
                     ),
-                  ),
-                  child: const Text('Try Image Generation!', style: TextStyle(fontSize: 11),)
-                ),
+                    child: const Text(
+                      'Try Image Generation!',
+                      style: TextStyle(fontSize: 11),
+                    )),
               ),
             ],
           ),
