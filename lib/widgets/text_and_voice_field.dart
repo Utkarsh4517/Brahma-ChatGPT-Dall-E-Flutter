@@ -5,9 +5,8 @@ import 'package:brahma/services/voice_handler.dart';
 import 'package:brahma/widgets/toggle_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:brahma/screens/chat_screen.dart';
 import 'package:flutter_tts/flutter_tts.dart';
-
+import 'package:flutter/services.dart';
 
 enum InputMode {
   text,
@@ -19,14 +18,13 @@ class TextAndVoiceField extends ConsumerStatefulWidget {
 
   @override
   ConsumerState<TextAndVoiceField> createState() => _TextAndVoiceFieldState();
-
-  
 }
 
 class _TextAndVoiceFieldState extends ConsumerState<TextAndVoiceField> {
   InputMode _inputMode = InputMode.voice;
   final _messageController = TextEditingController();
   var _isReplying = false;
+  var textToCopy = "";
   static var _isListening = false;
   bool get listening => _isListening;
   final AIHandler _openAI = AIHandler();
@@ -39,6 +37,7 @@ class _TextAndVoiceFieldState extends ConsumerState<TextAndVoiceField> {
     initTts();
     super.initState();
   }
+
   initTts() {
     flutterTts = FlutterTts();
   }
@@ -54,44 +53,67 @@ class _TextAndVoiceFieldState extends ConsumerState<TextAndVoiceField> {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      child: Column(
         children: [
-          Expanded(
-            child: TextField(
-              controller: _messageController,
-              onChanged: (value) {
-                value.isNotEmpty
-                    ? setInputMode(InputMode.text)
-                    : setInputMode(InputMode.voice);
-              },
-              decoration: InputDecoration(
-                filled: true,
-                fillColor: Colors.white,
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12),
+          Row(
+            children: [
+              ElevatedButton(
+                onPressed: () {
+                  copyToClipboard(textToCopy);
+                },
+                style: ElevatedButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
                 ),
-                hintText: 'Ask me anything!',
-                hintStyle: const TextStyle(
-                  color: Color.fromARGB(90, 0, 0, 0),
-                ),
+                child: const Icon(Icons.copy_sharp),
               ),
-            ),
+            ],
           ),
           const SizedBox(
-            width: 10,
+            height: 5,
           ),
-          ToggleButton(
-            isReplying: _isReplying,
-            isListening: _isListening,
-            inputMode: _inputMode,
-            sendTextMessage: () {
-              final message = _messageController.text;
-              _messageController.clear();
-              sendTextMessage(message);
-            },
-            sendVoiceMessage: sendVoiceMessage,
-          )
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Expanded(
+                child: TextField(
+                  controller: _messageController,
+                  onChanged: (value) {
+                    value.isNotEmpty
+                        ? setInputMode(InputMode.text)
+                        : setInputMode(InputMode.voice);
+                  },
+                  decoration: InputDecoration(
+                    contentPadding: const EdgeInsets.symmetric(vertical: 10),
+                    filled: true,
+                    fillColor: Colors.white,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    hintText: '  Ask me anything!',
+                    hintStyle: const TextStyle(
+                      color: Color.fromARGB(90, 0, 0, 0),
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(
+                width: 10,
+              ),
+              ToggleButton(
+                isReplying: _isReplying,
+                isListening: _isListening,
+                inputMode: _inputMode,
+                sendTextMessage: () {
+                  final message = _messageController.text;
+                  _messageController.clear();
+                  sendTextMessage(message);
+                },
+                sendVoiceMessage: sendVoiceMessage,
+              )
+            ],
+          ),
         ],
       ),
     );
@@ -122,6 +144,7 @@ class _TextAndVoiceFieldState extends ConsumerState<TextAndVoiceField> {
     setInputMode(InputMode.voice);
     // text to speech aiResponse using await flutterTts.speak();
     final aiResponse = await _openAI.getResponse(message);
+    textToCopy = aiResponse;
     removeTyping();
     await flutterTts.speak(aiResponse);
     addToChatList(aiResponse, false, DateTime.now().toString());
@@ -151,5 +174,9 @@ class _TextAndVoiceFieldState extends ConsumerState<TextAndVoiceField> {
     chats.add(
       ChatModel(id: id, message: message, isMe: isMe),
     );
+  }
+
+  void copyToClipboard(String text) {
+    Clipboard.setData(ClipboardData(text: text));
   }
 }

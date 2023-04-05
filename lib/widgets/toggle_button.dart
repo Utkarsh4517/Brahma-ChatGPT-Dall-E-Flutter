@@ -33,7 +33,7 @@ class _ToggleButtonState extends State<ToggleButton> {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
         ),
-        padding: const EdgeInsets.symmetric(vertical: 2),
+        padding: const EdgeInsets.symmetric(vertical: 2.5),
         //padding: const EdgeInsets.symmetric(vertical:20, horizontal: 25),
       ),
       onPressed: widget._isReplying
@@ -42,7 +42,7 @@ class _ToggleButtonState extends State<ToggleButton> {
               ? widget._sendTextMessage
               : widget._sendVoiceMessage,
       child: AvatarGlow(
-        endRadius: 30,
+        endRadius: 20,
         animate: widget._isListening,
         duration: const Duration(milliseconds: 2000),
         glowColor: Colors.pink,

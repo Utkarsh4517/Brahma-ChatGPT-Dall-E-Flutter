@@ -54,7 +54,7 @@ class _ChatScreenState extends State<ChatScreen> {
               }),
             ),
             const SizedBox(
-              height: 40,
+              height: 0,
             ),
             const Padding(
               padding: EdgeInsets.all(12),

@@ -1,6 +1,7 @@
+import 'package:brahma/widgets/text_and_voice_field.dart';
 import 'package:flutter/material.dart';
 
-class ChatItem extends StatelessWidget {
+class ChatItem extends StatefulWidget {
   final String text;
   final bool isMe;
   const ChatItem({
@@ -10,6 +11,12 @@ class ChatItem extends StatelessWidget {
   });
 
   @override
+  State<ChatItem> createState() => _ChatItemState();
+}
+
+class _ChatItemState extends State<ChatItem> {
+  TextAndVoiceField textAndVoiceField = const TextAndVoiceField();
+  @override
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.symmetric(
@@ -18,10 +25,10 @@ class ChatItem extends StatelessWidget {
       ),
       child: Row(
         mainAxisAlignment:
-            isMe ? MainAxisAlignment.end : MainAxisAlignment.start,
+            widget.isMe ? MainAxisAlignment.end : MainAxisAlignment.start,
         children: [
-          if (!isMe) ProfileContainer(isMe: isMe),
-          if (!isMe)
+          if (!widget.isMe) ProfileContainer(isMe: widget.isMe),
+          if (!widget.isMe)
             const SizedBox(
               width: 15,
             ),
@@ -30,29 +37,24 @@ class ChatItem extends StatelessWidget {
             constraints: BoxConstraints(
                 maxWidth: MediaQuery.of(context).size.width * 0.60),
             decoration: BoxDecoration(
-              color: isMe ? Colors.green : Colors.blue,
+              color: widget.isMe ? Colors.green : Colors.blue,
               borderRadius: BorderRadius.only(
                 topLeft: const Radius.circular(15),
                 topRight: const Radius.circular(15),
-                bottomLeft: Radius.circular(isMe ? 15 : 0),
-                bottomRight: Radius.circular(isMe ? 0 : 15),
+                bottomLeft: Radius.circular(widget.isMe ? 15 : 0),
+                bottomRight: Radius.circular(widget.isMe ? 0 : 15),
               ),
             ),
             child: Text(
-              text,
+              widget.text,
               style: const TextStyle(color: Colors.white),
             ),
           ),
-          if (!isMe)
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(Icons.copy_outlined, color: Colors.grey, size: 20,),
-            ),
-          if (isMe)
+          if (widget.isMe)
             const SizedBox(
               width: 15,
             ),
-          if (isMe) ProfileContainer(isMe: isMe),
+          if (widget.isMe) ProfileContainer(isMe: widget.isMe),
         ],
       ),
     );
