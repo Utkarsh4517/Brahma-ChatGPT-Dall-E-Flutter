@@ -5,6 +5,9 @@ import 'package:brahma/services/voice_handler.dart';
 import 'package:brahma/widgets/toggle_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:brahma/screens/chat_screen.dart';
+import 'package:flutter_tts/flutter_tts.dart';
+
 
 enum InputMode {
   text,
@@ -16,20 +19,28 @@ class TextAndVoiceField extends ConsumerStatefulWidget {
 
   @override
   ConsumerState<TextAndVoiceField> createState() => _TextAndVoiceFieldState();
+
+  
 }
 
 class _TextAndVoiceFieldState extends ConsumerState<TextAndVoiceField> {
   InputMode _inputMode = InputMode.voice;
   final _messageController = TextEditingController();
   var _isReplying = false;
-  var _isListening = false;
+  static var _isListening = false;
+  bool get listening => _isListening;
   final AIHandler _openAI = AIHandler();
+  FlutterTts flutterTts = FlutterTts();
   final VoiceHandler voiceHandler = VoiceHandler();
 
   @override
   void initState() {
     voiceHandler.initSpeech();
+    initTts();
     super.initState();
+  }
+  initTts() {
+    flutterTts = FlutterTts();
   }
 
   @override
@@ -109,8 +120,10 @@ class _TextAndVoiceFieldState extends ConsumerState<TextAndVoiceField> {
     addToChatList(message, true, DateTime.now().toString());
     addToChatList('Generating response...', false, 'typing');
     setInputMode(InputMode.voice);
+    // text to speech aiResponse using await flutterTts.speak();
     final aiResponse = await _openAI.getResponse(message);
     removeTyping();
+    await flutterTts.speak(aiResponse);
     addToChatList(aiResponse, false, DateTime.now().toString());
 
     setReplyingstate(false);

@@ -35,7 +35,7 @@ class _NavBarState extends State<NavBar> {
           selectedIndex: _selectedIndex,
           destinations: const [
             NavigationDestination(icon: Icon(Icons.computer), label: ""),
-            NavigationDestination(icon: Icon(Icons.image), label: "")
+            NavigationDestination(icon: Icon(Icons.image_rounded), label: "")
           ],
           onDestinationSelected: _navigateBottomBar,
         ),

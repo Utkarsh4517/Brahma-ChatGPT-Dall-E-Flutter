@@ -1,13 +1,19 @@
-import 'package:brahma/main.dart';
 import 'package:brahma/provider/chats_provider.dart';
+import 'package:brahma/services/voice_handler.dart';
 import 'package:brahma/widgets/chat_item.dart';
 import 'package:brahma/widgets/text_and_voice_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class ChatScreen extends StatelessWidget {
+class ChatScreen extends StatefulWidget {
   const ChatScreen({super.key});
 
+  @override
+  State<ChatScreen> createState() => _ChatScreenState();
+}
+
+class _ChatScreenState extends State<ChatScreen> {
+  TextAndVoiceField textAndVoiceField = const TextAndVoiceField();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,15 +33,14 @@ class ChatScreen extends StatelessWidget {
         child: Column(
           children: [
             const SizedBox(
-              height: 30,
+              height: 5,
             ),
             Container(
               width: MediaQuery.of(context).size.width * 0.95,
               height: MediaQuery.of(context).size.height * 0.65,
               decoration: BoxDecoration(
-                borderRadius:
-                    BorderRadius.circular(20),
-                    color: Colors.black,// Update the border radius here
+                borderRadius: BorderRadius.circular(20),
+                color: Colors.black, // Update the border radius here
               ),
               child: Consumer(builder: (context, ref, child) {
                 final chats = ref.watch(chatsProvider);

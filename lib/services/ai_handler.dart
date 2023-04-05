@@ -18,7 +18,10 @@ class AIHandler {
 
       final response = await _openAI.onChatCompletion(request: request);
       if (response != null) {
-        return response.choices[0].message.content.trim();
+        String generatedResponse = response.choices[0].message.content.trim();
+        // ignore: avoid_print
+        print("Generated response : $generatedResponse ");
+        return generatedResponse;
       }
 
       return 'Some thing went wrong';
