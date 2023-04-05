@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:brahma/provider/chats_provider.dart';
 import 'package:brahma/services/voice_handler.dart';
 import 'package:brahma/widgets/chat_item.dart';
@@ -19,15 +20,18 @@ class _ChatScreenState extends State<ChatScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: const Text(
-          'B R A H M A',
-          style: TextStyle(
-            color: Colors.black,
+        title: FadeIn(
+          child: const Text(
+            'B R A H M A',
+            style: TextStyle(
+              color: Colors.black,
+            ),
           ),
         ),
         backgroundColor: Colors.white,
         centerTitle: true,
         elevation: 0,
+        leading: IconButton(onPressed: (){}, icon: const Icon(Icons.menu_book)),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -35,23 +39,25 @@ class _ChatScreenState extends State<ChatScreen> {
             const SizedBox(
               height: 5,
             ),
-            Container(
-              width: MediaQuery.of(context).size.width * 0.95,
-              height: MediaQuery.of(context).size.height * 0.65,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                color: Colors.black, // Update the border radius here
+            FadeInDown(
+              child: Container(
+                width: MediaQuery.of(context).size.width * 0.95,
+                height: MediaQuery.of(context).size.height * 0.65,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  color: Colors.black, // Update the border radius here
+                ),
+                child: Consumer(builder: (context, ref, child) {
+                  final chats = ref.watch(chatsProvider);
+                  return ListView.builder(
+                    itemCount: chats.length,
+                    itemBuilder: (context, index) => ChatItem(
+                      text: chats[index].message,
+                      isMe: chats[index].isMe,
+                    ),
+                  );
+                }),
               ),
-              child: Consumer(builder: (context, ref, child) {
-                final chats = ref.watch(chatsProvider);
-                return ListView.builder(
-                  itemCount: chats.length,
-                  itemBuilder: (context, index) => ChatItem(
-                    text: chats[index].message,
-                    isMe: chats[index].isMe,
-                  ),
-                );
-              }),
             ),
             const SizedBox(
               height: 0,

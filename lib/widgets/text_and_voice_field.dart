@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:brahma/models/chat_model.dart';
 import 'package:brahma/provider/chats_provider.dart';
 import 'package:brahma/screens/chat_screen.dart';
@@ -53,125 +54,127 @@ class _TextAndVoiceFieldState extends ConsumerState<TextAndVoiceField> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10),
-      child: Column(
-        children: [
-          Row(
-            children: [
-              ElevatedButton(
-                onPressed: () {
-                  copyToClipboard(textToCopy);
-                },
-                style: ElevatedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
+    return FadeInUp(
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10),
+        child: Column(
+          children: [
+            Row(
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    copyToClipboard(textToCopy);
+                  },
+                  style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
                   ),
+                  child: const Icon(Icons.copy_sharp),
                 ),
-                child: const Icon(Icons.copy_sharp),
-              ),
-              const SizedBox(
-                width: 10,
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  startSpeaking();
-                },
-                style: ElevatedButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
+                const SizedBox(
+                  width: 10,
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    startSpeaking();
+                  },
+                  style: ElevatedButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
                   ),
+                  child: const Icon(Icons.play_circle),
                 ),
-                child: const Icon(Icons.play_circle),
-              ),
-              const SizedBox(
-                width: 10,
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  stopSpeaking();
-                },
-                style: ElevatedButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
+                const SizedBox(
+                  width: 10,
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    stopSpeaking();
+                  },
+                  style: ElevatedButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
                   ),
+                  child: const Icon(Icons.stop_circle),
                 ),
-                child: const Icon(Icons.stop_circle),
-              ),
-              const SizedBox(
-                width: 10,
-              ),
-              SizedBox(
-                width: MediaQuery.of(context).size.width * 0.35,
-                child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const ImageScreen(),
+                const SizedBox(
+                  width: 10,
+                ),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.35,
+                  child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const ImageScreen(),
+                          ),
+                        );
+                      },
+                      style: ElevatedButton.styleFrom(
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
                         ),
-                      );
+                      ),
+                      child: const Text(
+                        'Try Image Generation!',
+                        style: TextStyle(fontSize: 11),
+                      )),
+                ),
+              ],
+            ),
+            const SizedBox(
+              height: 5,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Expanded(
+                  child: TextField(
+                    controller: _messageController,
+                    onChanged: (value) {
+                      value.isNotEmpty
+                          ? setInputMode(InputMode.text)
+                          : setInputMode(InputMode.voice);
                     },
-                    style: ElevatedButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
+                    decoration: InputDecoration(
+                      contentPadding: const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
+                      filled: true,
+                      fillColor: Colors.white,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      hintText: 'ask me anything!',
+                      hintStyle: const TextStyle(
+                        color: Color.fromARGB(90, 0, 0, 0),
                       ),
                     ),
-                    child: const Text(
-                      'Try Image Generation!',
-                      style: TextStyle(fontSize: 11),
-                    )),
-              ),
-            ],
-          ),
-          const SizedBox(
-            height: 5,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Expanded(
-                child: TextField(
-                  controller: _messageController,
-                  onChanged: (value) {
-                    value.isNotEmpty
-                        ? setInputMode(InputMode.text)
-                        : setInputMode(InputMode.voice);
-                  },
-                  decoration: InputDecoration(
-                    contentPadding: const EdgeInsets.symmetric(vertical: 10),
-                    filled: true,
-                    fillColor: Colors.white,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    hintText: '  Ask me anything!',
-                    hintStyle: const TextStyle(
-                      color: Color.fromARGB(90, 0, 0, 0),
-                    ),
                   ),
                 ),
-              ),
-              const SizedBox(
-                width: 10,
-              ),
-              ToggleButton(
-                isReplying: _isReplying,
-                isListening: _isListening,
-                inputMode: _inputMode,
-                sendTextMessage: () {
-                  final message = _messageController.text;
-                  _messageController.clear();
-                  sendTextMessage(message);
-                },
-                sendVoiceMessage: sendVoiceMessage,
-              )
-            ],
-          ),
-        ],
+                const SizedBox(
+                  width: 10,
+                ),
+                ToggleButton(
+                  isReplying: _isReplying,
+                  isListening: _isListening,
+                  inputMode: _inputMode,
+                  sendTextMessage: () {
+                    final message = _messageController.text;
+                    _messageController.clear();
+                    sendTextMessage(message);
+                  },
+                  sendVoiceMessage: sendVoiceMessage,
+                )
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

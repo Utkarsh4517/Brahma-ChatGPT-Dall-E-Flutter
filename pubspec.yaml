@@ -41,6 +41,7 @@ dependencies:
   dynamic_color: ^1.6.2
   avatar_glow: ^2.0.2
   flutter_tts: ^3.6.3
+  animate_do: ^3.0.2
 
 dev_dependencies:
   flutter_test:
