@@ -132,46 +132,50 @@ class _TextAndVoiceFieldState extends ConsumerState<TextAndVoiceField> {
             const SizedBox(
               height: 5,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Expanded(
-                  child: TextField(
-                    controller: _messageController,
-                    onChanged: (value) {
-                      value.isNotEmpty
-                          ? setInputMode(InputMode.text)
-                          : setInputMode(InputMode.voice);
-                    },
-                    decoration: InputDecoration(
-                      contentPadding: const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
-                      filled: true,
-                      fillColor: Colors.white,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      hintText: 'ask me anything!',
-                      hintStyle: const TextStyle(
-                        color: Color.fromARGB(90, 0, 0, 0),
+            Container(
+              padding: const EdgeInsets.only(right: 5),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Expanded(
+                    child: TextField(
+                      controller: _messageController,
+                      onChanged: (value) {
+                        value.isNotEmpty
+                            ? setInputMode(InputMode.text)
+                            : setInputMode(InputMode.voice);
+                      },
+                      decoration: InputDecoration(
+                        contentPadding: const EdgeInsets.symmetric(
+                            vertical: 10, horizontal: 5),
+                        filled: true,
+                        fillColor: Colors.white,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        hintText: 'ask me anything!',
+                        hintStyle: const TextStyle(
+                          color: Color.fromARGB(90, 0, 0, 0),
+                        ),
                       ),
                     ),
                   ),
-                ),
-                const SizedBox(
-                  width: 10,
-                ),
-                ToggleButton(
-                  isReplying: _isReplying,
-                  isListening: _isListening,
-                  inputMode: _inputMode,
-                  sendTextMessage: () {
-                    final message = _messageController.text;
-                    _messageController.clear();
-                    sendTextMessage(message);
-                  },
-                  sendVoiceMessage: sendVoiceMessage,
-                )
-              ],
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  ToggleButton(
+                    isReplying: _isReplying,
+                    isListening: _isListening,
+                    inputMode: _inputMode,
+                    sendTextMessage: () {
+                      final message = _messageController.text;
+                      _messageController.clear();
+                      sendTextMessage(message);
+                    },
+                    sendVoiceMessage: sendVoiceMessage,
+                  )
+                ],
+              ),
             ),
           ],
         ),
