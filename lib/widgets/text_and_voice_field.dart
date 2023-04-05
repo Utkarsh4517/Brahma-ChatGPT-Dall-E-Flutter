@@ -68,6 +68,36 @@ class _TextAndVoiceFieldState extends ConsumerState<TextAndVoiceField> {
                 ),
                 child: const Icon(Icons.copy_sharp),
               ),
+              const SizedBox(
+                width: 10,
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  startSpeaking();
+                },
+                style: ElevatedButton.styleFrom(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+                child: const Icon(Icons.play_circle),
+              ),
+              const SizedBox(
+                width: 10,
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  stopSpeaking();
+                },
+                style: ElevatedButton.styleFrom(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+                child: const Icon(Icons.stop_circle),
+              ),
             ],
           ),
           const SizedBox(
@@ -178,5 +208,13 @@ class _TextAndVoiceFieldState extends ConsumerState<TextAndVoiceField> {
 
   void copyToClipboard(String text) {
     Clipboard.setData(ClipboardData(text: text));
+  }
+
+  void startSpeaking() async {
+    await flutterTts.speak(textToCopy);
+  }
+
+  void stopSpeaking() async {
+    await flutterTts.stop();
   }
 }
