@@ -1,0 +1,162 @@
+import 'package:brahma/screens/chat_screen.dart';
+import 'package:brahma/screens/dalle_screen.dart';
+import 'package:brahma/services/dalle_ai_handler.dart';
+import 'package:flutter/material.dart';
+import 'package:brahma/widgets/dalle_toggle_button.dart';
+import 'package:brahma/services/voice_handler.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+enum DalleInputMode {
+  text,
+  voice,
+}
+
+class DalleTextAndVoiceField extends ConsumerStatefulWidget {
+  const DalleTextAndVoiceField({super.key});
+
+  @override
+  ConsumerState<DalleTextAndVoiceField> createState() =>
+      _DalleTextAndVoiceFieldState();
+}
+
+class _DalleTextAndVoiceFieldState
+    extends ConsumerState<DalleTextAndVoiceField> {
+  DalleInputMode _dalleInputMode = DalleInputMode.voice;
+  final _dalleMessageController = TextEditingController();
+  var _dalleIsReplying = false;
+  var _dalleIsListening = false;
+  // create dalleAi handler instance here
+
+  final VoiceHandler voiceHandler = VoiceHandler();
+  final DalleAIService dalleAIService = DalleAIService();
+  var speechResult = "tap the mic to say";
+  String? generatedImageUrl;
+
+  @override
+  void initState() {
+    voiceHandler.initSpeech();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _dalleMessageController.dispose();
+    // dispose dalleAi handler instance here
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Column(
+        children: [
+          Row(
+            children: [
+              Expanded(
+                child: TextField(
+                  controller: _dalleMessageController,
+                  onChanged: (value) {
+                    value.isNotEmpty
+                        ? setDalleInputMode(DalleInputMode.text)
+                        : setDalleInputMode(DalleInputMode.voice);
+                  },
+                  decoration: InputDecoration(
+                    contentPadding: const EdgeInsets.symmetric(
+                      vertical: 10,
+                      horizontal: 5,
+                    ),
+                    fillColor: Colors.white,
+                    filled: true,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    hintText: 'ask to generate image!',
+                    hintStyle: const TextStyle(
+                      color: Colors.purpleAccent,
+                      fontWeight: FontWeight.w300,
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(
+                width: 10,
+              ),
+              DalleToggleButton(
+                isReplying: _dalleIsReplying,
+                isListening: _dalleIsListening,
+                dalleInputMode: _dalleInputMode,
+                sendTextMessage: () {
+                  final message = _dalleMessageController.text;
+                  _dalleMessageController.clear();
+                  sendDalleTextMessage(message);
+                },
+                sendVoiceMessage: sendDalleVoiceMessage,
+              ),
+            ],
+          ),
+          Text(
+            speechResult,
+            style: TextStyle(color: Colors.black),
+          ),
+          if (generatedImageUrl != null)
+            Padding(
+              padding: const EdgeInsets.all(10),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(20),
+                child: Image.network(generatedImageUrl!),
+              ),
+            ),
+        ],
+      ),
+    );
+  }
+
+  void setDalleInputMode(DalleInputMode dalleInputMode) {
+    setState(() {
+      _dalleInputMode = dalleInputMode;
+    });
+  }
+
+  void sendDalleVoiceMessage() async {
+    if (voiceHandler.speechToText.isListening) {
+      await voiceHandler.stopListening();
+      setListeningstate(false);
+    } else {
+      setListeningstate(true);
+      final dalleResult = await voiceHandler.startListening();
+      speechResult = dalleResult;
+      returnDalleResult();
+      setListeningstate(false);
+      sendDalleTextMessage(dalleResult);
+    }
+  }
+
+  void returnDalleResult() {
+    print(speechResult);
+  }
+
+  void sendDalleTextMessage(String message) async {
+    setReplyingstate(true);
+    setDalleInputMode(DalleInputMode.voice);
+    // text to speech aiResponse using await flutterTts.speak();
+    final dalleAIResponse = await dalleAIService.dallEAPI(message);
+    generatedImageUrl = dalleAIResponse;
+    print(generatedImageUrl);
+
+    setReplyingstate(false);
+  }
+
+  void setReplyingstate(bool dalleIsReplying) {
+    setState(
+      () {
+        _dalleIsReplying = dalleIsReplying;
+      },
+    );
+  }
+
+  void setListeningstate(bool dalleIsListening) {
+    setState(() {
+      _dalleIsListening = dalleIsListening;
+    });
+  }
+}
