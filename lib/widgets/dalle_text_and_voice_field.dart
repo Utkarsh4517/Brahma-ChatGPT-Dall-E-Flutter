@@ -1,11 +1,15 @@
+import 'dart:io';
 import 'package:animate_do/animate_do.dart';
 import 'package:brahma/screens/chat_screen.dart';
-import 'package:brahma/screens/dalle_screen.dart';
 import 'package:brahma/services/dalle_ai_handler.dart';
 import 'package:flutter/material.dart';
 import 'package:brahma/widgets/dalle_toggle_button.dart';
 import 'package:brahma/services/voice_handler.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:http/http.dart' as http;
+import 'package:path_provider/path_provider.dart';
+
+
 
 enum DalleInputMode {
   text,
@@ -14,6 +18,8 @@ enum DalleInputMode {
 
 class DalleTextAndVoiceField extends ConsumerStatefulWidget {
   const DalleTextAndVoiceField({super.key});
+
+
 
   @override
   ConsumerState<DalleTextAndVoiceField> createState() =>
@@ -32,6 +38,14 @@ class _DalleTextAndVoiceFieldState
   final DalleAIService dalleAIService = DalleAIService();
   var speechResult = "tap the mic to say";
   List<String>? generatedImageUrl;
+
+   Future<void> _downloadImage(String imageUrl) async {
+  final response = await http.get(Uri.parse(imageUrl));
+  final bytes = response.bodyBytes;
+  final directory = await getApplicationDocumentsDirectory();
+  final file = File('${directory.path}/${DateTime.now().millisecondsSinceEpoch}.jpg');
+  await file.writeAsBytes(bytes);
+}
 
   @override
   void initState() {
@@ -83,7 +97,7 @@ class _DalleTextAndVoiceFieldState
                                       Align(
                                         alignment: Alignment.centerRight,
                                         child: ElevatedButton(
-                                          onPressed: () {},
+                                          onPressed: () => _downloadImage(generatedImageUrl![index]),
                                           child: const Icon(Icons.download),
                                         ),
                                       ),
