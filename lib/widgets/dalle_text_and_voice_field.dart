@@ -32,7 +32,6 @@ class _DalleTextAndVoiceFieldState
   final DalleAIService dalleAIService = DalleAIService();
   var speechResult = "tap the mic to say";
   List<String>? generatedImageUrl;
-  
 
   @override
   void initState() {
@@ -65,12 +64,35 @@ class _DalleTextAndVoiceFieldState
                 child: Visibility(
                   visible: generatedImageUrl != null,
                   child: generatedImageUrl != null
-                      ? Padding(
-                          padding: const EdgeInsets.all(10),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(20),
-                            child: Image.network(generatedImageUrl![0]),
-                          ),
+                      ? ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: 3,
+                          itemBuilder: (BuildContext context, int index) {
+                            return Container(
+                              width: MediaQuery.of(context).size.width * 0.86,
+                              margin: const EdgeInsets.only(left: 10),
+                              padding: const EdgeInsets.all(10),
+                              child: Padding(
+                                padding: const EdgeInsets.all(10),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(20),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Image.network(generatedImageUrl![index]),
+                                      Align(
+                                        alignment: Alignment.centerRight,
+                                        child: ElevatedButton(
+                                          onPressed: () {},
+                                          child: const Icon(Icons.download),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            );
+                          },
                         )
                       : const SizedBox(
                           height: 100,
@@ -187,7 +209,8 @@ class _DalleTextAndVoiceFieldState
     setReplyingstate(true);
     setDalleInputMode(DalleInputMode.voice);
     // text to speech aiResponse using await flutterTts.speak();
-    final List<String> generatedImageUrls = await dalleAIService.dallEAPI(message);
+    final List<String> generatedImageUrls =
+        await dalleAIService.dallEAPI(message);
     generatedImageUrl = generatedImageUrls;
     print(generatedImageUrls[0]);
     print('\n');
@@ -195,7 +218,6 @@ class _DalleTextAndVoiceFieldState
     print('\n');
     print(generatedImageUrls[2]);
     print('\n');
-
 
     setReplyingstate(false);
   }
