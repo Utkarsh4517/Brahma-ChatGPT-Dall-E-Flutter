@@ -1,9 +1,6 @@
 import 'dart:async';
 
-import 'package:flutter/material.dart';
-
 import 'package:speech_to_text/speech_to_text.dart';
-import 'package:brahma/screens/chat_screen.dart';
 
 class VoiceHandler {
   final SpeechToText _speechToText = SpeechToText();
@@ -31,5 +28,4 @@ class VoiceHandler {
 
   SpeechToText get speechToText => _speechToText;
   bool get isEnabled => _speechEnabled;
-  
 }

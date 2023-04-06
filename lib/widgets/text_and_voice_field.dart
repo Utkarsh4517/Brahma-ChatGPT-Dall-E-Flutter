@@ -33,6 +33,7 @@ class _TextAndVoiceFieldState extends ConsumerState<TextAndVoiceField> {
   final AIHandler _openAI = AIHandler();
   FlutterTts flutterTts = FlutterTts();
   final VoiceHandler voiceHandler = VoiceHandler();
+  var speechResult = " ";
 
   @override
   void initState() {
@@ -155,9 +156,8 @@ class _TextAndVoiceFieldState extends ConsumerState<TextAndVoiceField> {
                         ),
                         hintText: 'ask me anything!',
                         hintStyle: const TextStyle(
-                          color: Color.fromARGB(90, 0, 0, 0),
-                          fontWeight: FontWeight.w300
-                        ),
+                            color: Color.fromARGB(90, 0, 0, 0),
+                            fontWeight: FontWeight.w300),
                       ),
                     ),
                   ),
@@ -178,6 +178,10 @@ class _TextAndVoiceFieldState extends ConsumerState<TextAndVoiceField> {
                 ],
               ),
             ),
+            const SizedBox(
+              height: 5,
+            ),
+            Text(speechResult),
           ],
         ),
       ),
@@ -197,9 +201,15 @@ class _TextAndVoiceFieldState extends ConsumerState<TextAndVoiceField> {
     } else {
       setListeningstate(true);
       final result = await voiceHandler.startListening();
+      speechResult = result;
+      returnResult();
       setListeningstate(false);
       sendTextMessage(result);
     }
+  }
+
+  void returnResult() {
+    print(speechResult);
   }
 
   void sendTextMessage(String message) async {
