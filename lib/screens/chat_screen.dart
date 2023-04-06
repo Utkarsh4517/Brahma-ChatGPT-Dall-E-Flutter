@@ -21,6 +21,7 @@ class _ChatScreenState extends State<ChatScreen> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         title: FadeIn(
+          duration: const Duration(milliseconds: 3000),
           child: const Text(
             'B R A H M A',
             style: TextStyle(

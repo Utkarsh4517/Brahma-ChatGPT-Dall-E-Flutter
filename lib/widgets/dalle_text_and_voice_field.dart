@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:brahma/screens/chat_screen.dart';
 import 'package:brahma/screens/dalle_screen.dart';
 import 'package:brahma/services/dalle_ai_handler.dart';
@@ -47,66 +48,112 @@ class _DalleTextAndVoiceFieldState
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        children: [
-          Row(
-            children: [
-              Expanded(
-                child: TextField(
-                  controller: _dalleMessageController,
-                  onChanged: (value) {
-                    value.isNotEmpty
-                        ? setDalleInputMode(DalleInputMode.text)
-                        : setDalleInputMode(DalleInputMode.voice);
-                  },
-                  decoration: InputDecoration(
-                    contentPadding: const EdgeInsets.symmetric(
-                      vertical: 10,
-                      horizontal: 5,
-                    ),
-                    fillColor: Colors.white,
-                    filled: true,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    hintText: 'ask to generate image!',
-                    hintStyle: const TextStyle(
-                      color: Colors.purpleAccent,
-                      fontWeight: FontWeight.w300,
+    return FadeInUp(
+      child: Container(
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          children: [
+            FadeInDown(
+              child: Container(
+                width: MediaQuery.of(context).size.width * 0.95,
+                height: MediaQuery.of(context).size.height * 0.65,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  color: Colors.black, // Update the border radius here
+                ),
+                child: Visibility(
+                  visible: generatedImageUrl != null,
+                  child: generatedImageUrl != null
+                      ? Padding(
+                          padding: const EdgeInsets.all(10),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(20),
+                            child: Image.network(generatedImageUrl!),
+                          ),
+                        )
+                      : const SizedBox(
+                          height: 100,
+                          width: 100,
+                        ),
+                ),
+              ),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            Row(
+              children: [
+                Expanded(
+                  child: TextField(
+                    controller: _dalleMessageController,
+                    onChanged: (value) {
+                      value.isNotEmpty
+                          ? setDalleInputMode(DalleInputMode.text)
+                          : setDalleInputMode(DalleInputMode.voice);
+                    },
+                    decoration: InputDecoration(
+                      contentPadding: const EdgeInsets.symmetric(
+                        vertical: 10,
+                        horizontal: 5,
+                      ),
+                      fillColor: Colors.white,
+                      filled: true,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      hintText: 'ask to generate image!',
+                      hintStyle: const TextStyle(
+                        color: Color.fromARGB(255, 112, 41, 65),
+                        fontWeight: FontWeight.w300,
+                      ),
                     ),
                   ),
                 ),
-              ),
-              const SizedBox(
-                width: 10,
-              ),
-              DalleToggleButton(
-                isReplying: _dalleIsReplying,
-                isListening: _dalleIsListening,
-                dalleInputMode: _dalleInputMode,
-                sendTextMessage: () {
-                  final message = _dalleMessageController.text;
-                  _dalleMessageController.clear();
-                  sendDalleTextMessage(message);
-                },
-                sendVoiceMessage: sendDalleVoiceMessage,
-              ),
-            ],
-          ),
-          Text(
-            speechResult,
-            style: TextStyle(color: Colors.black),
-          ),
-          if (generatedImageUrl != null)
-            Padding(
-              padding: const EdgeInsets.all(10),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(20),
-                child: Image.network(generatedImageUrl!),
-              ),
+                const SizedBox(
+                  width: 10,
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const ChatScreen()),
+                    );
+                  },
+                  style: ElevatedButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 12, horizontal: 10),
+                    minimumSize: null,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10)),
+                  ),
+                  child: const Text('Try AI Chat!'),
+                ),
+                const SizedBox(
+                  width: 10,
+                ),
+                DalleToggleButton(
+                  isReplying: _dalleIsReplying,
+                  isListening: _dalleIsListening,
+                  dalleInputMode: _dalleInputMode,
+                  sendTextMessage: () {
+                    final message = _dalleMessageController.text;
+                    _dalleMessageController.clear();
+                    sendDalleTextMessage(message);
+                  },
+                  sendVoiceMessage: sendDalleVoiceMessage,
+                ),
+              ],
             ),
-        ],
+            const SizedBox(
+              height: 10,
+            ),
+            Text(
+              speechResult,
+              style: const TextStyle(color: Colors.black),
+            ),
+          ],
+        ),
       ),
     );
   }
