@@ -4,7 +4,8 @@ import 'package:http/http.dart' as http;
 
 class DalleAIService {
   final List<Map<String, String>> messages = [];
-    Future<String> dallEAPI(String prompt) async {
+
+  Future<List<String>> dallEAPI(String prompt) async {
     messages.add({
       'role': 'user',
       'content': prompt,
@@ -18,23 +19,26 @@ class DalleAIService {
         },
         body: jsonEncode({
           'prompt': prompt,
-          'n': 1,
+          'n': 3,
         }),
       );
 
       if (res.statusCode == 200) {
-        String imageUrl = jsonDecode(res.body)['data'][0]['url'];
-        imageUrl = imageUrl.trim();
-
-        messages.add({
-          'role': 'assistant',
-          'content': imageUrl,
-        });
-        return imageUrl;
+        List<String> imageUrls = [];
+        for (var i = 0; i < 3; i++) {
+          String imageUrl = jsonDecode(res.body)['data'][i]['url'];
+          imageUrl = imageUrl.trim();
+          imageUrls.add(imageUrl);
+          messages.add({
+            'role': 'assistant',
+            'content': imageUrl,
+          });
+        }
+        return imageUrls;
       }
-      return 'An internal error occurred';
+      return ['An internal error occurred'];
     } catch (e) {
-      return e.toString();
+      return [e.toString()];
     }
   }
 }

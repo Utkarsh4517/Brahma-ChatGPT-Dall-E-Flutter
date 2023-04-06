@@ -31,7 +31,8 @@ class _DalleTextAndVoiceFieldState
   final VoiceHandler voiceHandler = VoiceHandler();
   final DalleAIService dalleAIService = DalleAIService();
   var speechResult = "tap the mic to say";
-  String? generatedImageUrl;
+  List<String>? generatedImageUrl;
+  
 
   @override
   void initState() {
@@ -68,7 +69,7 @@ class _DalleTextAndVoiceFieldState
                           padding: const EdgeInsets.all(10),
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(20),
-                            child: Image.network(generatedImageUrl!),
+                            child: Image.network(generatedImageUrl![0]),
                           ),
                         )
                       : const SizedBox(
@@ -186,9 +187,15 @@ class _DalleTextAndVoiceFieldState
     setReplyingstate(true);
     setDalleInputMode(DalleInputMode.voice);
     // text to speech aiResponse using await flutterTts.speak();
-    final dalleAIResponse = await dalleAIService.dallEAPI(message);
-    generatedImageUrl = dalleAIResponse;
-    print(generatedImageUrl);
+    final List<String> generatedImageUrls = await dalleAIService.dallEAPI(message);
+    generatedImageUrl = generatedImageUrls;
+    print(generatedImageUrls[0]);
+    print('\n');
+    print(generatedImageUrls[1]);
+    print('\n');
+    print(generatedImageUrls[2]);
+    print('\n');
+
 
     setReplyingstate(false);
   }
