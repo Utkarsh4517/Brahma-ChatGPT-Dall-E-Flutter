@@ -29,8 +29,8 @@ class ImageScreen extends StatelessWidget {
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              const DalleTextAndVoiceField(),
+            children: const [
+              DalleTextAndVoiceField(),
             ],
           ),
         ),
