@@ -46,6 +46,7 @@ dependencies:
   flutter_launcher_icons: ^0.12.0
   smooth_page_indicator: ^1.0.1
   shared_preferences: ^2.1.0
+  lottie: ^2.3.2
 
 dev_dependencies:
   flutter_test:

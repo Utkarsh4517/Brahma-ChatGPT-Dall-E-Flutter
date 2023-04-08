@@ -1,3 +1,4 @@
+import 'package:brahma/screens/dalle_screen.dart';
 import 'package:brahma/screens/on_borading%20_screen.dart';
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:brahma/screens/chat_screen.dart';
@@ -9,7 +10,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SharedPreferences prefs = await SharedPreferences.getInstance();
   bool hasSeenOnboarding = prefs.getBool('hasSeenOnboarding') ?? false;
-  runApp( ProviderScope(child: MyApp(hasSeenOnboarding: hasSeenOnboarding)));
+  runApp(ProviderScope(child: MyApp(hasSeenOnboarding: hasSeenOnboarding)));
 }
 
 //Color brandColor = const Color(0XFFFADFDC);
@@ -20,16 +21,24 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-      return MaterialApp(
+    return MaterialApp(
         theme: ThemeData(
           useMaterial3: true,
           //colorScheme: lightColorScheme,
         ),
         debugShowCheckedModeBanner: false,
-        home: const OnBoardingScreen()
-        
+        home: PageView(
+          scrollDirection: Axis.horizontal,
+          children: const [
+            ChatScreen(),
+            ImageScreen(),
+          ],
+        )
+
+        //const OnBoardingScreen()
+
         //hasSeenOnboarding ? ChatScreen() : OnBoardingScreen(),
-      );
-    } //);
-  }
+        );
+  } //);
+}
 //}
