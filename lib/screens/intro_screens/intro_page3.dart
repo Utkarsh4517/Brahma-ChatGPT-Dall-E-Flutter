@@ -6,7 +6,7 @@ class IntroPage3 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.deepPurpleAccent,
+      color: Color.fromARGB(255, 120, 236, 104),
     );
   }
 }

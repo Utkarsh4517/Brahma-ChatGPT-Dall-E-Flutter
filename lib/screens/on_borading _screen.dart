@@ -46,7 +46,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                 onTap: () {
                   _controller.jumpToPage(2);
                 },
-                child: const Text('Skip'),
+                child: const Text('Skip', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),),
               ),
               SmoothPageIndicator(controller: _controller, count: 3),
               onLastPage
@@ -60,7 +60,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                         );
                         _completeOnboarding();
                       },
-                      child: const Text('done'),
+                      child: const Text('done', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),),
                     )
                   : GestureDetector(
                       onTap: () {
@@ -68,7 +68,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                             duration: const Duration(milliseconds: 500),
                             curve: Curves.easeIn);
                       },
-                      child: const Text('next'),
+                      child: const Text('next', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),),
                     ),
             ],
           ),

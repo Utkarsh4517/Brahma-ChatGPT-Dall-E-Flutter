@@ -26,7 +26,9 @@ class MyApp extends StatelessWidget {
           //colorScheme: lightColorScheme,
         ),
         debugShowCheckedModeBanner: false,
-        home: hasSeenOnboarding ? ChatScreen() : OnBoardingScreen(),
+        home: const OnBoardingScreen()
+        
+        //hasSeenOnboarding ? ChatScreen() : OnBoardingScreen(),
       );
     } //);
   }
