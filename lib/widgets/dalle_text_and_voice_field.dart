@@ -77,20 +77,22 @@ class _DalleTextAndVoiceFieldState
                   ? Column(
                       //mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const SizedBox(height: 3,),
-                        const Text('Image Generation', style: TextStyle(color: Colors.white),),
+                        const SizedBox(
+                          height: 3,
+                        ),
+                        const Text(
+                          'Image Generation',
+                          style: TextStyle(color: Colors.white),
+                        ),
                         const SizedBox(
                           height: 50,
                         ),
-                        SlideInLeft(
-                          duration: const Duration(seconds: 2),
-                          child: Text(
-                            swipeText,
-                            style: const TextStyle(
-                                color: Colors.blue,
-                                fontSize: 15,
-                                fontWeight: FontWeight.bold),
-                          ),
+                        Text(
+                          swipeText,
+                          style: const TextStyle(
+                              color: Colors.blue,
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold),
                         ),
                         SizedBox(
                           height: 420,
@@ -109,9 +111,41 @@ class _DalleTextAndVoiceFieldState
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(20),
                                     child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
                                       children: [
-                                        Image.network(generatedImageUrl![index]),
+                                        Image.network(
+                                          generatedImageUrl![index],
+                                          loadingBuilder: (BuildContext context,
+                                              Widget child,
+                                              ImageChunkEvent?
+                                                  loadingProgress) {
+                                            if (loadingProgress == null) {
+                                              return child;
+                                            }
+                                            return Center(
+                                              child: CircularProgressIndicator(
+                                                valueColor:
+                                                    const AlwaysStoppedAnimation<
+                                                        Color>(Colors.red),
+                                                value: loadingProgress
+                                                            .expectedTotalBytes !=
+                                                        null
+                                                    ? loadingProgress
+                                                            .cumulativeBytesLoaded /
+                                                        loadingProgress
+                                                            .expectedTotalBytes!
+                                                    : null,
+                                              ),
+                                            );
+                                          },
+                                          errorBuilder: (BuildContext context,
+                                              Object exception,
+                                              StackTrace? stackTrace) {
+                                            return const Text(
+                                                'Failed to load image');
+                                          },
+                                        ),
                                         Align(
                                           alignment: Alignment.centerRight,
                                           child: ElevatedButton(
