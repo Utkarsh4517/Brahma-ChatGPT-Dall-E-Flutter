@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:brahma/widgets/head_text.dart';
 import 'package:brahma/widgets/body_text.dart';
 
@@ -9,8 +8,6 @@ class IntroPage1 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final headFontSize = MediaQuery.of(context).size.width * 0.09;
-    final bodyFontSize = MediaQuery.of(context).size.width * 0.035;
     return Scaffold(
       backgroundColor: const Color(0XFFD9CFFF),
       body: Center(
@@ -22,13 +19,7 @@ class IntroPage1 extends StatelessWidget {
               ),
             ),
             const HeadText(headText: 'Meet brahma.'),
-            Text(
-              'your personal ai bot',
-              style: GoogleFonts.chivo(
-                fontSize: headFontSize,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+            const HeadText(headText: 'your personal ai bot'),
             Container(
               padding: const EdgeInsets.all(30),
               child: const BodyText(bodyText: 'a powerful and intuitive virtual assistant that is always at your service. With Brahma, you can streamline your daily tasks, get instant answers to your questions, and enjoy a more personalized and efficient experience on your device'),

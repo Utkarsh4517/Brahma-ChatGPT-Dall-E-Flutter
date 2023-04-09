@@ -7,7 +7,7 @@ class HeadText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final headFontSize = MediaQuery.of(context).size.width * 0.09;
+    final headFontSize = MediaQuery.of(context).size.width * 0.085;
     return Text(
       headText,
       style: GoogleFonts.chivo(
