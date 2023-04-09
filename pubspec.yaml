@@ -47,6 +47,7 @@ dependencies:
   shared_preferences: ^2.1.0
   lottie: ^2.3.2
   animate_do: ^3.0.2
+  google_fonts: ^4.0.3
 
 dev_dependencies:
   flutter_test:

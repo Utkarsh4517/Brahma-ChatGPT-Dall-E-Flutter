@@ -54,6 +54,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                         dotColor: Colors.grey,
                         activeDotColor: Colors.black,
                         dotWidth: 25,
+                        dotHeight: 15,
                       ),
                     ),
                   ],
