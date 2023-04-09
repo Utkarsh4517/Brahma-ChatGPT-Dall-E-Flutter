@@ -66,67 +66,69 @@ class _DalleTextAndVoiceFieldState
         children: [
           Container(
             width: MediaQuery.of(context).size.width * 0.95,
-            height: 30,
+            height: MediaQuery.of(context).size.height * 0.65,
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20).copyWith(
-                bottomLeft: Radius.zero,
-                bottomRight: Radius.zero,
-              ),
-              color: Colors.black, // Update the border radius here
-            ),
-            child: Visibility(
-              visible: generatedImageUrl != null,
-              child: Center(
-                child: Text(
-                  swipeText,
-                  style: const TextStyle(color: Colors.white, fontSize: 15),
-                ),
-              ),
-            ),
-          ),
-          Container(
-            width: MediaQuery.of(context).size.width * 0.95,
-            height: MediaQuery.of(context).size.height * 0.62,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20).copyWith(
-                topLeft: Radius.zero,
-                topRight: Radius.zero,
-              ),
+              borderRadius: BorderRadius.circular(20),
               color: Colors.black, // Update the border radius here
             ),
             child: Visibility(
               visible: generatedImageUrl != null,
               child: generatedImageUrl != null
-                  ? ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: 3,
-                      itemBuilder: (BuildContext context, int index) {
-                        return Container(
-                          width: MediaQuery.of(context).size.width * 0.86,
-                          margin: const EdgeInsets.only(left: 10),
-                          padding: const EdgeInsets.all(10),
-                          child: Padding(
-                            padding: const EdgeInsets.all(10),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(20),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Image.network(generatedImageUrl![index]),
-                                  Align(
-                                    alignment: Alignment.centerRight,
-                                    child: ElevatedButton(
-                                      onPressed: () => _downloadImage(
-                                          generatedImageUrl![index]),
-                                      child: const Icon(Icons.download),
+                  ? Column(
+                      //mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const SizedBox(height: 3,),
+                        const Text('Image Generation', style: TextStyle(color: Colors.white),),
+                        const SizedBox(
+                          height: 50,
+                        ),
+                        SlideInLeft(
+                          duration: const Duration(seconds: 2),
+                          child: Text(
+                            swipeText,
+                            style: const TextStyle(
+                                color: Colors.blue,
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 420,
+                          child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: 3,
+                            itemBuilder: (BuildContext context, int index) {
+                              return Container(
+                                width: MediaQuery.of(context).size.width * 0.86,
+                                margin: const EdgeInsets.only(left: 10),
+                                padding:
+                                    const EdgeInsets.all(10).copyWith(top: 0),
+                                child: Padding(
+                                  padding:
+                                      const EdgeInsets.all(10).copyWith(top: 0),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(20),
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        Image.network(generatedImageUrl![index]),
+                                        Align(
+                                          alignment: Alignment.centerRight,
+                                          child: ElevatedButton(
+                                            onPressed: () => _downloadImage(
+                                                generatedImageUrl![index]),
+                                            child: const Icon(Icons.download),
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ),
-                                ],
-                              ),
-                            ),
+                                ),
+                              );
+                            },
                           ),
-                        );
-                      },
+                        ),
+                      ],
                     )
                   : const Text(
                       'Generating new images',
