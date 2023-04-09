@@ -28,6 +28,7 @@ class _DalleTextAndVoiceFieldState
   final _dalleMessageController = TextEditingController();
   var _dalleIsReplying = false;
   var _dalleIsListening = false;
+  final String swipeText = "Swipe right to see more images";
   // create dalleAi handler instance here
 
   final VoiceHandler voiceHandler = VoiceHandler();
@@ -65,9 +66,32 @@ class _DalleTextAndVoiceFieldState
         children: [
           Container(
             width: MediaQuery.of(context).size.width * 0.95,
-            height: MediaQuery.of(context).size.height * 0.65,
+            height: 30,
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
+              borderRadius: BorderRadius.circular(20).copyWith(
+                bottomLeft: Radius.zero,
+                bottomRight: Radius.zero,
+              ),
+              color: Colors.black, // Update the border radius here
+            ),
+            child: Visibility(
+              visible: generatedImageUrl != null,
+              child: Center(
+                child: Text(
+                  swipeText,
+                  style: const TextStyle(color: Colors.white, fontSize: 15),
+                ),
+              ),
+            ),
+          ),
+          Container(
+            width: MediaQuery.of(context).size.width * 0.95,
+            height: MediaQuery.of(context).size.height * 0.62,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20).copyWith(
+                topLeft: Radius.zero,
+                topRight: Radius.zero,
+              ),
               color: Colors.black, // Update the border radius here
             ),
             child: Visibility(
@@ -104,9 +128,9 @@ class _DalleTextAndVoiceFieldState
                         );
                       },
                     )
-                  : const SizedBox(
-                      height: 100,
-                      width: 100,
+                  : const Text(
+                      'Generating new images',
+                      style: TextStyle(color: Colors.white),
                     ),
             ),
           ),
@@ -153,8 +177,10 @@ class _DalleTextAndVoiceFieldState
                 dalleInputMode: _dalleInputMode,
                 sendTextMessage: () {
                   final message = _dalleMessageController.text;
+                  speechResult = message;
                   _dalleMessageController.clear();
                   sendDalleTextMessage(message);
+                  generatedImageUrl = null;
                 },
                 sendVoiceMessage: sendDalleVoiceMessage,
               ),
@@ -209,6 +235,10 @@ class _DalleTextAndVoiceFieldState
     print('\n');
     print(generatedImageUrls[2]);
     print('\n');
+    print('\n');
+    print('printing generatedImageUrl');
+    print('\n');
+    print(generatedImageUrl?[0]);
 
     setReplyingstate(false);
   }

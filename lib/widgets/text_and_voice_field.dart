@@ -159,7 +159,6 @@ class _TextAndVoiceFieldState extends ConsumerState<TextAndVoiceField> {
           const SizedBox(
             height: 5,
           ),
-          Text(speechResult),
         ],
       ),
     );
