@@ -144,22 +144,6 @@ class _DalleTextAndVoiceFieldState
               const SizedBox(
                 width: 10,
               ),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(builder: (context) => const ChatScreen()),
-                  );
-                },
-                style: ElevatedButton.styleFrom(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 12, horizontal: 10),
-                  minimumSize: null,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10)),
-                ),
-                child: const Text('Try AI Chat!'),
-              ),
               const SizedBox(
                 width: 10,
               ),

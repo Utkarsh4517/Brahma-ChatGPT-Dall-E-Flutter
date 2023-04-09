@@ -59,6 +59,7 @@ class _TextAndVoiceFieldState extends ConsumerState<TextAndVoiceField> {
       child: Column(
         children: [
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               ElevatedButton(
                 onPressed: () {
@@ -104,28 +105,17 @@ class _TextAndVoiceFieldState extends ConsumerState<TextAndVoiceField> {
               const SizedBox(
                 width: 10,
               ),
-              SizedBox(
-                width: MediaQuery.of(context).size.width * 0.35,
-                child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const ImageScreen(),
-                        ),
-                      );
-                    },
-                    style: ElevatedButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ),
-                    child: const Text(
-                      'Try Image Generation!',
-                      style: TextStyle(fontSize: 11),
-                    )),
-              ),
+              ToggleButton(
+                  isReplying: _isReplying,
+                  isListening: _isListening,
+                  inputMode: _inputMode,
+                  sendTextMessage: () {
+                    final message = _messageController.text;
+                    _messageController.clear();
+                    sendTextMessage(message);
+                  },
+                  sendVoiceMessage: sendVoiceMessage,
+                ),
             ],
           ),
           const SizedBox(
@@ -162,17 +152,7 @@ class _TextAndVoiceFieldState extends ConsumerState<TextAndVoiceField> {
                 const SizedBox(
                   width: 10,
                 ),
-                ToggleButton(
-                  isReplying: _isReplying,
-                  isListening: _isListening,
-                  inputMode: _inputMode,
-                  sendTextMessage: () {
-                    final message = _messageController.text;
-                    _messageController.clear();
-                    sendTextMessage(message);
-                  },
-                  sendVoiceMessage: sendVoiceMessage,
-                )
+                
               ],
             ),
           ),
