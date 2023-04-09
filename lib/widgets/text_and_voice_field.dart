@@ -54,135 +54,133 @@ class _TextAndVoiceFieldState extends ConsumerState<TextAndVoiceField> {
 
   @override
   Widget build(BuildContext context) {
-    return FadeInUp(
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10),
-        child: Column(
-          children: [
-            Row(
-              children: [
-                ElevatedButton(
-                  onPressed: () {
-                    copyToClipboard(textToCopy);
-                  },
-                  style: ElevatedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10),
+      child: Column(
+        children: [
+          Row(
+            children: [
+              ElevatedButton(
+                onPressed: () {
+                  copyToClipboard(textToCopy);
+                },
+                style: ElevatedButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
                   ),
-                  child: const Icon(Icons.copy_sharp),
                 ),
-                const SizedBox(
-                  width: 10,
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    startSpeaking();
-                  },
-                  style: ElevatedButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
+                child: const Icon(Icons.copy_sharp),
+              ),
+              const SizedBox(
+                width: 10,
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  startSpeaking();
+                },
+                style: ElevatedButton.styleFrom(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
                   ),
-                  child: const Icon(Icons.play_circle),
                 ),
-                const SizedBox(
-                  width: 10,
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    stopSpeaking();
-                  },
-                  style: ElevatedButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
+                child: const Icon(Icons.play_circle),
+              ),
+              const SizedBox(
+                width: 10,
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  stopSpeaking();
+                },
+                style: ElevatedButton.styleFrom(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
                   ),
-                  child: const Icon(Icons.stop_circle),
                 ),
-                const SizedBox(
-                  width: 10,
-                ),
-                SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.35,
-                  child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const ImageScreen(),
-                          ),
-                        );
-                      },
-                      style: ElevatedButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(horizontal: 10),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
+                child: const Icon(Icons.stop_circle),
+              ),
+              const SizedBox(
+                width: 10,
+              ),
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.35,
+                child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const ImageScreen(),
                         ),
+                      );
+                    },
+                    style: ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
                       ),
-                      child: const Text(
-                        'Try Image Generation!',
-                        style: TextStyle(fontSize: 11),
-                      )),
+                    ),
+                    child: const Text(
+                      'Try Image Generation!',
+                      style: TextStyle(fontSize: 11),
+                    )),
+              ),
+            ],
+          ),
+          const SizedBox(
+            height: 5,
+          ),
+          Container(
+            padding: const EdgeInsets.only(right: 5),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Expanded(
+                  child: TextField(
+                    controller: _messageController,
+                    onChanged: (value) {
+                      value.isNotEmpty
+                          ? setInputMode(InputMode.text)
+                          : setInputMode(InputMode.voice);
+                    },
+                    decoration: InputDecoration(
+                      contentPadding: const EdgeInsets.symmetric(
+                          vertical: 10, horizontal: 5),
+                      filled: true,
+                      fillColor: Colors.white,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      hintText: 'ask me anything!',
+                      hintStyle: const TextStyle(
+                          color: Color.fromARGB(90, 0, 0, 0),
+                          fontWeight: FontWeight.w300),
+                    ),
+                  ),
                 ),
+                const SizedBox(
+                  width: 10,
+                ),
+                ToggleButton(
+                  isReplying: _isReplying,
+                  isListening: _isListening,
+                  inputMode: _inputMode,
+                  sendTextMessage: () {
+                    final message = _messageController.text;
+                    _messageController.clear();
+                    sendTextMessage(message);
+                  },
+                  sendVoiceMessage: sendVoiceMessage,
+                )
               ],
             ),
-            const SizedBox(
-              height: 5,
-            ),
-            Container(
-              padding: const EdgeInsets.only(right: 5),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Expanded(
-                    child: TextField(
-                      controller: _messageController,
-                      onChanged: (value) {
-                        value.isNotEmpty
-                            ? setInputMode(InputMode.text)
-                            : setInputMode(InputMode.voice);
-                      },
-                      decoration: InputDecoration(
-                        contentPadding: const EdgeInsets.symmetric(
-                            vertical: 10, horizontal: 5),
-                        filled: true,
-                        fillColor: Colors.white,
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        hintText: 'ask me anything!',
-                        hintStyle: const TextStyle(
-                            color: Color.fromARGB(90, 0, 0, 0),
-                            fontWeight: FontWeight.w300),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  ToggleButton(
-                    isReplying: _isReplying,
-                    isListening: _isListening,
-                    inputMode: _inputMode,
-                    sendTextMessage: () {
-                      final message = _messageController.text;
-                      _messageController.clear();
-                      sendTextMessage(message);
-                    },
-                    sendVoiceMessage: sendVoiceMessage,
-                  )
-                ],
-              ),
-            ),
-            const SizedBox(
-              height: 5,
-            ),
-            Text(speechResult),
-          ],
-        ),
+          ),
+          const SizedBox(
+            height: 5,
+          ),
+          Text(speechResult),
+        ],
       ),
     );
   }

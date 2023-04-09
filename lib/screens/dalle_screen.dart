@@ -12,7 +12,7 @@ class ImageScreen extends StatelessWidget {
        backgroundColor: Colors.white,
       appBar: AppBar(
         title: FadeIn(
-          duration: const Duration(milliseconds: 3000),
+          duration: const Duration(milliseconds: 1500),
           child: const Text(
             'B R A H M A',
             style: TextStyle(

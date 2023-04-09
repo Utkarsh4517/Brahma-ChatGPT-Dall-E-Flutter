@@ -21,7 +21,7 @@ class _ChatScreenState extends State<ChatScreen> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         title: FadeIn(
-          duration: const Duration(milliseconds: 3000),
+          duration: const Duration(milliseconds: 1500),
           child: const Text(
             'B R A H M A',
             style: TextStyle(
@@ -32,7 +32,8 @@ class _ChatScreenState extends State<ChatScreen> {
         backgroundColor: Colors.white,
         centerTitle: true,
         elevation: 0,
-        leading: IconButton(onPressed: (){}, icon: const Icon(Icons.menu_book)),
+        leading:
+            IconButton(onPressed: () {}, icon: const Icon(Icons.menu_book)),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -40,30 +41,28 @@ class _ChatScreenState extends State<ChatScreen> {
             const SizedBox(
               height: 5,
             ),
-            FadeInDown(
-              child: Container(
-                width: MediaQuery.of(context).size.width * 0.95,
-                height: MediaQuery.of(context).size.height * 0.65,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  color: Colors.black, // Update the border radius here
-                ),
-                child: Consumer(builder: (context, ref, child) {
-                  WidgetsBinding.instance.addPostFrameCallback((_) {
+            Container(
+              width: MediaQuery.of(context).size.width * 0.95,
+              height: MediaQuery.of(context).size.height * 0.65,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                color: Colors.black, // Update the border radius here
+              ),
+              child: Consumer(builder: (context, ref, child) {
+                WidgetsBinding.instance.addPostFrameCallback((_) {
                   // This code will run after the ChatItem has been built
                   jumpToBottom();
                 });
-                  final chats = ref.watch(chatsProvider);
-                  return ListView.builder(
-                    controller: _scrollController,
-                    itemCount: chats.length,
-                    itemBuilder: (context, index) => ChatItem(
-                      text: chats[index].message,
-                      isMe: chats[index].isMe,
-                    ),
-                  );
-                }),
-              ),
+                final chats = ref.watch(chatsProvider);
+                return ListView.builder(
+                  controller: _scrollController,
+                  itemCount: chats.length,
+                  itemBuilder: (context, index) => ChatItem(
+                    text: chats[index].message,
+                    isMe: chats[index].isMe,
+                  ),
+                );
+              }),
             ),
             const SizedBox(
               height: 0,
@@ -77,7 +76,8 @@ class _ChatScreenState extends State<ChatScreen> {
       ),
     );
   }
-  void jumpToBottom(){
+
+  void jumpToBottom() {
     _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
   }
 }
