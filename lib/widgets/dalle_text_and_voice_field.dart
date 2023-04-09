@@ -78,13 +78,6 @@ class _DalleTextAndVoiceFieldState
                       //mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         const SizedBox(
-                          height: 3,
-                        ),
-                        const Text(
-                          'Image Generation',
-                          style: TextStyle(color: Colors.white),
-                        ),
-                        const SizedBox(
                           height: 50,
                         ),
                         Text(
