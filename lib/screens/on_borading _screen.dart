@@ -21,59 +21,120 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   void _completeOnboarding() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setBool('hasSeenOnboarding', true);
-    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ChatScreen()));
+    Navigator.pushReplacement(
+        context, MaterialPageRoute(builder: (context) => ChatScreen()));
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Stack(
-      children: [
-        PageView(
-          onPageChanged: (index) {
-            setState(() {
-              onLastPage = (index == 2);
-            });
-          },
-          controller: _controller,
-          children: const [IntroPage1(), IntroPage2(), IntroPage3()],
-        ),
-        Container(
-          alignment: const Alignment(0, 0.75),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              GestureDetector(
-                onTap: () {
-                  _controller.jumpToPage(2);
-                },
-                child: const Text('Skip', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),),
-              ),
-              SmoothPageIndicator(controller: _controller, count: 3),
-              onLastPage
-                  ? GestureDetector(
-                      onTap: () {
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const ChatScreen(),
-                          ),
-                        );
-                        _completeOnboarding();
-                      },
-                      child: const Text('done', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),),
-                    )
-                  : GestureDetector(
-                      onTap: () {
-                        _controller.nextPage(
-                            duration: const Duration(milliseconds: 500),
-                            curve: Curves.easeIn);
-                      },
-                      child: const Text('next', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),),
-                    ),
-            ],
+      body: Stack(
+        children: [
+          PageView(
+            onPageChanged: (index) {
+              setState(() {
+                onLastPage = (index == 2);
+              });
+            },
+            controller: _controller,
+            children: const [IntroPage1(), IntroPage2(), IntroPage3()],
           ),
-        ),
-      ],
-    ));
+          Container(
+            alignment: const Alignment(0, 0.7),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    SmoothPageIndicator(
+                      controller: _controller,
+                      count: 3,
+                      effect: const ExpandingDotsEffect(
+                        dotColor: Colors.grey,
+                        activeDotColor: Colors.black,
+                        dotWidth: 25,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 60,
+                ),
+                Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 40).copyWith(left: 50),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.only(bottom: 20),
+                        child: GestureDetector(
+                          onTap: () {
+                            _controller.jumpToPage(2);
+                          },
+                          child: const Text(
+                            'Skip',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black,
+                                fontSize: 20),
+                          ),
+                        ),
+                      ),
+                      Container(
+                        margin: const EdgeInsets.only(bottom: 20),
+                        child: onLastPage
+                            ? ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  padding: const EdgeInsets.all(20)
+                                      .copyWith(left: 50, right: 50),
+                                ),
+                                onPressed: () {
+                                  Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => const ChatScreen(),
+                                    ),
+                                  );
+                                  _completeOnboarding();
+                                },
+                                child: const Text(
+                                  'Done',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black,
+                                      fontSize: 20),
+                                ),
+                              )
+                            : ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  padding: const EdgeInsets.all(20)
+                                      .copyWith(left: 50, right: 50),
+                                ),
+                                onPressed: () {
+                                  _controller.nextPage(
+                                      duration:
+                                          const Duration(milliseconds: 500),
+                                      curve: Curves.easeIn);
+                                },
+                                child: const Text(
+                                  'Next',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black,
+                                    fontSize: 20
+                                  ),
+                                ),
+                              ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

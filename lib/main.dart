@@ -22,23 +22,23 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        theme: ThemeData(
-          useMaterial3: true,
-          //colorScheme: lightColorScheme,
-        ),
-        debugShowCheckedModeBanner: false,
-        home: PageView(
-          scrollDirection: Axis.horizontal,
-          children: const [
-            ChatScreen(),
-            ImageScreen(),
-          ],
-        )
-
-        //const OnBoardingScreen()
-
-        //hasSeenOnboarding ? ChatScreen() : OnBoardingScreen(),
-        );
+      theme: ThemeData(
+        useMaterial3: true,
+        //colorScheme: lightColorScheme,
+      ),
+      debugShowCheckedModeBanner: false,
+      home: const OnBoardingScreen() 
+      /*hasSeenOnboarding
+          ? PageView(
+              scrollDirection: Axis.horizontal,
+              children: const [
+                ChatScreen(),
+                ImageScreen(),
+              ],
+            )
+          : const OnBoardingScreen(),
+          */
+    );
   } //);
 }
 //}

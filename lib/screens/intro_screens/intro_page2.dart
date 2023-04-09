@@ -5,8 +5,13 @@ class IntroPage2 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.white
+    return  Scaffold(
+      backgroundColor: const Color(0XFFC6E1F4),
+      body: Center(
+        child: Column(
+          children: const [],
+        ),
+      ),
     );
   }
 }
