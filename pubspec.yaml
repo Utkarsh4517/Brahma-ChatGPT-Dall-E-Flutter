@@ -48,6 +48,7 @@ dependencies:
   lottie: ^2.3.2
   animate_do: ^3.0.2
   google_fonts: ^4.0.3
+  url_launcher: ^6.1.10
 
 dev_dependencies:
   flutter_test:

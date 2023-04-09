@@ -1,7 +1,9 @@
+import 'package:brahma/main.dart';
 import 'package:brahma/screens/chat_screen.dart';
 import 'package:brahma/screens/intro_screens/intro_page1.dart';
 import 'package:brahma/screens/intro_screens/intro_page2.dart';
 import 'package:brahma/screens/intro_screens/intro_page3.dart';
+import 'package:brahma/screens/page_view.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -21,8 +23,9 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   void _completeOnboarding() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setBool('hasSeenOnboarding', true);
+    // ignore: use_build_context_synchronously
     Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => ChatScreen()));
+        context, MaterialPageRoute(builder: (context) => const PageViewHome()));
   }
 
   @override
@@ -91,12 +94,6 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                                       .copyWith(left: 50, right: 50),
                                 ),
                                 onPressed: () {
-                                  Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => const ChatScreen(),
-                                    ),
-                                  );
                                   _completeOnboarding();
                                 },
                                 child: const Text(

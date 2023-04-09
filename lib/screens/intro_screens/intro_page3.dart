@@ -2,6 +2,8 @@ import 'package:brahma/widgets/body_text.dart';
 import 'package:brahma/widgets/head_text.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class IntroPage3 extends StatelessWidget {
   const IntroPage3({super.key});
@@ -38,8 +40,10 @@ class IntroPage3 extends StatelessWidget {
             const BodyText(bodyText: 'Made with ❤️ by Utkarsh Shrivastava'),
             ElevatedButton(
 
-              onPressed: () {},
-              child: const Text('Support by giving it a star on github'),
+              onPressed: () {
+                launchUrlString('https://github.com/Utkarsh4517/Brahma-ChatGPT-Dall-E-Flutter');
+              },
+              child: const Text('Support it by giving a star on github'),
             ),
           ],
         ),

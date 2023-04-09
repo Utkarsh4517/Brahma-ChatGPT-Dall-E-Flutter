@@ -1,5 +1,6 @@
 import 'package:brahma/screens/dalle_screen.dart';
 import 'package:brahma/screens/on_borading%20_screen.dart';
+import 'package:brahma/screens/page_view.dart';
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:brahma/screens/chat_screen.dart';
 import 'package:flutter/material.dart';
@@ -27,8 +28,8 @@ class MyApp extends StatelessWidget {
         //colorScheme: lightColorScheme,
       ),
       debugShowCheckedModeBanner: false,
-      home: const OnBoardingScreen() 
-      /*hasSeenOnboarding
+      home: const OnBoardingScreen()
+     /* hasSeenOnboarding
           ? PageView(
               scrollDirection: Axis.horizontal,
               children: const [
