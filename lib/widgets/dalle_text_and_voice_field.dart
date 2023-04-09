@@ -60,7 +60,7 @@ class _DalleTextAndVoiceFieldState
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(20),
+      padding: const EdgeInsets.all(20).copyWith(top: 5),
       child: Column(
         children: [
           Container(
