@@ -18,7 +18,7 @@ class _ChatScreenState extends State<ChatScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0XFFD9CFFF),
+      backgroundColor: Colors.white,
       appBar: AppBar(
         title: FadeIn(
           duration: const Duration(milliseconds: 1500),
