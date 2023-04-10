@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:animate_do/animate_do.dart';
 import 'package:brahma/screens/chat_screen.dart';
 import 'package:brahma/services/dalle_ai_handler.dart';
+import 'package:brahma/widgets/body_text.dart';
 import 'package:flutter/material.dart';
 import 'package:brahma/widgets/dalle_toggle_button.dart';
 import 'package:brahma/services/voice_handler.dart';
@@ -164,7 +165,7 @@ class _DalleTextAndVoiceFieldState
             ),
           ),
           const SizedBox(
-            height: 20,
+            height: 12,
           ),
           Row(
             children: [
@@ -181,14 +182,15 @@ class _DalleTextAndVoiceFieldState
                       vertical: 10,
                       horizontal: 5,
                     ),
-                    fillColor: Colors.white,
+                    fillColor: Colors.grey[200],
                     filled: true,
-                    border: OutlineInputBorder(
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(color: Colors.white),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     hintText: 'ask to generate image!',
                     hintStyle: const TextStyle(
-                      color: Color.fromARGB(255, 112, 41, 65),
+                      color: Color.fromARGB(90, 0, 0, 0),
                       fontWeight: FontWeight.w300,
                     ),
                   ),
@@ -218,10 +220,7 @@ class _DalleTextAndVoiceFieldState
           const SizedBox(
             height: 10,
           ),
-          Text(
-            speechResult,
-            style: const TextStyle(color: Colors.black),
-          ),
+          BodyText(bodyText: speechResult),
         ],
       ),
     );

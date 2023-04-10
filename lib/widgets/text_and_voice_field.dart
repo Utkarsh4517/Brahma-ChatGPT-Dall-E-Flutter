@@ -122,7 +122,7 @@ class _TextAndVoiceFieldState extends ConsumerState<TextAndVoiceField> {
             height: 5,
           ),
           Container(
-            padding: const EdgeInsets.only(right: 5),
+            padding: const EdgeInsets.only(left: 5),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -138,8 +138,9 @@ class _TextAndVoiceFieldState extends ConsumerState<TextAndVoiceField> {
                       contentPadding: const EdgeInsets.symmetric(
                           vertical: 10, horizontal: 5),
                       filled: true,
-                      fillColor: Colors.white,
-                      border: OutlineInputBorder(
+                      fillColor: Colors.grey[200],
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(color: Colors.white),
                         borderRadius: BorderRadius.circular(12),
                       ),
                       hintText: 'ask me anything!',
@@ -156,9 +157,7 @@ class _TextAndVoiceFieldState extends ConsumerState<TextAndVoiceField> {
               ],
             ),
           ),
-          const SizedBox(
-            height: 5,
-          ),
+
         ],
       ),
     );
