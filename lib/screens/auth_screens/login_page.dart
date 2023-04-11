@@ -1,5 +1,6 @@
 import 'package:brahma/screens/auth_screens/signup_page.dart';
 import 'package:brahma/widgets/auth_text_field.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:awesome_icons/awesome_icons.dart';
@@ -14,6 +15,10 @@ class LogInPage extends StatefulWidget {
 class _LogInPageState extends State<LogInPage> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+
+  void signUserIn() async {
+    await FirebaseAuth.instance.signInWithEmailAndPassword(email: emailController.text, password: passwordController.text);
+  }
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -172,7 +177,9 @@ class _LogInPageState extends State<LogInPage> {
                                     foregroundColor: Colors.transparent,
                                     surfaceTintColor: Colors.transparent,
                                   ),
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    signUserIn();
+                                  },
                                   child: Text(
                                     'Sign in',
                                     style: GoogleFonts.chivo(

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "692677003371",
+    "project_id": "brahma-4517",
+    "storage_bucket": "brahma-4517.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:692677003371:android:3c388abe7208029188c92e",
+        "android_client_info": {
+          "package_name": "com.example.brahma"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "692677003371-5hrv7k4jfe5jlr6uf7hpvh9uu0km9g1k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBtj2nOVIzk3ZLN0iBDxqP8DyqIaHFmE7s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "692677003371-5hrv7k4jfe5jlr6uf7hpvh9uu0km9g1k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

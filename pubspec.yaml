@@ -52,6 +52,8 @@ dependencies:
   scaffold_gradient_background: ^1.0.3+1
   font_awesome: ^5.10.1
   awesome_icons: ^1.1.0
+  firebase_core: ^2.9.0
+  firebase_auth: ^4.4.0
 
 dev_dependencies:
   flutter_test:
