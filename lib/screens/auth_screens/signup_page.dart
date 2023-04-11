@@ -1,16 +1,16 @@
-import 'package:brahma/screens/auth_screens/signup_page.dart';
+import 'package:brahma/screens/auth_screens/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:awesome_icons/awesome_icons.dart';
 
-class LogInPage extends StatefulWidget {
-  const LogInPage({super.key});
+class SignUpPage extends StatefulWidget {
+  const SignUpPage({super.key});
 
   @override
-  State<LogInPage> createState() => _LogInPageState();
+  State<SignUpPage> createState() => _SignUpPageState();
 }
 
-class _LogInPageState extends State<LogInPage> {
+class _SignUpPageState extends State<SignUpPage> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -32,7 +32,7 @@ class _LogInPageState extends State<LogInPage> {
           title: Align(
             alignment: Alignment.centerRight,
             child: Text(
-              "Don't have an account?",
+              "Already have an account?",
               style: GoogleFonts.roboto(
                 color: const Color.fromARGB(115, 255, 255, 255),
                 fontSize: 14,
@@ -51,13 +51,13 @@ class _LogInPageState extends State<LogInPage> {
                   ),
                 ),
                 onPressed: () {
-                  Navigator.push(
+                  Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const SignUpPage()));
+                          builder: (context) => const LogInPage()));
                 },
                 child: const Text(
-                  'Get Started',
+                  'Sign In',
                   style: TextStyle(color: Color.fromARGB(199, 255, 255, 255)),
                 ),
               ),
@@ -100,6 +100,9 @@ class _LogInPageState extends State<LogInPage> {
                         top: 10,
                         width: MediaQuery.of(context).size.width,
                         child: Container(
+                          constraints: BoxConstraints(
+                            maxHeight: MediaQuery.of(context).size.height * 0.7,
+                          ),
                           height: MediaQuery.of(context).size.height * 0.7,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(20),
@@ -111,7 +114,7 @@ class _LogInPageState extends State<LogInPage> {
                                 height: 40,
                               ),
                               Text(
-                                'Welcome Back',
+                                'Get Started free.',
                                 style: GoogleFonts.chivo(
                                   color: Colors.black,
                                   fontSize: 35,
@@ -130,6 +133,35 @@ class _LogInPageState extends State<LogInPage> {
                               ),
                               const SizedBox(
                                 height: 10,
+                              ),
+                              Container(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 20),
+                                child: TextField(
+                                  decoration: InputDecoration(
+                                    enabledBorder: OutlineInputBorder(
+                                        borderSide: const BorderSide(
+                                          color: Color.fromRGBO(
+                                              202, 202, 202, 0.424),
+                                          width: 2,
+                                        ),
+                                        borderRadius:
+                                            BorderRadius.circular(10)),
+                                    focusedBorder: OutlineInputBorder(
+                                        borderSide: const BorderSide(
+                                          color: Color.fromRGBO(
+                                              202, 202, 202, 0.424),
+                                          width: 2,
+                                        ),
+                                        borderRadius:
+                                            BorderRadius.circular(10)),
+                                    hintText: 'Your Name',
+                                    hintStyle: GoogleFonts.roboto(),
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 15,
                               ),
                               Container(
                                 padding:
@@ -216,7 +248,7 @@ class _LogInPageState extends State<LogInPage> {
                                   ),
                                   onPressed: () {},
                                   child: Text(
-                                    'Sign in',
+                                    'Sign Up',
                                     style: GoogleFonts.chivo(
                                         color: Colors.white,
                                         fontWeight: FontWeight.w600),
@@ -232,47 +264,43 @@ class _LogInPageState extends State<LogInPage> {
                                   color: Color.fromARGB(255, 104, 104, 104),
                                 ),
                               ),
-                              SizedBox(
-                                  height: MediaQuery.of(context).size.height *
-                                      0.03),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Container(
-                                    margin: const EdgeInsets.only(left: 40),
-                                    height: 1,
-                                    width: 100,
-                                    color: Colors.black,
-                                  ),
-                                  const Text(
-                                    'Or Sign in with',
-                                    style: TextStyle(
-                                      color: Color.fromARGB(255, 104, 104, 104),
+                              
+                              Container(
+                                margin: const EdgeInsets.symmetric(vertical: 15),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Container(
+                                      margin: const EdgeInsets.only(left: 40),
+                                      height: 1,
+                                      width: 100,
+                                      color: Colors.black,
                                     ),
-                                  ),
-                                  Container(
-                                    margin: const EdgeInsets.only(right: 40),
-                                    height: 1,
-                                    width: 100,
-                                    color: Colors.black,
-                                  ),
-                                ],
+                                    const Text(
+                                      'Or Sign up with',
+                                      style: TextStyle(
+                                        color: Color.fromARGB(255, 104, 104, 104),
+                                      ),
+                                    ),
+                                    Container(
+                                      margin: const EdgeInsets.only(right: 40),
+                                      height: 1,
+                                      width: 100,
+                                      color: Colors.black,
+                                    ),
+                                  ],
+                                ),
                               ),
-                              SizedBox(
-                                height:
-                                    MediaQuery.of(context).size.height * 0.08,
-                              ),
+                              const SizedBox(height: 10,),
                               Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                 children: [
                                   Row(
                                     children: [
                                       OutlinedButton(
                                         style: OutlinedButton.styleFrom(
-                                          padding: const EdgeInsets.symmetric(
-                                              vertical: 15, horizontal: 27),
+                                          padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 27),
                                           shape: RoundedRectangleBorder(
                                             borderRadius:
                                                 BorderRadius.circular(10),
@@ -297,13 +325,11 @@ class _LogInPageState extends State<LogInPage> {
                                           ],
                                         ),
                                       ),
-                                      const SizedBox(
-                                        width: 20,
-                                      ),
-                                      OutlinedButton(
+                                      const SizedBox(width: 20,),
+                                       OutlinedButton(
                                         style: OutlinedButton.styleFrom(
-                                          padding: const EdgeInsets.symmetric(
-                                              vertical: 15, horizontal: 20),
+                                          
+                                          padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
                                           shape: RoundedRectangleBorder(
                                             borderRadius:
                                                 BorderRadius.circular(10),
