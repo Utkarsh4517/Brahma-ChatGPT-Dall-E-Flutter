@@ -3,6 +3,8 @@ import 'package:brahma/provider/chats_provider.dart';
 import 'package:brahma/widgets/body_text.dart';
 import 'package:brahma/widgets/chat_item.dart';
 import 'package:brahma/widgets/text_and_voice_field.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -16,6 +18,11 @@ class ChatScreen extends StatefulWidget {
 class _ChatScreenState extends State<ChatScreen> {
   TextAndVoiceField textAndVoiceField = const TextAndVoiceField();
   final _scrollController = ScrollController();
+  final user = FirebaseAuth.instance.currentUser!;
+  void signUserOut() {
+    FirebaseAuth.instance.signOut();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,8 +40,16 @@ class _ChatScreenState extends State<ChatScreen> {
         backgroundColor: Colors.white,
         centerTitle: true,
         elevation: 0,
-        leading:
-            IconButton(onPressed: () {}, icon: const Icon(Icons.menu_book)),
+        leading: IconButton(
+          onPressed: () {},
+          icon: const Icon(Icons.menu_book),
+        ),
+        actions: [
+          IconButton(
+            onPressed: signUserOut,
+            icon: const Icon(Icons.logout),
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -72,7 +87,8 @@ class _ChatScreenState extends State<ChatScreen> {
               padding: EdgeInsets.symmetric(horizontal: 12),
               child: TextAndVoiceField(),
             ),
-            const BodyText(bodyText: 'Swipe right to Generate Image')
+            const BodyText(bodyText: 'Swipe right to Generate Image'),
+            Text(user.email!)
           ],
         ),
       ),
