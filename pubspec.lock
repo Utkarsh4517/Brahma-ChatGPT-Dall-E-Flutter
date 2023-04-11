@@ -41,6 +41,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.2"
+  awesome_icons:
+    dependency: "direct main"
+    description:
+      name: awesome_icons
+      sha256: fa337ad92a737fae9af9652d6936f6f282b5847bb0fd61ccef00027468fff81b
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.1.0"
   boolean_selector:
     dependency: transitive
     description:
@@ -208,6 +216,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  font_awesome:
+    dependency: "direct main"
+    description:
+      name: font_awesome
+      sha256: faf68c799262f47e4ca5f59f0d1881a1934e62d11ca77d94af15027966f78dca
+      url: "https://pub.dev"
+    source: hosted
+    version: "5.10.1"
   google_fonts:
     dependency: "direct main"
     description:
@@ -400,6 +416,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.2.4"
+  recase:
+    dependency: transitive
+    description:
+      name: recase
+      sha256: e4eb4ec2dcdee52dcf99cb4ceabaffc631d7424ee55e56f280bc039737f89213
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.1.0"
   riverpod:
     dependency: transitive
     description:
@@ -408,6 +432,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.3.2"
+  scaffold_gradient_background:
+    dependency: "direct main"
+    description:
+      name: scaffold_gradient_background
+      sha256: "904ee5ef0ea69e980cc4c7645418a0cd5ef94732c409f5ac114f74f51b4dd0a7"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.3+1"
   shared_preferences:
     dependency: "direct main"
     description:

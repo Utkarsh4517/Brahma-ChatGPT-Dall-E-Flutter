@@ -1,4 +1,5 @@
 import 'package:brahma/main.dart';
+import 'package:brahma/screens/auth_screens/login_page.dart';
 import 'package:brahma/screens/chat_screen.dart';
 import 'package:brahma/screens/intro_screens/intro_page1.dart';
 import 'package:brahma/screens/intro_screens/intro_page2.dart';
@@ -16,7 +17,7 @@ class OnBoardingScreen extends StatefulWidget {
 }
 
 class _OnBoardingScreenState extends State<OnBoardingScreen> {
-  PageController _controller = PageController();
+  final PageController _controller = PageController();
 
   bool onLastPage = false;
 
@@ -25,7 +26,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
     prefs.setBool('hasSeenOnboarding', true);
     // ignore: use_build_context_synchronously
     Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => const PageViewHome()));
+        context, MaterialPageRoute(builder: (context) => const LogInPage()));  // PageViewHome()
   }
 
   @override
