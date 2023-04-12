@@ -34,8 +34,20 @@ class _SignUpPageState extends State<SignUpPage> {
     } on FirebaseAuthException catch (e) {
       // WRONG EMAIL
       Navigator.pop(context);
+      showErrorMessage(e.code);
       
     }    
+  }
+
+    void showErrorMessage(String message) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return  AlertDialog(
+          title: Text(message, style: const TextStyle(fontSize: 15),),
+        );
+      },
+    );
   }
   @override
   Widget build(BuildContext context) {
