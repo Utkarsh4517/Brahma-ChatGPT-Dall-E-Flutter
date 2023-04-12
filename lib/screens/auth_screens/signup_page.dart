@@ -32,7 +32,7 @@ class _SignUpPageState extends State<SignUpPage> {
           email: emailController.text,
           password: passwordController.text,
         );
-        await userCredential.user!.updateDisplayName(nameController.text);
+        userCredential.user!.updateDisplayName(nameController.text);
       } else {
         showErrorMessage("Passwords don't match");
       }
