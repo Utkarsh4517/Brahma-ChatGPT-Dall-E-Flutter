@@ -1,5 +1,6 @@
 import 'package:brahma/screens/auth_screens/login_page.dart';
 import 'package:brahma/screens/page_view.dart';
+import 'package:brahma/services/auth_service.dart';
 import 'package:brahma/widgets/auth_text_field.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -301,7 +302,9 @@ class _SignUpPageState extends State<SignUpPage> {
                                                   BorderRadius.circular(10),
                                             ),
                                           ),
-                                          onPressed: () {},
+                                          onPressed: () {
+                                            AuthService().signInWithGoogle();
+                                          },
                                           child: Row(
                                             children: [
                                               const Icon(
