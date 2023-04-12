@@ -1,4 +1,5 @@
 import 'package:brahma/screens/auth_screens/login_page.dart';
+import 'package:brahma/widgets/auth_text_field.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -173,120 +174,19 @@ class _SignUpPageState extends State<SignUpPage> {
                                 const SizedBox(
                                   height: 10,
                                 ),
-                                Container(
-                                  padding:
-                                      const EdgeInsets.symmetric(horizontal: 20),
-                                  child: TextField(
-                                    decoration: InputDecoration(
-                                      enabledBorder: OutlineInputBorder(
-                                          borderSide: const BorderSide(
-                                            color: Color.fromRGBO(
-                                                202, 202, 202, 0.424),
-                                            width: 2,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(10)),
-                                      focusedBorder: OutlineInputBorder(
-                                          borderSide: const BorderSide(
-                                            color: Color.fromRGBO(
-                                                202, 202, 202, 0.424),
-                                            width: 2,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(10)),
-                                      hintText: 'Your Name',
-                                      hintStyle: GoogleFonts.roboto(),
-                                    ),
-                                  ),
-                                ),
+                                AuthTextField(controller: nameController, hintText: 'Your Name', obscureText: false),
                                 const SizedBox(
                                   height: 15,
                                 ),
-                                Container(
-                                  padding:
-                                      const EdgeInsets.symmetric(horizontal: 20),
-                                  child: TextField(
-                                    decoration: InputDecoration(
-                                      enabledBorder: OutlineInputBorder(
-                                          borderSide: const BorderSide(
-                                            color: Color.fromRGBO(
-                                                202, 202, 202, 0.424),
-                                            width: 2,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(10)),
-                                      focusedBorder: OutlineInputBorder(
-                                          borderSide: const BorderSide(
-                                            color: Color.fromRGBO(
-                                                202, 202, 202, 0.424),
-                                            width: 2,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(10)),
-                                      hintText: 'Email Address',
-                                      hintStyle: GoogleFonts.roboto(),
-                                    ),
-                                  ),
-                                ),
+                                AuthTextField(controller: emailController, hintText: 'Email Address', obscureText: false),
                                 const SizedBox(
                                   height: 15,
                                 ),
-                                Container(
-                                  padding:
-                                      const EdgeInsets.symmetric(horizontal: 20),
-                                  child: TextField(
-                                    decoration: InputDecoration(
-                                      enabledBorder: OutlineInputBorder(
-                                          borderSide: const BorderSide(
-                                            color: Color.fromRGBO(
-                                                202, 202, 202, 0.424),
-                                            width: 2,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(10)),
-                                      focusedBorder: OutlineInputBorder(
-                                          borderSide: const BorderSide(
-                                            color: Color.fromRGBO(
-                                                202, 202, 202, 0.424),
-                                            width: 2,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(10)),
-                                      hintText: 'Password',
-                                      hintStyle: GoogleFonts.roboto(),
-                                    ),
-                                    obscureText: true,
-                                  ),
-                                ),
+                                AuthTextField(controller: passwordController, hintText: 'Password', obscureText: true),
                                 const SizedBox(
                                   height: 15,
                                 ),
-                                Container(
-                                  padding:
-                                      const EdgeInsets.symmetric(horizontal: 20),
-                                  child: TextField(
-                                    decoration: InputDecoration(
-                                      enabledBorder: OutlineInputBorder(
-                                          borderSide: const BorderSide(
-                                            color: Color.fromRGBO(
-                                                202, 202, 202, 0.424),
-                                            width: 2,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(10)),
-                                      focusedBorder: OutlineInputBorder(
-                                          borderSide: const BorderSide(
-                                            color: Color.fromRGBO(
-                                                202, 202, 202, 0.424),
-                                            width: 2,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(10)),
-                                      hintText: 'Confirm Password',
-                                      hintStyle: GoogleFonts.roboto(),
-                                    ),
-                                  ),
-                                ),
+                                AuthTextField(controller: confirmPasswordController, hintText: 'Confirm Password', obscureText: true),
                                 const SizedBox(
                                   height: 15,
                                 ),
