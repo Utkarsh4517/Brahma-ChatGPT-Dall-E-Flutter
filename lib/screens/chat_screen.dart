@@ -16,6 +16,7 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
   TextAndVoiceField textAndVoiceField = const TextAndVoiceField();
   final _scrollController = ScrollController();
   final user = FirebaseAuth.instance.currentUser!;
@@ -41,7 +42,9 @@ class _ChatScreenState extends State<ChatScreen> {
         centerTitle: true,
         elevation: 0,
         leading: IconButton(
-          onPressed: () {},
+          onPressed: () {
+            _scaffoldKey.currentState!.openDrawer();
+          },
           icon: const Icon(Icons.menu_book),
         ),
         actions: [
@@ -50,6 +53,24 @@ class _ChatScreenState extends State<ChatScreen> {
             icon: const Icon(Icons.logout),
           ),
         ],
+      ),
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            DrawerHeader(
+              decoration: const BoxDecoration(
+                color: Colors.blue
+              ),
+              child: Text(user.email!),
+            ),
+             ListTile(
+              title: Text('Change API'),
+              onTap: () {
+              },
+            )
+          ],
+        ),
       ),
       body: SingleChildScrollView(
         child: Column(
