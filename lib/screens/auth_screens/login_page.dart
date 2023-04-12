@@ -33,39 +33,22 @@ class _LogInPageState extends State<LogInPage> {
     } on FirebaseAuthException catch (e) {
       // WRONG EMAIL
       Navigator.pop(context);
-      if (e.code == 'user-not-found') {
-        // show error to user
-        wrongEmailMessage();
-      }
-      // WRONG PASSWORD
-      else if (e.code == 'wrong-password') {
-        // show error to user
-        wrongPasswordMessage();
-      }
+      showErrorMessage(e.code);
     }    
   }
 
-  void wrongEmailMessage() {
+  void showErrorMessage(String message) {
     showDialog(
       context: context,
       builder: (context) {
-        return const AlertDialog(
-          title: Text('Email address does not exist', style: TextStyle(fontSize: 15),),
+        return  AlertDialog(
+          title: Text(message, style: const TextStyle(fontSize: 15),),
         );
       },
     );
   }
 
-  void wrongPasswordMessage() {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return const AlertDialog(
-          title: Text('Please enter correct password', style: TextStyle(fontSize: 15),),
-        );
-      },
-    );
-  }
+  
 
 
   @override
