@@ -17,8 +17,21 @@ class _LogInPageState extends State<LogInPage> {
   final passwordController = TextEditingController();
 
   void signUserIn() async {
-    await FirebaseAuth.instance.signInWithEmailAndPassword(email: emailController.text, password: passwordController.text);
+    showDialog(
+      context: context,
+      builder: (context) => const Center(
+        child: CircularProgressIndicator(),
+      ),
+    );
+    await FirebaseAuth.instance.signInWithEmailAndPassword(
+      email: emailController.text,
+      password: passwordController.text,
+    );
+
+    // ignore: use_build_context_synchronously
+    Navigator.pop(context);
   }
+
   @override
   Widget build(BuildContext context) {
     return Container(
