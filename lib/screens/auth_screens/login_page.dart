@@ -23,10 +23,18 @@ class _LogInPageState extends State<LogInPage> {
         child: CircularProgressIndicator(),
       ),
     );
-    await FirebaseAuth.instance.signInWithEmailAndPassword(
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
       email: emailController.text,
       password: passwordController.text,
     );
+    } on FirebaseAuthException catch (e) {
+      if(e.code == 'user-not-found') {
+        print('No user found for this email'); 
+      } else if (e.code == 'wrong-password') {
+        print('wrong password');
+      }
+    }
 
     // ignore: use_build_context_synchronously
     Navigator.pop(context);
