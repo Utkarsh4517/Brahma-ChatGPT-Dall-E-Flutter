@@ -36,7 +36,9 @@ class _SignUpPageState extends State<SignUpPage> {
         );
         userCredential.user!.updateDisplayName(nameController.text);
       } else {
+        Navigator.pop(context); // Dismiss the dialog
         showErrorMessage("Passwords don't match");
+        return;
       }
 
       // ignore: use_build_context_synchronously
