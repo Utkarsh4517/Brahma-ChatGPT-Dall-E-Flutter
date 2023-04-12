@@ -88,7 +88,7 @@ class _ChatScreenState extends State<ChatScreen> {
               child: TextAndVoiceField(),
             ),
             const BodyText(bodyText: 'Swipe right to Generate Image'),
-            Text(user.email!)
+            Text(user.displayName!)
           ],
         ),
       ),
