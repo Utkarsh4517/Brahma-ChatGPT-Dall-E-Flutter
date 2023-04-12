@@ -108,257 +108,278 @@ class _SignUpPageState extends State<SignUpPage> {
                             borderRadius: BorderRadius.circular(20),
                             color: Colors.white,
                           ),
-                          child: Column(
-                            children: [
-                              const SizedBox(
-                                height: 40,
-                              ),
-                              Text(
-                                'Get Started free.',
-                                style: GoogleFonts.chivo(
-                                  color: Colors.black,
-                                  fontSize: 35,
-                                  fontWeight: FontWeight.bold,
+                          child: SingleChildScrollView(
+                            child: Column(
+                              children: [
+                                const SizedBox(
+                                  height: 40,
                                 ),
-                              ),
-                              const SizedBox(
-                                height: 5,
-                              ),
-                              Text(
-                                'Enter your details below',
-                                style: GoogleFonts.chivo(
-                                  color: const Color.fromARGB(117, 0, 0, 0),
-                                  fontSize: 18,
-                                ),
-                              ),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              Container(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 20),
-                                child: TextField(
-                                  decoration: InputDecoration(
-                                    enabledBorder: OutlineInputBorder(
-                                        borderSide: const BorderSide(
-                                          color: Color.fromRGBO(
-                                              202, 202, 202, 0.424),
-                                          width: 2,
-                                        ),
-                                        borderRadius:
-                                            BorderRadius.circular(10)),
-                                    focusedBorder: OutlineInputBorder(
-                                        borderSide: const BorderSide(
-                                          color: Color.fromRGBO(
-                                              202, 202, 202, 0.424),
-                                          width: 2,
-                                        ),
-                                        borderRadius:
-                                            BorderRadius.circular(10)),
-                                    hintText: 'Your Name',
-                                    hintStyle: GoogleFonts.roboto(),
+                                Text(
+                                  'Get Started free.',
+                                  style: GoogleFonts.chivo(
+                                    color: Colors.black,
+                                    fontSize: 35,
+                                    fontWeight: FontWeight.bold,
                                   ),
                                 ),
-                              ),
-                              const SizedBox(
-                                height: 15,
-                              ),
-                              Container(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 20),
-                                child: TextField(
-                                  decoration: InputDecoration(
-                                    enabledBorder: OutlineInputBorder(
-                                        borderSide: const BorderSide(
-                                          color: Color.fromRGBO(
-                                              202, 202, 202, 0.424),
-                                          width: 2,
-                                        ),
-                                        borderRadius:
-                                            BorderRadius.circular(10)),
-                                    focusedBorder: OutlineInputBorder(
-                                        borderSide: const BorderSide(
-                                          color: Color.fromRGBO(
-                                              202, 202, 202, 0.424),
-                                          width: 2,
-                                        ),
-                                        borderRadius:
-                                            BorderRadius.circular(10)),
-                                    hintText: 'Email Address',
-                                    hintStyle: GoogleFonts.roboto(),
+                                const SizedBox(
+                                  height: 5,
+                                ),
+                                Text(
+                                  'Enter your details below',
+                                  style: GoogleFonts.chivo(
+                                    color: const Color.fromARGB(117, 0, 0, 0),
+                                    fontSize: 18,
                                   ),
                                 ),
-                              ),
-                              const SizedBox(
-                                height: 15,
-                              ),
-                              Container(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 20),
-                                child: TextField(
-                                  decoration: InputDecoration(
-                                    enabledBorder: OutlineInputBorder(
-                                        borderSide: const BorderSide(
-                                          color: Color.fromRGBO(
-                                              202, 202, 202, 0.424),
-                                          width: 2,
-                                        ),
-                                        borderRadius:
-                                            BorderRadius.circular(10)),
-                                    focusedBorder: OutlineInputBorder(
-                                        borderSide: const BorderSide(
-                                          color: Color.fromRGBO(
-                                              202, 202, 202, 0.424),
-                                          width: 2,
-                                        ),
-                                        borderRadius:
-                                            BorderRadius.circular(10)),
-                                    hintText: 'Password',
-                                    hintStyle: GoogleFonts.roboto(),
-                                  ),
-                                  obscureText: true,
+                                const SizedBox(
+                                  height: 10,
                                 ),
-                              ),
-                              const SizedBox(
-                                height: 15,
-                              ),
-                              Container(
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(12),
-                                    gradient: const LinearGradient(
-                                      colors: [
-                                        Color(0xff3c3edb),
-                                        Color(0xffe19bff)
-                                      ],
-                                      stops: [0, 1],
-                                      begin: Alignment.topLeft,
-                                      end: Alignment.bottomRight,
-                                    )),
-                                child: ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 167, vertical: 20),
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(12)),
-                                    backgroundColor: Colors.transparent,
-                                    shadowColor: Colors.transparent,
-                                    foregroundColor: Colors.transparent,
-                                    surfaceTintColor: Colors.transparent,
-                                  ),
-                                  onPressed: () {},
-                                  child: Text(
-                                    'Sign Up',
-                                    style: GoogleFonts.chivo(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.w600),
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(
-                                height: 20,
-                              ),
-                              const Text(
-                                'Forgot your password?',
-                                style: TextStyle(
-                                  color: Color.fromARGB(255, 104, 104, 104),
-                                ),
-                              ),
-                              
-                              Container(
-                                margin: const EdgeInsets.symmetric(vertical: 15),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Container(
-                                      margin: const EdgeInsets.only(left: 40),
-                                      height: 1,
-                                      width: 100,
-                                      color: Colors.black,
+                                Container(
+                                  padding:
+                                      const EdgeInsets.symmetric(horizontal: 20),
+                                  child: TextField(
+                                    decoration: InputDecoration(
+                                      enabledBorder: OutlineInputBorder(
+                                          borderSide: const BorderSide(
+                                            color: Color.fromRGBO(
+                                                202, 202, 202, 0.424),
+                                            width: 2,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(10)),
+                                      focusedBorder: OutlineInputBorder(
+                                          borderSide: const BorderSide(
+                                            color: Color.fromRGBO(
+                                                202, 202, 202, 0.424),
+                                            width: 2,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(10)),
+                                      hintText: 'Your Name',
+                                      hintStyle: GoogleFonts.roboto(),
                                     ),
-                                    const Text(
-                                      'Or Sign up with',
-                                      style: TextStyle(
-                                        color: Color.fromARGB(255, 104, 104, 104),
-                                      ),
-                                    ),
-                                    Container(
-                                      margin: const EdgeInsets.only(right: 40),
-                                      height: 1,
-                                      width: 100,
-                                      color: Colors.black,
-                                    ),
-                                  ],
+                                  ),
                                 ),
-                              ),
-                              const SizedBox(height: 10,),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  Row(
+                                const SizedBox(
+                                  height: 15,
+                                ),
+                                Container(
+                                  padding:
+                                      const EdgeInsets.symmetric(horizontal: 20),
+                                  child: TextField(
+                                    decoration: InputDecoration(
+                                      enabledBorder: OutlineInputBorder(
+                                          borderSide: const BorderSide(
+                                            color: Color.fromRGBO(
+                                                202, 202, 202, 0.424),
+                                            width: 2,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(10)),
+                                      focusedBorder: OutlineInputBorder(
+                                          borderSide: const BorderSide(
+                                            color: Color.fromRGBO(
+                                                202, 202, 202, 0.424),
+                                            width: 2,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(10)),
+                                      hintText: 'Email Address',
+                                      hintStyle: GoogleFonts.roboto(),
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 15,
+                                ),
+                                Container(
+                                  padding:
+                                      const EdgeInsets.symmetric(horizontal: 20),
+                                  child: TextField(
+                                    decoration: InputDecoration(
+                                      enabledBorder: OutlineInputBorder(
+                                          borderSide: const BorderSide(
+                                            color: Color.fromRGBO(
+                                                202, 202, 202, 0.424),
+                                            width: 2,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(10)),
+                                      focusedBorder: OutlineInputBorder(
+                                          borderSide: const BorderSide(
+                                            color: Color.fromRGBO(
+                                                202, 202, 202, 0.424),
+                                            width: 2,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(10)),
+                                      hintText: 'Password',
+                                      hintStyle: GoogleFonts.roboto(),
+                                    ),
+                                    obscureText: true,
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 15,
+                                ),
+                                Container(
+                                  padding:
+                                      const EdgeInsets.symmetric(horizontal: 20),
+                                  child: TextField(
+                                    decoration: InputDecoration(
+                                      enabledBorder: OutlineInputBorder(
+                                          borderSide: const BorderSide(
+                                            color: Color.fromRGBO(
+                                                202, 202, 202, 0.424),
+                                            width: 2,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(10)),
+                                      focusedBorder: OutlineInputBorder(
+                                          borderSide: const BorderSide(
+                                            color: Color.fromRGBO(
+                                                202, 202, 202, 0.424),
+                                            width: 2,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(10)),
+                                      hintText: 'Confirm Password',
+                                      hintStyle: GoogleFonts.roboto(),
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 15,
+                                ),
+                                Container(
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(12),
+                                      gradient: const LinearGradient(
+                                        colors: [
+                                          Color(0xff3c3edb),
+                                          Color(0xffe19bff)
+                                        ],
+                                        stops: [0, 1],
+                                        begin: Alignment.topLeft,
+                                        end: Alignment.bottomRight,
+                                      )),
+                                  child: ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 167, vertical: 20),
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(12)),
+                                      backgroundColor: Colors.transparent,
+                                      shadowColor: Colors.transparent,
+                                      foregroundColor: Colors.transparent,
+                                      surfaceTintColor: Colors.transparent,
+                                    ),
+                                    onPressed: () {},
+                                    child: Text(
+                                      'Sign Up',
+                                      style: GoogleFonts.chivo(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.w600),
+                                    ),
+                                  ),
+                                ),
+                                Container(
+                                  margin: const EdgeInsets.symmetric(vertical: 15),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
-                                      OutlinedButton(
-                                        style: OutlinedButton.styleFrom(
-                                          padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 27),
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(10),
-                                          ),
-                                        ),
-                                        onPressed: () {},
-                                        child: Row(
-                                          children: [
-                                            const Icon(
-                                              FontAwesomeIcons.google,
-                                              color: Color(0xff241666),
-                                            ),
-                                            const SizedBox(
-                                              width: 10,
-                                            ),
-                                            Text(
-                                              'Google',
-                                              style: GoogleFonts.chivo(
-                                                color: const Color(0xff241666),
-                                              ),
-                                            )
-                                          ],
+                                      Container(
+                                        margin: const EdgeInsets.only(left: 40),
+                                        height: 1,
+                                        width: 100,
+                                        color: Colors.black,
+                                      ),
+                                      const Text(
+                                        'Or Sign up with',
+                                        style: TextStyle(
+                                          color: Color.fromARGB(255, 104, 104, 104),
                                         ),
                                       ),
-                                      const SizedBox(width: 20,),
-                                       OutlinedButton(
-                                        style: OutlinedButton.styleFrom(
-                                          
-                                          padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(10),
-                                          ),
-                                        ),
-                                        onPressed: () {},
-                                        child: Row(
-                                          children: [
-                                            const Icon(
-                                              FontAwesomeIcons.facebook,
-                                              color: Color(0xff241666),
-                                            ),
-                                            const SizedBox(
-                                              width: 10,
-                                            ),
-                                            Text(
-                                              'Facebook',
-                                              style: GoogleFonts.chivo(
-                                                color: const Color(0xff241666),
-                                              ),
-                                            )
-                                          ],
-                                        ),
+                                      Container(
+                                        margin: const EdgeInsets.only(right: 40),
+                                        height: 1,
+                                        width: 100,
+                                        color: Colors.black,
                                       ),
                                     ],
                                   ),
-                                ],
-                              )
-                            ],
+                                ),
+                                const SizedBox(height: 10,),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        OutlinedButton(
+                                          style: OutlinedButton.styleFrom(
+                                            padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 27),
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                            ),
+                                          ),
+                                          onPressed: () {},
+                                          child: Row(
+                                            children: [
+                                              const Icon(
+                                                FontAwesomeIcons.google,
+                                                color: Color(0xff241666),
+                                              ),
+                                              const SizedBox(
+                                                width: 10,
+                                              ),
+                                              Text(
+                                                'Google',
+                                                style: GoogleFonts.chivo(
+                                                  color: const Color(0xff241666),
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                        const SizedBox(width: 20,),
+                                         OutlinedButton(
+                                          style: OutlinedButton.styleFrom(
+                                            
+                                            padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                            ),
+                                          ),
+                                          onPressed: () {},
+                                          child: Row(
+                                            children: [
+                                              const Icon(
+                                                FontAwesomeIcons.facebook,
+                                                color: Color(0xff241666),
+                                              ),
+                                              const SizedBox(
+                                                width: 10,
+                                              ),
+                                              Text(
+                                                'Facebook',
+                                                style: GoogleFonts.chivo(
+                                                  color: const Color(0xff241666),
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                )
+                              ],
+                            ),
                           ),
                         ),
                       ),
