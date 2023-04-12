@@ -26,30 +26,39 @@ class _SignUpPageState extends State<SignUpPage> {
       ),
     );
     try {
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: emailController.text,
-        password: passwordController.text,
-      );
+      // if confirm password == password?
+      if (passwordController.text == confirmPasswordController.text) {
+        await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: emailController.text,
+          password: passwordController.text,
+        );
+      } else {
+        showErrorMessage("Passwords don't match");
+      }
+
       // ignore: use_build_context_synchronously
       Navigator.pop(context);
     } on FirebaseAuthException catch (e) {
       // WRONG EMAIL
       Navigator.pop(context);
       showErrorMessage(e.code);
-      
-    }    
+    }
   }
 
-    void showErrorMessage(String message) {
+  void showErrorMessage(String message) {
     showDialog(
       context: context,
       builder: (context) {
-        return  AlertDialog(
-          title: Text(message, style: const TextStyle(fontSize: 15),),
+        return AlertDialog(
+          title: Text(
+            message,
+            style: const TextStyle(fontSize: 15),
+          ),
         );
       },
     );
   }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -174,19 +183,31 @@ class _SignUpPageState extends State<SignUpPage> {
                                 const SizedBox(
                                   height: 10,
                                 ),
-                                AuthTextField(controller: nameController, hintText: 'Your Name', obscureText: false),
+                                AuthTextField(
+                                    controller: nameController,
+                                    hintText: 'Your Name',
+                                    obscureText: false),
                                 const SizedBox(
                                   height: 15,
                                 ),
-                                AuthTextField(controller: emailController, hintText: 'Email Address', obscureText: false),
+                                AuthTextField(
+                                    controller: emailController,
+                                    hintText: 'Email Address',
+                                    obscureText: false),
                                 const SizedBox(
                                   height: 15,
                                 ),
-                                AuthTextField(controller: passwordController, hintText: 'Password', obscureText: true),
+                                AuthTextField(
+                                    controller: passwordController,
+                                    hintText: 'Password',
+                                    obscureText: true),
                                 const SizedBox(
                                   height: 15,
                                 ),
-                                AuthTextField(controller: confirmPasswordController, hintText: 'Confirm Password', obscureText: true),
+                                AuthTextField(
+                                    controller: confirmPasswordController,
+                                    hintText: 'Confirm Password',
+                                    obscureText: true),
                                 const SizedBox(
                                   height: 15,
                                 ),
@@ -224,7 +245,8 @@ class _SignUpPageState extends State<SignUpPage> {
                                   ),
                                 ),
                                 Container(
-                                  margin: const EdgeInsets.symmetric(vertical: 15),
+                                  margin:
+                                      const EdgeInsets.symmetric(vertical: 15),
                                   child: Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
@@ -238,11 +260,13 @@ class _SignUpPageState extends State<SignUpPage> {
                                       const Text(
                                         'Or Sign up with',
                                         style: TextStyle(
-                                          color: Color.fromARGB(255, 104, 104, 104),
+                                          color: Color.fromARGB(
+                                              255, 104, 104, 104),
                                         ),
                                       ),
                                       Container(
-                                        margin: const EdgeInsets.only(right: 40),
+                                        margin:
+                                            const EdgeInsets.only(right: 40),
                                         height: 1,
                                         width: 100,
                                         color: Colors.black,
@@ -250,15 +274,19 @@ class _SignUpPageState extends State<SignUpPage> {
                                     ],
                                   ),
                                 ),
-                                const SizedBox(height: 10,),
+                                const SizedBox(
+                                  height: 10,
+                                ),
                                 Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
                                   children: [
                                     Row(
                                       children: [
                                         OutlinedButton(
                                           style: OutlinedButton.styleFrom(
-                                            padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 27),
+                                            padding: const EdgeInsets.symmetric(
+                                                vertical: 15, horizontal: 27),
                                             shape: RoundedRectangleBorder(
                                               borderRadius:
                                                   BorderRadius.circular(10),
@@ -277,17 +305,20 @@ class _SignUpPageState extends State<SignUpPage> {
                                               Text(
                                                 'Google',
                                                 style: GoogleFonts.chivo(
-                                                  color: const Color(0xff241666),
+                                                  color:
+                                                      const Color(0xff241666),
                                                 ),
                                               )
                                             ],
                                           ),
                                         ),
-                                        const SizedBox(width: 20,),
-                                         OutlinedButton(
+                                        const SizedBox(
+                                          width: 20,
+                                        ),
+                                        OutlinedButton(
                                           style: OutlinedButton.styleFrom(
-                                            
-                                            padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                                            padding: const EdgeInsets.symmetric(
+                                                vertical: 15, horizontal: 20),
                                             shape: RoundedRectangleBorder(
                                               borderRadius:
                                                   BorderRadius.circular(10),
@@ -306,7 +337,8 @@ class _SignUpPageState extends State<SignUpPage> {
                                               Text(
                                                 'Facebook',
                                                 style: GoogleFonts.chivo(
-                                                  color: const Color(0xff241666),
+                                                  color:
+                                                      const Color(0xff241666),
                                                 ),
                                               )
                                             ],
