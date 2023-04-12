@@ -50,7 +50,7 @@ class _LogInPageState extends State<LogInPage> {
       context: context,
       builder: (context) {
         return const AlertDialog(
-          title: Text('Email address does not exist'),
+          title: Text('Email address does not exist', style: TextStyle(fontSize: 15),),
         );
       },
     );
@@ -61,7 +61,7 @@ class _LogInPageState extends State<LogInPage> {
       context: context,
       builder: (context) {
         return const AlertDialog(
-          title: Text('Please enter correct password'),
+          title: Text('Please enter correct password', style: TextStyle(fontSize: 15),),
         );
       },
     );
