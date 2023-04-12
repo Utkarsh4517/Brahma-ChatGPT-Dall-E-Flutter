@@ -1,24 +1,22 @@
-import 'package:brahma/screens/auth_screens/login_page.dart';
-import 'package:brahma/screens/page_view.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
-class AuthPage extends StatelessWidget {
-  const AuthPage({super.key});
+class AuthService {
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: StreamBuilder<User?>(
-        stream: FirebaseAuth.instance.authStateChanges(),
-        builder: (context, snapshot) {
-          if(snapshot.hasData) {
-            return const PageViewHome();
-          } else {
-            return const LogInPage();
-          }
-        },
-      ),
-    );
+  signInWithGoogle() async {
+    // begin interactive sign in progress
+  final GoogleSignInAccount? gUser = await GoogleSignIn().signIn();
+
+    // obtain auth details from request 
+  final GoogleSignInAuthentication gAuth = await gUser!.authentication;
+
+    // create a new credential for user
+  final credential = GoogleAuthProvider.credential(
+    accessToken: gAuth.accessToken,
+    idToken: gAuth.idToken
+  );
+    // finally lets sign in 
+    return await FirebaseAuth.instance.signInWithCredential(credential);
   }
+
 }
