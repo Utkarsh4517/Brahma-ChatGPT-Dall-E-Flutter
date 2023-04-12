@@ -1,4 +1,5 @@
 import 'package:brahma/screens/auth_screens/login_page.dart';
+import 'package:brahma/screens/page_view.dart';
 import 'package:brahma/widgets/auth_text_field.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -28,7 +29,8 @@ class _SignUpPageState extends State<SignUpPage> {
     try {
       // if confirm password == password?
       if (passwordController.text == confirmPasswordController.text) {
-        UserCredential userCredential =  await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        UserCredential userCredential =
+            await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: emailController.text,
           password: passwordController.text,
         );
@@ -38,7 +40,11 @@ class _SignUpPageState extends State<SignUpPage> {
       }
 
       // ignore: use_build_context_synchronously
-      Navigator.pop(context);
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (context) => const PageViewHome(),
+        ),
+      );
     } on FirebaseAuthException catch (e) {
       // WRONG EMAIL
       Navigator.pop(context);
