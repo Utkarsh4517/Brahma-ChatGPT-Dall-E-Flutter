@@ -214,7 +214,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                       foregroundColor: Colors.transparent,
                                       surfaceTintColor: Colors.transparent,
                                     ),
-                                    onPressed: () {},
+                                    onPressed: signUserUp,
                                     child: Text(
                                       'Sign Up',
                                       style: GoogleFonts.chivo(
