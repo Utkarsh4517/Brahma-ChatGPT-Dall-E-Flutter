@@ -26,7 +26,7 @@ class _SignUpPageState extends State<SignUpPage> {
       ),
     );
     try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: emailController.text,
         password: passwordController.text,
       );
