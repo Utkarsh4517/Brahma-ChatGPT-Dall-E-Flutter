@@ -1,4 +1,5 @@
 import 'package:brahma/screens/auth_screens/signup_page.dart';
+import 'package:brahma/services/auth_service.dart';
 import 'package:brahma/widgets/auth_text_field.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -34,22 +35,22 @@ class _LogInPageState extends State<LogInPage> {
       // WRONG EMAIL
       Navigator.pop(context);
       showErrorMessage(e.code);
-    }    
+    }
   }
 
   void showErrorMessage(String message) {
     showDialog(
       context: context,
       builder: (context) {
-        return  AlertDialog(
-          title: Text(message, style: const TextStyle(fontSize: 15),),
+        return AlertDialog(
+          title: Text(
+            message,
+            style: const TextStyle(fontSize: 15),
+          ),
         );
       },
     );
   }
-
-  
-
 
   @override
   Widget build(BuildContext context) {
@@ -275,7 +276,9 @@ class _LogInPageState extends State<LogInPage> {
                                                 BorderRadius.circular(10),
                                           ),
                                         ),
-                                        onPressed: () {},
+                                        onPressed: () {
+                                          AuthService().signInWithGoogle();
+                                        },
                                         child: Row(
                                           children: [
                                             const Icon(
