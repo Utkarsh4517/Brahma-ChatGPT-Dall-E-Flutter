@@ -1,4 +1,5 @@
 import 'package:brahma/screens/auth_screens/login_page.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:awesome_icons/awesome_icons.dart';
@@ -15,6 +16,27 @@ class _SignUpPageState extends State<SignUpPage> {
   final passwordController = TextEditingController();
   final nameController = TextEditingController();
   final confirmPasswordController = TextEditingController();
+
+  void signUserUp() async {
+    showDialog(
+      context: context,
+      builder: (context) => const Center(
+        child: CircularProgressIndicator(),
+      ),
+    );
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: emailController.text,
+        password: passwordController.text,
+      );
+      // ignore: use_build_context_synchronously
+      Navigator.pop(context);
+    } on FirebaseAuthException catch (e) {
+      // WRONG EMAIL
+      Navigator.pop(context);
+      
+    }    
+  }
   @override
   Widget build(BuildContext context) {
     return Container(
