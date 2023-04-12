@@ -32,6 +32,7 @@ class _LogInPageState extends State<LogInPage> {
       Navigator.pop(context);
     } on FirebaseAuthException catch (e) {
       // WRONG EMAIL
+      Navigator.pop(context);
       if (e.code == 'user-not-found') {
         // show error to user
         wrongEmailMessage();
