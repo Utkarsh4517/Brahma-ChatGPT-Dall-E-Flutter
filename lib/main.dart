@@ -1,15 +1,9 @@
 import 'package:brahma/screens/auth_screens/auth_page.dart';
-import 'package:brahma/screens/dalle_screen.dart';
-import 'package:brahma/screens/on_borading%20_screen.dart';
-import 'package:brahma/screens/page_view.dart';
-import 'package:dynamic_color/dynamic_color.dart';
-import 'package:brahma/screens/chat_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
