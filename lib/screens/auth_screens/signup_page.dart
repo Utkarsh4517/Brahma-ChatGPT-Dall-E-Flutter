@@ -28,10 +28,11 @@ class _SignUpPageState extends State<SignUpPage> {
     try {
       // if confirm password == password?
       if (passwordController.text == confirmPasswordController.text) {
-        await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        UserCredential userCredential =  await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: emailController.text,
           password: passwordController.text,
         );
+        await userCredential.user!.updateDisplayName(nameController.text);
       } else {
         showErrorMessage("Passwords don't match");
       }
