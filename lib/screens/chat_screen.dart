@@ -54,24 +54,7 @@ class _ChatScreenState extends State<ChatScreen> {
           ),
         ],
       ),
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: <Widget>[
-            DrawerHeader(
-              decoration: const BoxDecoration(
-                color: Colors.blue
-              ),
-              child: Text(user.email!),
-            ),
-             ListTile(
-              title: Text('Change API'),
-              onTap: () {
-              },
-            )
-          ],
-        ),
-      ),
+
       body: SingleChildScrollView(
         child: Column(
           children: [
