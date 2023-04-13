@@ -1,22 +1,31 @@
 import 'package:chat_gpt_sdk/chat_gpt_sdk.dart';
-
-import '../constants/api_key.dart';
+import 'package:firebase_database/firebase_database.dart';
 
 class AIHandler {
-  final _openAI = OpenAI.instance.build(
-    token: '$openAIAPIKey',
-    baseOption: HttpSetup(
-      receiveTimeout: const Duration(milliseconds: 20000),
-    ),
-  );
+  final DatabaseReference apikeyRef = FirebaseDatabase.instance.ref().child('api');
+
+  Future<OpenAI> _getOpenAI() async {
+    final event = await apikeyRef.once();
+    final String apiKey = event.snapshot.value as String;
+
+    final openAI = OpenAI.instance.build(
+      token: apiKey,
+      baseOption: HttpSetup(
+        receiveTimeout: const Duration(milliseconds: 60000),
+      ),
+    );
+    return openAI;
+  }
 
   Future<String> getResponse(String message) async {
-     try {
-      final request = ChatCompleteText(messages: [
-        Map.of({"role": "user", "content": message})
-      ], maxToken: 200, model: kChatGptTurbo0301Model);
+    try {
+      final openAI = await _getOpenAI();
+      final request = ChatCompleteText(
+          messages: [Map.of({"role": "user", "content": message})],
+          maxToken: 200,
+          model: kChatGptTurbo0301Model);
 
-      final response = await _openAI.onChatCompletion(request: request);
+      final response = await openAI.onChatCompletion(request: request);
       if (response != null) {
         String generatedResponse = response.choices[0].message.content.trim();
         // ignore: avoid_print
@@ -24,13 +33,15 @@ class AIHandler {
         return generatedResponse;
       }
 
-      return 'Some thing went wrong';
+      return 'Something went wrong';
     } catch (e) {
       return e.toString();
     }
   }
-  void dispose(){
+
+ /* void dispose() {
     // ignore: deprecated_member_use
     _openAI.close();
   }
+  */
 }

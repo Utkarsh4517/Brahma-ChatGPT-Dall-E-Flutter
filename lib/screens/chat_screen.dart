@@ -1,4 +1,5 @@
 import 'package:animate_do/animate_do.dart';
+import 'package:brahma/constants/api_key.dart';
 import 'package:brahma/provider/chats_provider.dart';
 import 'package:brahma/services/api_read_from_database.dart';
 import 'package:brahma/widgets/body_text.dart';
@@ -7,6 +8,8 @@ import 'package:brahma/widgets/text_and_voice_field.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+String? apiKEY;
 
 class ChatScreen extends StatefulWidget {
   const ChatScreen({super.key});
@@ -19,12 +22,12 @@ class _ChatScreenState extends State<ChatScreen> {
   TextAndVoiceField textAndVoiceField = const TextAndVoiceField();
   final _scrollController = ScrollController();
   final user = FirebaseAuth.instance.currentUser!;
+ // static String? fetchedApiKey;
   void signUserOut() {
     FirebaseAuth.instance.signOut();
   }
   @override
   void initState() {
-    fetchApiKey();
     super.initState();
   }
   @override
@@ -99,8 +102,4 @@ class _ChatScreenState extends State<ChatScreen> {
     _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
   }
 
-  void fetchApiKey() async {
-    final apikey = await getApiKey();
-    print(apikey);
-  }
 }

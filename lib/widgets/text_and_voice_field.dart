@@ -29,6 +29,7 @@ class _TextAndVoiceFieldState extends ConsumerState<TextAndVoiceField> {
   var textToCopy = "";
   static var _isListening = false;
   bool get listening => _isListening;
+  // AIHandler(apikey)
   final AIHandler _openAI = AIHandler();
   FlutterTts flutterTts = FlutterTts();
   final VoiceHandler voiceHandler = VoiceHandler();
@@ -48,7 +49,7 @@ class _TextAndVoiceFieldState extends ConsumerState<TextAndVoiceField> {
   @override
   void dispose() {
     _messageController.dispose();
-    _openAI.dispose();
+   // _openAI.dispose();
     super.dispose();
   }
 
