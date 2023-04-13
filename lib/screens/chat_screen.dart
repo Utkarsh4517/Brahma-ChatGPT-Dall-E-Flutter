@@ -1,10 +1,10 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:brahma/provider/chats_provider.dart';
+import 'package:brahma/services/api_read_from_database.dart';
 import 'package:brahma/widgets/body_text.dart';
 import 'package:brahma/widgets/chat_item.dart';
 import 'package:brahma/widgets/text_and_voice_field.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -16,10 +16,10 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
   TextAndVoiceField textAndVoiceField = const TextAndVoiceField();
   final _scrollController = ScrollController();
   final user = FirebaseAuth.instance.currentUser!;
+  var apikey;
   void signUserOut() {
     FirebaseAuth.instance.signOut();
   }
@@ -41,12 +41,6 @@ class _ChatScreenState extends State<ChatScreen> {
         backgroundColor: Colors.white,
         centerTitle: true,
         elevation: 0,
-        leading: IconButton(
-          onPressed: () {
-            _scaffoldKey.currentState!.openDrawer();
-          },
-          icon: const Icon(Icons.menu_book),
-        ),
         actions: [
           IconButton(
             onPressed: signUserOut,
@@ -54,7 +48,6 @@ class _ChatScreenState extends State<ChatScreen> {
           ),
         ],
       ),
-
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -92,7 +85,12 @@ class _ChatScreenState extends State<ChatScreen> {
               child: TextAndVoiceField(),
             ),
             const BodyText(bodyText: 'Swipe right to Generate Image'),
-            Text(user.displayName ?? ''),
+            ElevatedButton(
+              onPressed: () {
+                fetchApiKey();
+              },
+              child: const Text('get api key'),
+            ),
           ],
         ),
       ),
@@ -101,5 +99,10 @@ class _ChatScreenState extends State<ChatScreen> {
 
   void jumpToBottom() {
     _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
+  }
+
+  void fetchApiKey() async {
+    final apikey = await getApiKey();
+    print(apikey);
   }
 }
