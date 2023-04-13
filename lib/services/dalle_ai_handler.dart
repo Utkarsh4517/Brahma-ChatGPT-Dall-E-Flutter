@@ -1,11 +1,16 @@
 import 'dart:convert';
-import 'package:brahma/constants/api_key.dart';
 import 'package:http/http.dart' as http;
+import 'package:firebase_database/firebase_database.dart';
 
 class DalleAIService {
   final List<Map<String, String>> messages = [];
 
   Future<List<String>> dallEAPI(String prompt) async {
+    // Retrieve API key from Firebase
+    final apikeyRef = FirebaseDatabase.instance.ref().child('api');
+    final  event = await apikeyRef.once();
+    final String apiKey = event.snapshot.value as String;
+
     messages.add({
       'role': 'user',
       'content': prompt,
@@ -15,7 +20,7 @@ class DalleAIService {
         Uri.parse('https://api.openai.com/v1/images/generations'),
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': 'Bearer $openAIAPIKey',
+          'Authorization': 'Bearer $apiKey',
         },
         body: jsonEncode({
           'prompt': prompt,
