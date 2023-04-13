@@ -19,11 +19,14 @@ class _ChatScreenState extends State<ChatScreen> {
   TextAndVoiceField textAndVoiceField = const TextAndVoiceField();
   final _scrollController = ScrollController();
   final user = FirebaseAuth.instance.currentUser!;
-  var apikey;
   void signUserOut() {
     FirebaseAuth.instance.signOut();
   }
-
+  @override
+  void initState() {
+    fetchApiKey();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -85,12 +88,7 @@ class _ChatScreenState extends State<ChatScreen> {
               child: TextAndVoiceField(),
             ),
             const BodyText(bodyText: 'Swipe right to Generate Image'),
-            ElevatedButton(
-              onPressed: () {
-                fetchApiKey();
-              },
-              child: const Text('get api key'),
-            ),
+            
           ],
         ),
       ),
