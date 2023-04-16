@@ -283,7 +283,7 @@ class _LogInPageState extends State<LogInPage> {
                                           ),
                                         ),
                                         onPressed: () {
-                                          AuthService().signInWithGoogle();
+                                          AuthService().signInWithGoogle(context);
                                         },
                                         child: Row(
                                           children: [

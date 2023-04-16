@@ -303,7 +303,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                             ),
                                           ),
                                           onPressed: () {
-                                            AuthService().signInWithGoogle();
+                                            AuthService().signInWithGoogle(context);
                                           },
                                           child: Row(
                                             children: [
