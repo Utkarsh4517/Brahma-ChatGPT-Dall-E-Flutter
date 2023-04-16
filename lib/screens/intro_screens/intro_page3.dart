@@ -34,7 +34,7 @@ class IntroPage3 extends StatelessWidget {
               padding: const EdgeInsets.all(30),
               child: const BodyText(
                   bodyText:
-                      "Open AI API is expensive to keep this app free, I need to pay for the API. That's why ads are there, You can always buy the pro version if you want or enter your own api key to go ad-free forever"),
+                      "Open AI API is expensive to keep this app free, I need to pay for the API. That's why ads are there."),
             ),
             const BodyText(bodyText: 'Made with ❤️ by Utkarsh Shrivastava'),
             ElevatedButton(

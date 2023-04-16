@@ -1,4 +1,5 @@
 import 'package:brahma/screens/auth_screens/signup_page.dart';
+import 'package:brahma/screens/page_view.dart';
 import 'package:brahma/services/auth_service.dart';
 import 'package:brahma/widgets/auth_text_field.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -29,8 +30,16 @@ class _LogInPageState extends State<LogInPage> {
         email: emailController.text,
         password: passwordController.text,
       );
+
       // ignore: use_build_context_synchronously
-      Navigator.pop(context);
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (context) => const PageViewHome(),
+        ),
+      );
+      
+      // ignore: use_build_context_synchronously
+      //Navigator.pop(context);
     } on FirebaseAuthException catch (e) {
       // WRONG EMAIL
       Navigator.pop(context);
@@ -92,10 +101,7 @@ class _LogInPageState extends State<LogInPage> {
                   ),
                 ),
                 onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const SignUpPage()));
+                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const SignUpPage()));
                 },
                 child: const Text(
                   'Get Started',
