@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
         //colorScheme: lightColorScheme,
       ),
       debugShowCheckedModeBanner: false,
-      home: hasSeenOnboarding ? const AuthPage() : const OnBoardingScreen(),
+      home:  hasSeenOnboarding ? const AuthPage() : const OnBoardingScreen(),
     );
   } //);
 }

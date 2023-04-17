@@ -24,7 +24,7 @@ class _ChatScreenState extends State<ChatScreen> {
  // static String? fetchedApiKey;
   void signUserOut() {
     FirebaseAuth.instance.signOut();
-    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const LogInPage()));
+    //Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const LogInPage()));
   }
   @override
   void initState() {
@@ -91,6 +91,7 @@ class _ChatScreenState extends State<ChatScreen> {
               child: TextAndVoiceField(),
             ),
             const BodyText(bodyText: 'Swipe right to Generate Image'),
+            Text(user.email!),
             
           ],
         ),
