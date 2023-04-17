@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:brahma/widgets/dalle_toggle_button.dart';
 import 'package:brahma/services/voice_handler.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
 
@@ -25,6 +26,11 @@ class DalleTextAndVoiceField extends ConsumerStatefulWidget {
 
 class _DalleTextAndVoiceFieldState
     extends ConsumerState<DalleTextAndVoiceField> {
+      // ADS
+  late BannerAd bannerAd;
+  var adUnitId = 'ca-app-pub-3940256099942544/6300978111'; // testing ad id
+  bool isAdLoaded = false;
+    //
   DalleInputMode _dalleInputMode = DalleInputMode.voice;
   final _dalleMessageController = TextEditingController();
   var _dalleIsReplying = false;
@@ -49,7 +55,28 @@ class _DalleTextAndVoiceFieldState
   @override
   void initState() {
     voiceHandler.initSpeech();
+    initBannerAd();
     super.initState();
+  }
+
+    initBannerAd() {
+    bannerAd = BannerAd(
+      size: AdSize.banner,
+      adUnitId: adUnitId,
+      listener: BannerAdListener(
+        onAdLoaded: (ad) {
+          setState(() {
+            isAdLoaded = true;
+          });
+        },
+        onAdFailedToLoad: (ad, error) {
+          ad.dispose();
+          print(error);
+        },
+      ),
+      request: const AdRequest(),
+    );
+    bannerAd.load();
   }
 
   @override
@@ -221,6 +248,14 @@ class _DalleTextAndVoiceFieldState
             height: 10,
           ),
           BodyText(bodyText: speechResult),
+          SizedBox(height: MediaQuery.of(context).size.height * 0.04,),
+          isAdLoaded
+                ? SizedBox(
+                    height: bannerAd.size.height.toDouble(),
+                    width: bannerAd.size.width.toDouble(),
+                    child: AdWidget(ad: bannerAd),
+                  )
+                : const SizedBox(),
         ],
       ),
     );
