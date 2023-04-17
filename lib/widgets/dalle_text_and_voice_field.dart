@@ -26,11 +26,17 @@ class DalleTextAndVoiceField extends ConsumerStatefulWidget {
 
 class _DalleTextAndVoiceFieldState
     extends ConsumerState<DalleTextAndVoiceField> {
-      // ADS
+  // ADS
   late BannerAd bannerAd;
-  var adUnitId = 'ca-app-pub-3940256099942544/6300978111'; // testing ad id
+  var adUnitId =
+      'ca-app-pub-3940256099942544/6300978111'; // testing banner ad id
+  var adUnitIdInterstitial =
+      'ca-app-pub-3940256099942544/1033173712'; // testing interstial ad id
   bool isAdLoaded = false;
-    //
+
+  late InterstitialAd interstitialAd;
+  bool isInterstitialAdLoaded = false;
+  //
   DalleInputMode _dalleInputMode = DalleInputMode.voice;
   final _dalleMessageController = TextEditingController();
   var _dalleIsReplying = false;
@@ -55,11 +61,12 @@ class _DalleTextAndVoiceFieldState
   @override
   void initState() {
     voiceHandler.initSpeech();
+    initInterstitialAd();
     initBannerAd();
     super.initState();
   }
 
-    initBannerAd() {
+  initBannerAd() {
     bannerAd = BannerAd(
       size: AdSize.banner,
       adUnitId: adUnitId,
@@ -77,6 +84,24 @@ class _DalleTextAndVoiceFieldState
       request: const AdRequest(),
     );
     bannerAd.load();
+  }
+
+  initInterstitialAd() {
+    InterstitialAd.load(
+      adUnitId: adUnitIdInterstitial,
+      request: const AdRequest(),
+      adLoadCallback: InterstitialAdLoadCallback(
+        onAdLoaded: (ad) {
+          interstitialAd = ad;
+          setState(() {
+            isInterstitialAdLoaded = true;
+          });
+        },
+        onAdFailedToLoad: (error) {
+          interstitialAd.dispose();
+        },
+      ),
+    );
   }
 
   @override
@@ -229,18 +254,24 @@ class _DalleTextAndVoiceFieldState
               const SizedBox(
                 width: 10,
               ),
-              DalleToggleButton(
-                isReplying: _dalleIsReplying,
-                isListening: _dalleIsListening,
-                dalleInputMode: _dalleInputMode,
-                sendTextMessage: () {
-                  final message = _dalleMessageController.text;
-                  speechResult = message;
-                  _dalleMessageController.clear();
-                  sendDalleTextMessage(message);
-                  generatedImageUrl = null;
-                },
-                sendVoiceMessage: sendDalleVoiceMessage,
+              GestureDetector(
+                child: DalleToggleButton(
+                  isReplying: _dalleIsReplying,
+                  isListening: _dalleIsListening,
+                  dalleInputMode: _dalleInputMode,
+                  sendTextMessage: () {
+                    final message = _dalleMessageController.text;
+                    speechResult = message;
+                    _dalleMessageController.clear();
+                    sendDalleTextMessage(message);
+                    generatedImageUrl = null;
+                    if(isInterstitialAdLoaded){
+                      interstitialAd.show();
+                    }
+                  },
+      
+                  sendVoiceMessage: sendDalleVoiceMessage,
+                ),
               ),
             ],
           ),
@@ -248,14 +279,16 @@ class _DalleTextAndVoiceFieldState
             height: 10,
           ),
           BodyText(bodyText: speechResult),
-          SizedBox(height: MediaQuery.of(context).size.height * 0.04,),
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.04,
+          ),
           isAdLoaded
-                ? SizedBox(
-                    height: bannerAd.size.height.toDouble(),
-                    width: bannerAd.size.width.toDouble(),
-                    child: AdWidget(ad: bannerAd),
-                  )
-                : const SizedBox(),
+              ? SizedBox(
+                  height: bannerAd.size.height.toDouble(),
+                  width: bannerAd.size.width.toDouble(),
+                  child: AdWidget(ad: bannerAd),
+                )
+              : const SizedBox(),
         ],
       ),
     );
