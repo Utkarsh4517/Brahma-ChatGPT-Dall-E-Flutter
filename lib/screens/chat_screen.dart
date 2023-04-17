@@ -7,6 +7,7 @@ import 'package:brahma/widgets/text_and_voice_field.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 String? apiKEY;
 
@@ -18,18 +19,45 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
+  late BannerAd bannerAd;
+  var adUnitId = 'ca-app-pub-3940256099942544/6300978111'; // testing ad id
+  bool isAdLoaded = false;
   TextAndVoiceField textAndVoiceField = const TextAndVoiceField();
   final _scrollController = ScrollController();
   final user = FirebaseAuth.instance.currentUser!;
- // static String? fetchedApiKey;
+  // static String? fetchedApiKey;
   void signUserOut() {
     FirebaseAuth.instance.signOut();
-    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const LogInPage()));
+    Navigator.pushReplacement(
+        context, MaterialPageRoute(builder: (context) => const LogInPage()));
   }
+
   @override
   void initState() {
+    initBannerAd();
     super.initState();
   }
+
+  initBannerAd() {
+    bannerAd = BannerAd(
+      size: AdSize.banner,
+      adUnitId: adUnitId,
+      listener: BannerAdListener(
+        onAdLoaded: (ad) {
+          setState(() {
+            isAdLoaded = true;
+          });
+        },
+        onAdFailedToLoad: (ad, error) {
+          ad.dispose();
+          print(error);
+        },
+      ),
+      request: const AdRequest(),
+    );
+    bannerAd.load();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -91,8 +119,13 @@ class _ChatScreenState extends State<ChatScreen> {
               child: TextAndVoiceField(),
             ),
             const BodyText(bodyText: 'Swipe right to Generate Image'),
-            Text(user.email!),
-            
+            isAdLoaded
+                ? SizedBox(
+                    height: bannerAd.size.height.toDouble(),
+                    width: bannerAd.size.width.toDouble(),
+                    child: AdWidget(ad: bannerAd),
+                  )
+                : const SizedBox(),
           ],
         ),
       ),
@@ -102,5 +135,4 @@ class _ChatScreenState extends State<ChatScreen> {
   void jumpToBottom() {
     _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
   }
-
 }
