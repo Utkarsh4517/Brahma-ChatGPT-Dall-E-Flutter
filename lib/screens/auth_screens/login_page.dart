@@ -32,12 +32,11 @@ class _LogInPageState extends State<LogInPage> {
       );
 
       // ignore: use_build_context_synchronously
-     /* Navigator.of(context).pushReplacement(
+      Navigator.of(context).pushReplacement(
         MaterialPageRoute(
           builder: (context) => const PageViewHome(),
         ),
       );
-      */
       
       // ignore: use_build_context_synchronously
       //Navigator.pop(context);
@@ -284,7 +283,7 @@ class _LogInPageState extends State<LogInPage> {
                                           ),
                                         ),
                                         onPressed: () {
-                                          AuthService().signInWithGoogle();
+                                          AuthService().signInWithGoogle(context);
                                         },
                                         child: Row(
                                           children: [

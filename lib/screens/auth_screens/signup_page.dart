@@ -43,12 +43,11 @@ class _SignUpPageState extends State<SignUpPage> {
       }
 
       // ignore: use_build_context_synchronously
-    /*  Navigator.of(context).pushReplacement(
+      Navigator.of(context).pushReplacement(
         MaterialPageRoute(
           builder: (context) => const PageViewHome(),
         ),
       );
-      */
     } on FirebaseAuthException catch (e) {
       // WRONG EMAIL
       Navigator.pop(context);
@@ -304,7 +303,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                             ),
                                           ),
                                           onPressed: () {
-                                            AuthService().signInWithGoogle();
+                                            AuthService().signInWithGoogle(context);
                                           },
                                           child: Row(
                                             children: [

@@ -1,26 +1,35 @@
- 
-
-// class contains google sign in service
-
+import 'package:brahma/screens/page_view.dart';
+import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthService {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  signInWithGoogle() async {
-    // begin interactive sign in progress
-  final GoogleSignInAccount? gUser = await GoogleSignIn().signIn();
+  Future<User?> signInWithGoogle(BuildContext context) async {
+    // Trigger the authentication flow
+    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
-    // obtain auth details from request 
-  final GoogleSignInAuthentication gAuth = await gUser!.authentication;
+    if (googleUser != null) {
+      // Obtain the auth details from the request
+      final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
 
-    // create a new credential for user
-  final credential = GoogleAuthProvider.credential(
-    accessToken: gAuth.accessToken,
-    idToken: gAuth.idToken
-  );
-    // finally lets sign in 
-    return await FirebaseAuth.instance.signInWithCredential(credential);
+      // Create a new credential
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
+
+      // Once signed in, navigate to the home screen
+      final UserCredential userCredential = await _auth.signInWithCredential(credential);
+      final User? user = userCredential.user;
+      if (user != null) {
+        Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const PageViewHome()));
+      }
+      return user;
+    } else {
+      // Handle sign in errors
+      return null;
+    }
   }
-
 }
