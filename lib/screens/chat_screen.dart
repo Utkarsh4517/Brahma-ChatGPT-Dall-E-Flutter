@@ -101,6 +101,7 @@ class _ChatScreenState extends State<ChatScreen> {
                   jumpToBottom();
                 });
                 final chats = ref.watch(chatsProvider);
+                // empty a list view builder when sign out is pressed
                 return ListView.builder(
                   controller: _scrollController,
                   itemCount: chats.length,

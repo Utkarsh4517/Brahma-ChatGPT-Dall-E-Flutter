@@ -56,6 +56,7 @@ dependencies:
   google_sign_in: ^6.1.0
   firebase_database: ^10.1.0
   google_mobile_ads: ^2.4.0
+  flutter_file_dialog: ^3.0.0
 
 dev_dependencies:
   flutter_test:

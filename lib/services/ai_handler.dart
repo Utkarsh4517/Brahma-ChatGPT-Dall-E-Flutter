@@ -39,9 +39,4 @@ class AIHandler {
     }
   }
 
- /* void dispose() {
-    // ignore: deprecated_member_use
-    _openAI.close();
-  }
-  */
 }

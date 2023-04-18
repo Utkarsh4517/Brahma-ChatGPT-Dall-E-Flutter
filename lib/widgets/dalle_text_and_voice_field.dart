@@ -10,6 +10,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
+import 'package:flutter_file_dialog/flutter_file_dialog.dart';
 
 enum DalleInputMode {
   text,
@@ -32,10 +33,14 @@ class _DalleTextAndVoiceFieldState
       'ca-app-pub-3940256099942544/6300978111'; // testing banner ad id
   var adUnitIdInterstitial =
       'ca-app-pub-3940256099942544/1033173712'; // testing interstial ad id
+  var adUnitIdInterstitialDownload =
+      'ca-app-pub-3940256099942544/1033173712'; // testting interstitial ad id (download button)
   bool isAdLoaded = false;
 
   late InterstitialAd interstitialAd;
+  late InterstitialAd interstitialAdDownload;
   bool isInterstitialAdLoaded = false;
+  bool isInterstitialAdDownloadLoaded = false;
   //
   DalleInputMode _dalleInputMode = DalleInputMode.voice;
   final _dalleMessageController = TextEditingController();
@@ -49,19 +54,47 @@ class _DalleTextAndVoiceFieldState
   var speechResult = "tap the mic to say";
   List<String>? generatedImageUrl;
 
-  Future<void> _downloadImage(String imageUrl) async {
-    final response = await http.get(Uri.parse(imageUrl));
-    final bytes = response.bodyBytes;
-    final directory = await getApplicationDocumentsDirectory();
-    final file =
-        File('${directory.path}/${DateTime.now().millisecondsSinceEpoch}.jpg');
-    await file.writeAsBytes(bytes);
+  Future<void> _downloadImage(String imageUrl, BuildContext context) async {
+    String? message;
+    final scaffoldMessenger = ScaffoldMessenger.of(context);
+    if (isInterstitialAdDownloadLoaded) {
+      interstitialAdDownload.show();
+    }
+    try {
+      // Download image
+      final http.Response response = await http.get(Uri.parse(imageUrl));
+
+      // get temporary directory
+      final dir = await getTemporaryDirectory();
+
+      // create an image name
+      var filename = '${dir.path}/image.png';
+
+      // save to filesystem
+      final file = File(filename);
+      await file.writeAsBytes(response.bodyBytes);
+
+      // ask the user to save it
+      final params = SaveFileDialogParams(sourceFilePath: file.path);
+      final finalPath = await FlutterFileDialog.saveFile(params: params);
+
+      if (finalPath != null) {
+        message = 'Image saved to disk';
+      }
+    } catch (e) {
+      message = 'An error occurred while saving the image';
+    }
+
+    if (message != null) {
+      scaffoldMessenger.showSnackBar(SnackBar(content: Text(message)));
+    }
   }
 
   @override
   void initState() {
     voiceHandler.initSpeech();
     initInterstitialAd();
+    initInterstitialAdDownload();
     initBannerAd();
     super.initState();
   }
@@ -99,6 +132,24 @@ class _DalleTextAndVoiceFieldState
         },
         onAdFailedToLoad: (error) {
           interstitialAd.dispose();
+        },
+      ),
+    );
+  }
+
+  initInterstitialAdDownload() {
+    InterstitialAd.load(
+      adUnitId: adUnitIdInterstitialDownload,
+      request: const AdRequest(),
+      adLoadCallback: InterstitialAdLoadCallback(
+        onAdLoaded: (ad) {
+          interstitialAdDownload = ad;
+          setState(() {
+            isInterstitialAdDownloadLoaded = true;
+          });
+        },
+        onAdFailedToLoad: (error) {
+          interstitialAdDownload.dispose();
         },
       ),
     );
@@ -196,7 +247,8 @@ class _DalleTextAndVoiceFieldState
                                           alignment: Alignment.centerRight,
                                           child: ElevatedButton(
                                             onPressed: () => _downloadImage(
-                                                generatedImageUrl![index]),
+                                                generatedImageUrl![index],
+                                                context),
                                             child: const Icon(Icons.download),
                                           ),
                                         ),
@@ -265,11 +317,10 @@ class _DalleTextAndVoiceFieldState
                     _dalleMessageController.clear();
                     sendDalleTextMessage(message);
                     generatedImageUrl = null;
-                    if(isInterstitialAdLoaded){
+                    if (isInterstitialAdLoaded) {
                       interstitialAd.show();
                     }
                   },
-      
                   sendVoiceMessage: sendDalleVoiceMessage,
                 ),
               ),
