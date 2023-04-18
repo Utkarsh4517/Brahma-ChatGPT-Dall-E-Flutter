@@ -59,6 +59,10 @@ class _DalleTextAndVoiceFieldState
     final scaffoldMessenger = ScaffoldMessenger.of(context);
     if (isInterstitialAdDownloadLoaded) {
       interstitialAdDownload.show();
+      setState(() {
+        isInterstitialAdDownloadLoaded = false;
+      });
+      initInterstitialAdDownload();
     }
     try {
       // Download image
@@ -319,6 +323,10 @@ class _DalleTextAndVoiceFieldState
                     generatedImageUrl = null;
                     if (isInterstitialAdLoaded) {
                       interstitialAd.show();
+                      setState(() {
+                        isInterstitialAdLoaded = false;
+                      });
+                      initInterstitialAd();
                     }
                   },
                   sendVoiceMessage: sendDalleVoiceMessage,
