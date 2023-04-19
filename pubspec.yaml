@@ -81,7 +81,7 @@ flutter:
 flutter_icons:
   android: "launcher_icon"
   ios: true
-  image_path: "assets/icon/brahma.png"
+  image_path: "assets/icon/brahma.ai.png"
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/icon/

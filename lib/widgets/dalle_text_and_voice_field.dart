@@ -28,11 +28,10 @@ class _DalleTextAndVoiceFieldState
   // ADS
   late BannerAd bannerAd;
   var adUnitId =
-      'ca-app-pub-3940256099942544/6300978111'; // testing banner ad id
+      'ca-app-pub-1800025179900604/3402921673'; //  banner ad id
   var adUnitIdInterstitial =
-      'ca-app-pub-3940256099942544/1033173712'; // testing interstial ad id
-  var adUnitIdInterstitialDownload =
-      'ca-app-pub-3940256099942544/1033173712'; // testting interstitial ad id (download button)
+      'ca-app-pub-1800025179900604/8933530085'; // interstial ad id
+  var adUnitIdInterstitialDownload = 'ca-app-pub-1800025179900604/6536814491'; //  interstitial ad id (download button)
   bool isAdLoaded = false;
 
   late InterstitialAd interstitialAd;

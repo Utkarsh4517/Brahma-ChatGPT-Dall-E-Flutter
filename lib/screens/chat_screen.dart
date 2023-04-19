@@ -20,7 +20,7 @@ class ChatScreen extends StatefulWidget {
 
 class _ChatScreenState extends State<ChatScreen> {
   late BannerAd bannerAd;
-  var adUnitId = 'ca-app-pub-3940256099942544/6300978111'; // testing ad id
+  var adUnitId = 'ca-app-pub-1800025179900604/5173414329'; // banner ad id
   bool isAdLoaded = false;
   TextAndVoiceField textAndVoiceField = const TextAndVoiceField();
   final _scrollController = ScrollController();
