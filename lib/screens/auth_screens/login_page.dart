@@ -63,6 +63,7 @@ class _LogInPageState extends State<LogInPage> {
 
   @override
   Widget build(BuildContext context) {
+    final double screenWidth = MediaQuery.of(context).size.width;
     return Container(
       decoration: const BoxDecoration(
           gradient: LinearGradient(
@@ -161,7 +162,7 @@ class _LogInPageState extends State<LogInPage> {
                                 'Welcome Back',
                                 style: GoogleFonts.chivo(
                                   color: Colors.black,
-                                  fontSize: 35,
+                                  fontSize: screenWidth * 0.09,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
@@ -206,8 +207,8 @@ class _LogInPageState extends State<LogInPage> {
                                     )),
                                 child: ElevatedButton(
                                   style: ElevatedButton.styleFrom(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 167, vertical: 20),
+                                    padding:  EdgeInsets.symmetric(
+                                        horizontal: screenWidth * 0.38, vertical: screenWidth * 0.02),
                                     shape: RoundedRectangleBorder(
                                         borderRadius:
                                             BorderRadius.circular(12)),
@@ -227,8 +228,8 @@ class _LogInPageState extends State<LogInPage> {
                                   ),
                                 ),
                               ),
-                              const SizedBox(
-                                height: 20,
+                               SizedBox(
+                                height: screenWidth * 0.0185,
                               ),
                               const Text(
                                 'Forgot your password?',
@@ -244,9 +245,9 @@ class _LogInPageState extends State<LogInPage> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Container(
-                                    margin: const EdgeInsets.only(left: 40),
+                                    margin:  EdgeInsets.only(left: screenWidth* 0.037),
                                     height: 1,
-                                    width: 100,
+                                    width: screenWidth * 0.3,
                                     color: Colors.black,
                                   ),
                                   const Text(
@@ -256,16 +257,16 @@ class _LogInPageState extends State<LogInPage> {
                                     ),
                                   ),
                                   Container(
-                                    margin: const EdgeInsets.only(right: 40),
+                                    margin:  EdgeInsets.only(right: screenWidth* 0.037),
                                     height: 1,
-                                    width: 100,
+                                    width: screenWidth * 0.3,
                                     color: Colors.black,
                                   ),
                                 ],
                               ),
                               SizedBox(
                                 height:
-                                    MediaQuery.of(context).size.height * 0.08,
+                                    MediaQuery.of(context).size.height * 0.06,
                               ),
                               Row(
                                 mainAxisAlignment:
@@ -337,7 +338,8 @@ class _LogInPageState extends State<LogInPage> {
                                     ],
                                   ),
                                 ],
-                              )
+                              ),
+                               SizedBox(height: screenWidth * 0.046,)
                             ],
                           ),
                         ),

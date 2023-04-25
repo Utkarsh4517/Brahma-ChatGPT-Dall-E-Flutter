@@ -71,6 +71,7 @@ class _SignUpPageState extends State<SignUpPage> {
 
   @override
   Widget build(BuildContext context) {
+    final double screenWidth = MediaQuery.of(context).size.width;
     return Container(
       decoration: const BoxDecoration(
           gradient: LinearGradient(
@@ -130,7 +131,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   'brahma.ai',
                   style: GoogleFonts.chivo(
                     color: Colors.white,
-                    fontSize: 40,
+                    fontSize: screenWidth * 0.1,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -176,7 +177,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                   'Get Started free.',
                                   style: GoogleFonts.chivo(
                                     color: Colors.black,
-                                    fontSize: 35,
+                                    fontSize: screenWidth * 0.09,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
@@ -187,7 +188,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                   'Enter your details below',
                                   style: GoogleFonts.chivo(
                                     color: const Color.fromARGB(117, 0, 0, 0),
-                                    fontSize: 18,
+                                    fontSize: screenWidth * 0.04,
                                   ),
                                 ),
                                 const SizedBox(
@@ -235,8 +236,9 @@ class _SignUpPageState extends State<SignUpPage> {
                                       )),
                                   child: ElevatedButton(
                                     style: ElevatedButton.styleFrom(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 167, vertical: 20),
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: screenWidth * 0.38,
+                                          vertical: screenWidth * 0.02),
                                       shape: RoundedRectangleBorder(
                                           borderRadius:
                                               BorderRadius.circular(12)),
@@ -262,9 +264,9 @@ class _SignUpPageState extends State<SignUpPage> {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       Container(
-                                        margin: const EdgeInsets.only(left: 40),
+                                        margin:  EdgeInsets.only(left: screenWidth* 0.037),
                                         height: 1,
-                                        width: 100,
+                                        width: screenWidth * 0.3,
                                         color: Colors.black,
                                       ),
                                       const Text(
@@ -276,9 +278,9 @@ class _SignUpPageState extends State<SignUpPage> {
                                       ),
                                       Container(
                                         margin:
-                                            const EdgeInsets.only(right: 40),
+                                             EdgeInsets.only(right: screenWidth* 0.037),
                                         height: 1,
-                                        width: 100,
+                                        width: screenWidth * 0.3,
                                         color: Colors.black,
                                       ),
                                     ],
@@ -303,7 +305,8 @@ class _SignUpPageState extends State<SignUpPage> {
                                             ),
                                           ),
                                           onPressed: () {
-                                            AuthService().signInWithGoogle(context);
+                                            AuthService()
+                                                .signInWithGoogle(context);
                                           },
                                           child: Row(
                                             children: [
@@ -359,7 +362,10 @@ class _SignUpPageState extends State<SignUpPage> {
                                       ],
                                     ),
                                   ],
-                                )
+                                ),
+                                const SizedBox(
+                                  height: 50,
+                                ),
                               ],
                             ),
                           ),

@@ -1,4 +1,4 @@
-package com.example.brahma
+package com.opxica.brahma.ai
 
 import io.flutter.embedding.android.FlutterActivity
 

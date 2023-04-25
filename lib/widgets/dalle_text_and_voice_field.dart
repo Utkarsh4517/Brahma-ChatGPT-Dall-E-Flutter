@@ -338,13 +338,14 @@ class _DalleTextAndVoiceFieldState
           SizedBox(
             height: MediaQuery.of(context).size.height * 0.04,
           ),
-          isAdLoaded
+          /*isAdLoaded
               ? SizedBox(
                   height: bannerAd.size.height.toDouble(),
                   width: bannerAd.size.width.toDouble(),
                   child: AdWidget(ad: bannerAd),
                 )
               : const SizedBox(),
+              */
         ],
       ),
     );

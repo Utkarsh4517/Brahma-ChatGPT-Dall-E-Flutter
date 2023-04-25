@@ -120,13 +120,14 @@ class _ChatScreenState extends State<ChatScreen> {
               child: TextAndVoiceField(),
             ),
             const BodyText(bodyText: 'Swipe right to Generate Image'),
-            isAdLoaded
+           /* isAdLoaded
                 ? SizedBox(
                     height: bannerAd.size.height.toDouble(),
                     width: bannerAd.size.width.toDouble(),
                     child: AdWidget(ad: bannerAd),
                   )
                 : const SizedBox(),
+                */
           ],
         ),
       ),
