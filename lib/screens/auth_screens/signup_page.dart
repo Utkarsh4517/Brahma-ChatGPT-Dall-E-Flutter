@@ -327,10 +327,8 @@ class _SignUpPageState extends State<SignUpPage> {
                                             ],
                                           ),
                                         ),
-                                        const SizedBox(
-                                          width: 20,
-                                        ),
-                                        OutlinedButton(
+                                        
+                                       /* OutlinedButton(
                                           style: OutlinedButton.styleFrom(
                                             padding: const EdgeInsets.symmetric(
                                                 vertical: 15, horizontal: 20),
@@ -359,6 +357,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                             ],
                                           ),
                                         ),
+                                        */
                                       ],
                                     ),
                                   ],

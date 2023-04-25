@@ -266,7 +266,7 @@ class _LogInPageState extends State<LogInPage> {
                               ),
                               SizedBox(
                                 height:
-                                    MediaQuery.of(context).size.height * 0.06,
+                                    MediaQuery.of(context).size.height * 0.04,
                               ),
                               Row(
                                 mainAxisAlignment:
@@ -304,10 +304,8 @@ class _LogInPageState extends State<LogInPage> {
                                           ],
                                         ),
                                       ),
-                                      const SizedBox(
-                                        width: 20,
-                                      ),
-                                      OutlinedButton(
+                                      
+                                     /* OutlinedButton(
                                         style: OutlinedButton.styleFrom(
                                           padding: const EdgeInsets.symmetric(
                                               vertical: 15, horizontal: 20),
@@ -335,6 +333,7 @@ class _LogInPageState extends State<LogInPage> {
                                           ],
                                         ),
                                       ),
+                                      */
                                     ],
                                   ),
                                 ],
