@@ -8,6 +8,7 @@ class IntroPage2 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: const Color(0XFFC6E1F4),
       body: Center(
@@ -19,7 +20,7 @@ class IntroPage2 extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(10),
               child: Lottie.network(
-                'https://assets5.lottiefiles.com/packages/lf20_dggAm75MbY.json',
+                'https://assets5.lottiefiles.com/packages/lf20_dggAm75MbY.json',  height: screenWidth * 0.3, width: screenWidth * 0.3,
               ),
             ),
             const SizedBox(height: 80,),

@@ -28,6 +28,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       body: Stack(
         children: [
@@ -51,11 +52,11 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                     SmoothPageIndicator(
                       controller: _controller,
                       count: 3,
-                      effect: const ExpandingDotsEffect(
+                      effect:  ExpandingDotsEffect(
                         dotColor: Colors.grey,
                         activeDotColor: Colors.black,
-                        dotWidth: 25,
-                        dotHeight: 15,
+                        dotWidth: screenWidth * 0.063 ,
+                        dotHeight: screenWidth * 0.043,
                       ),
                     ),
                   ],
@@ -74,12 +75,12 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                           onTap: () {
                             _controller.jumpToPage(2);
                           },
-                          child: const Text(
+                          child:  Text(
                             'Skip',
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: Colors.black,
-                                fontSize: 20),
+                                fontSize: screenWidth * 0.05),
                           ),
                         ),
                       ),
@@ -88,8 +89,8 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                         child: onLastPage
                             ? ElevatedButton(
                                 style: ElevatedButton.styleFrom(
-                                  padding: const EdgeInsets.all(20)
-                                      .copyWith(left: 50, right: 50),
+                                  padding:  EdgeInsets.all(screenWidth * 0.04)
+                                      .copyWith(left: screenWidth * 0.1, right: screenWidth * 0.1),
                                 ),
                                 onPressed: () {
                                   _completeOnboarding();
@@ -104,8 +105,8 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                               )
                             : ElevatedButton(
                                 style: ElevatedButton.styleFrom(
-                                  padding: const EdgeInsets.all(20)
-                                      .copyWith(left: 50, right: 50),
+                                  padding:  EdgeInsets.all(screenWidth * 0.04)
+                                      .copyWith(left: screenWidth * 0.1, right: screenWidth * 0.1),
                                 ),
                                 onPressed: () {
                                   _controller.nextPage(
