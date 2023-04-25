@@ -20,7 +20,7 @@ class ChatScreen extends StatefulWidget {
 
 class _ChatScreenState extends State<ChatScreen> {
   late BannerAd bannerAd;
-  var adUnitId = 'ca-app-pub-1800025179900604/5173414329'; // banner ad id
+  var adUnitId = 'ca-app-pub-1800025179900604/6318559742'; // banner ad id
   bool isAdLoaded = false;
   TextAndVoiceField textAndVoiceField = const TextAndVoiceField();
   final _scrollController = ScrollController();
@@ -120,14 +120,14 @@ class _ChatScreenState extends State<ChatScreen> {
               child: TextAndVoiceField(),
             ),
             const BodyText(bodyText: 'Swipe right to Generate Image'),
-           /* isAdLoaded
+           isAdLoaded
                 ? SizedBox(
                     height: bannerAd.size.height.toDouble(),
                     width: bannerAd.size.width.toDouble(),
                     child: AdWidget(ad: bannerAd),
                   )
                 : const SizedBox(),
-                */
+                
           ],
         ),
       ),

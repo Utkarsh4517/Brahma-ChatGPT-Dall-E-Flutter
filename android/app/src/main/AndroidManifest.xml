@@ -44,6 +44,6 @@
             android:value="2" />
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-1800025179900604~1932173310"/>
+            android:value="ca-app-pub-1800025179900604~1621547088"/>
     </application>
 </manifest>

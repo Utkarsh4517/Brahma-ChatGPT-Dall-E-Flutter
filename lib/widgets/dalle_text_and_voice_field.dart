@@ -28,10 +28,10 @@ class _DalleTextAndVoiceFieldState
   // ADS
   late BannerAd bannerAd;
   var adUnitId =
-      'ca-app-pub-1800025179900604/3402921673'; //  banner ad id
+      'ca-app-pub-1800025179900604/3645909346'; //  banner ad id
   var adUnitIdInterstitial =
-      'ca-app-pub-1800025179900604/8933530085'; // interstial ad id
-  var adUnitIdInterstitialDownload = 'ca-app-pub-1800025179900604/6536814491'; //  interstitial ad id (download button)
+      'ca-app-pub-1800025179900604/1019746003'; // interstial ad id
+  var adUnitIdInterstitialDownload = 'ca-app-pub-1800025179900604/4404495235'; //  interstitial ad id (download button)
   bool isAdLoaded = false;
 
   late InterstitialAd interstitialAd;
@@ -338,14 +338,14 @@ class _DalleTextAndVoiceFieldState
           SizedBox(
             height: MediaQuery.of(context).size.height * 0.04,
           ),
-          /*isAdLoaded
+          isAdLoaded
               ? SizedBox(
                   height: bannerAd.size.height.toDouble(),
                   width: bannerAd.size.width.toDouble(),
                   child: AdWidget(ad: bannerAd),
                 )
               : const SizedBox(),
-              */
+              
         ],
       ),
     );
