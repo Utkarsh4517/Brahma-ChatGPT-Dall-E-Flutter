@@ -55,8 +55,8 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                       effect:  ExpandingDotsEffect(
                         dotColor: Colors.grey,
                         activeDotColor: Colors.black,
-                        dotWidth: screenWidth * 0.063 ,
-                        dotHeight: screenWidth * 0.043,
+                        dotWidth: screenWidth * 0.053 ,
+                        dotHeight: screenWidth * 0.033,
                       ),
                     ),
                   ],
@@ -89,7 +89,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                         child: onLastPage
                             ? ElevatedButton(
                                 style: ElevatedButton.styleFrom(
-                                  padding:  EdgeInsets.all(screenWidth * 0.04)
+                                  padding:  EdgeInsets.all(screenWidth * 0.03)
                                       .copyWith(left: screenWidth * 0.1, right: screenWidth * 0.1),
                                 ),
                                 onPressed: () {
@@ -105,7 +105,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                               )
                             : ElevatedButton(
                                 style: ElevatedButton.styleFrom(
-                                  padding:  EdgeInsets.all(screenWidth * 0.04)
+                                  padding:  EdgeInsets.all(screenWidth * 0.03)
                                       .copyWith(left: screenWidth * 0.1, right: screenWidth * 0.1),
                                 ),
                                 onPressed: () {

@@ -1,4 +1,5 @@
 import 'package:animate_do/animate_do.dart';
+import 'package:brahma/constants/ads.dart';
 import 'package:brahma/models/chat_model.dart';
 import 'package:brahma/provider/chats_provider.dart';
 import 'package:brahma/screens/dalle_screen.dart';
@@ -9,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:flutter/services.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 enum InputMode {
   text,
@@ -23,6 +25,10 @@ class TextAndVoiceField extends ConsumerStatefulWidget {
 }
 
 class _TextAndVoiceFieldState extends ConsumerState<TextAndVoiceField> {
+  late InterstitialAd interstitialAd;
+  var adUnitIdInterstitial = inter;
+  bool isInterstitialAdLoaded = false;
+
   InputMode _inputMode = InputMode.voice;
   final _messageController = TextEditingController();
   var _isReplying = false;
@@ -39,6 +45,7 @@ class _TextAndVoiceFieldState extends ConsumerState<TextAndVoiceField> {
   void initState() {
     voiceHandler.initSpeech();
     initTts();
+    initInterstitialAd();
     super.initState();
   }
 
@@ -46,10 +53,28 @@ class _TextAndVoiceFieldState extends ConsumerState<TextAndVoiceField> {
     flutterTts = FlutterTts();
   }
 
+  initInterstitialAd() {
+    InterstitialAd.load(
+      adUnitId: adUnitIdInterstitial,
+      request: const AdRequest(),
+      adLoadCallback: InterstitialAdLoadCallback(
+        onAdLoaded: (ad) {
+          interstitialAd = ad;
+          setState(() {
+            isInterstitialAdLoaded = true;
+          });
+        },
+        onAdFailedToLoad: (error) {
+          interstitialAd.dispose();
+        },
+      ),
+    );
+  }
+
   @override
   void dispose() {
     _messageController.dispose();
-   // _openAI.dispose();
+    // _openAI.dispose();
     super.dispose();
   }
 
@@ -107,16 +132,23 @@ class _TextAndVoiceFieldState extends ConsumerState<TextAndVoiceField> {
                 width: 10,
               ),
               ToggleButton(
-                  isReplying: _isReplying,
-                  isListening: _isListening,
-                  inputMode: _inputMode,
-                  sendTextMessage: () {
-                    final message = _messageController.text;
-                    _messageController.clear();
-                    sendTextMessage(message);
-                  },
-                  sendVoiceMessage: sendVoiceMessage,
-                ),
+                isReplying: _isReplying,
+                isListening: _isListening,
+                inputMode: _inputMode,
+                sendTextMessage: () {
+                  final message = _messageController.text;
+                  _messageController.clear();
+                  sendTextMessage(message);
+                  if (isInterstitialAdLoaded) {
+                    interstitialAd.show();
+                    setState(() {
+                      isInterstitialAdLoaded = false;
+                    });
+                    initInterstitialAd();
+                  }
+                },
+                sendVoiceMessage: sendVoiceMessage,
+              ),
             ],
           ),
           const SizedBox(
@@ -154,11 +186,9 @@ class _TextAndVoiceFieldState extends ConsumerState<TextAndVoiceField> {
                 const SizedBox(
                   width: 10,
                 ),
-                
               ],
             ),
           ),
-
         ],
       ),
     );

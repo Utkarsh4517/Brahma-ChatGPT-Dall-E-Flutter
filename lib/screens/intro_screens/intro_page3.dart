@@ -36,20 +36,20 @@ class IntroPage3 extends StatelessWidget {
               height: screenHeight * 0.055,
             ),
             Container(
-              padding: const EdgeInsets.all(30),
+              padding: const EdgeInsets.all(30).copyWith(bottom: 10),
               child: const BodyText(
                   bodyText:
                       "Open AI API is expensive to keep this app free, I need to pay for the API. That's why ads are there."),
             ),
-            SizedBox(height: screenHeight * 0.03,),
+            SizedBox(height: screenHeight * 0.01,),
             const BodyText(bodyText: 'Made with ❤️ by Utkarsh Shrivastava'),
-            SizedBox(height: screenHeight * 0.03,),
+            SizedBox(height: screenHeight * 0.08,),
             ElevatedButton(
 
               onPressed: () {
                 launchUrlString('https://github.com/Utkarsh4517/Brahma-ChatGPT-Dall-E-Flutter');
               },
-              child: const Text('Support it by giving a star on github'),
+              child:  Text('Support it by giving a star on github', style: TextStyle(fontSize: screenWidth * 0.03),),
             ),
           ],
         ),

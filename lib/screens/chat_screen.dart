@@ -1,4 +1,5 @@
 import 'package:animate_do/animate_do.dart';
+import 'package:brahma/constants/ads.dart';
 import 'package:brahma/provider/chats_provider.dart';
 import 'package:brahma/screens/auth_screens/login_page.dart';
 import 'package:brahma/widgets/body_text.dart';
@@ -20,7 +21,8 @@ class ChatScreen extends StatefulWidget {
 
 class _ChatScreenState extends State<ChatScreen> {
   late BannerAd bannerAd;
-  var adUnitId = 'ca-app-pub-1800025179900604/6318559742'; // banner ad id
+  var adUnitId = banner1; // banner ad id
+
   bool isAdLoaded = false;
   TextAndVoiceField textAndVoiceField = const TextAndVoiceField();
   final _scrollController = ScrollController();
@@ -57,6 +59,7 @@ class _ChatScreenState extends State<ChatScreen> {
     );
     bannerAd.load();
   }
+
 
   @override
   Widget build(BuildContext context) {

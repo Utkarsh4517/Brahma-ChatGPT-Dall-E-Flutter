@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:brahma/constants/ads.dart';
 import 'package:brahma/services/dalle_ai_handler.dart';
 import 'package:brahma/widgets/body_text.dart';
 import 'package:flutter/material.dart';
@@ -28,10 +29,10 @@ class _DalleTextAndVoiceFieldState
   // ADS
   late BannerAd bannerAd;
   var adUnitId =
-      'ca-app-pub-1800025179900604/3645909346'; //  banner ad id
+      banner2; //  banner ad id
   var adUnitIdInterstitial =
-      'ca-app-pub-1800025179900604/1019746003'; // interstial ad id
-  var adUnitIdInterstitialDownload = 'ca-app-pub-1800025179900604/4404495235'; //  interstitial ad id (download button)
+      inter2; // interstial ad id
+  var adUnitIdInterstitialDownload = interDownload; //  interstitial ad id (download button)
   bool isAdLoaded = false;
 
   late InterstitialAd interstitialAd;
