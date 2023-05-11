@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:brahma/constants/ads.dart';
+import 'package:brahma/services/ad_manager.dart';
 import 'package:brahma/services/dalle_ai_handler.dart';
 import 'package:brahma/widgets/body_text.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +11,7 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter_file_dialog/flutter_file_dialog.dart';
+import 'package:unity_ads_plugin/unity_ads_plugin.dart';
 
 enum DalleInputMode {
   text,
@@ -28,13 +30,12 @@ class _DalleTextAndVoiceFieldState
     extends ConsumerState<DalleTextAndVoiceField> {
   // ADS
   late BannerAd bannerAd;
-  var adUnitId =
-      banner2; //  banner ad id
-  var adUnitIdInterstitial =
-      inter2; // interstial ad id
-  var adUnitIdInterstitialDownload = interDownload; //  interstitial ad id (download button)
+  var adUnitId = banner2; //  banner ad id
+  var adUnitIdInterstitial = inter2; // interstial ad id
+  var adUnitIdInterstitialDownload =
+      interDownload; //  interstitial ad id (download button)
   bool isAdLoaded = false;
-
+  bool _showBanner = false;
   late InterstitialAd interstitialAd;
   late InterstitialAd interstitialAdDownload;
   bool isInterstitialAdLoaded = false;
@@ -55,13 +56,7 @@ class _DalleTextAndVoiceFieldState
   Future<void> _downloadImage(String imageUrl, BuildContext context) async {
     String? message;
     final scaffoldMessenger = ScaffoldMessenger.of(context);
-    if (isInterstitialAdDownloadLoaded) {
-      interstitialAdDownload.show();
-      setState(() {
-        isInterstitialAdDownloadLoaded = false;
-      });
-      initInterstitialAdDownload();
-    }
+    UnityAds.showVideoAd(placementId: 'InterDownload');
     try {
       // Download image
       final http.Response response = await http.get(Uri.parse(imageUrl));
@@ -95,67 +90,28 @@ class _DalleTextAndVoiceFieldState
   @override
   void initState() {
     voiceHandler.initSpeech();
-    initInterstitialAd();
-    initInterstitialAdDownload();
-    initBannerAd();
+    initUnityAds();
+    setState(() {
+      _showBanner = !_showBanner;
+    });
     super.initState();
   }
-
-  initBannerAd() {
-    bannerAd = BannerAd(
-      size: AdSize.banner,
-      adUnitId: adUnitId,
-      listener: BannerAdListener(
-        onAdLoaded: (ad) {
-          setState(() {
-            isAdLoaded = true;
-          });
-        },
-        onAdFailedToLoad: (ad, error) {
-          ad.dispose();
-          print(error);
-        },
-      ),
-      request: const AdRequest(),
-    );
-    bannerAd.load();
-  }
-
-  initInterstitialAd() {
-    InterstitialAd.load(
-      adUnitId: adUnitIdInterstitial,
-      request: const AdRequest(),
-      adLoadCallback: InterstitialAdLoadCallback(
-        onAdLoaded: (ad) {
-          interstitialAd = ad;
-          setState(() {
-            isInterstitialAdLoaded = true;
-          });
-        },
-        onAdFailedToLoad: (error) {
-          interstitialAd.dispose();
-        },
-      ),
+    static initUnityAds(){
+    UnityAds.init(
+      gameId: AdManager.gameId,
+      testMode: true,
+      onComplete: () {
+        print('Initialization Complete');
+        AdManager.loadAd('Interstitial_Android');
+        AdManager.loadAd('InterDalle');
+        AdManager.loadAd('InterDownload');
+        AdManager.loadAd('Banner_Android');
+      },
+      onFailed: (error, message) =>
+          print('Initialization Failed: $error $message'),
     );
   }
 
-  initInterstitialAdDownload() {
-    InterstitialAd.load(
-      adUnitId: adUnitIdInterstitialDownload,
-      request: const AdRequest(),
-      adLoadCallback: InterstitialAdLoadCallback(
-        onAdLoaded: (ad) {
-          interstitialAdDownload = ad;
-          setState(() {
-            isInterstitialAdDownloadLoaded = true;
-          });
-        },
-        onAdFailedToLoad: (error) {
-          interstitialAdDownload.dispose();
-        },
-      ),
-    );
-  }
 
   @override
   void dispose() {
@@ -319,13 +275,7 @@ class _DalleTextAndVoiceFieldState
                     _dalleMessageController.clear();
                     sendDalleTextMessage(message);
                     generatedImageUrl = null;
-                    if (isInterstitialAdLoaded) {
-                      interstitialAd.show();
-                      setState(() {
-                        isInterstitialAdLoaded = false;
-                      });
-                      initInterstitialAd();
-                    }
+                    UnityAds.showVideoAd(placementId: 'InterDalle');
                   },
                   sendVoiceMessage: sendDalleVoiceMessage,
                 ),
@@ -339,14 +289,19 @@ class _DalleTextAndVoiceFieldState
           SizedBox(
             height: MediaQuery.of(context).size.height * 0.04,
           ),
-          isAdLoaded
+          _showBanner
               ? SizedBox(
-                  height: bannerAd.size.height.toDouble(),
-                  width: bannerAd.size.width.toDouble(),
-                  child: AdWidget(ad: bannerAd),
+                  child: UnityBannerAd(
+                    placementId: 'Banner_Android',
+                    onLoad: (placementId) =>
+                        print('Banner loaded: $placementId'),
+                    onClick: (placementId) =>
+                        print('Banner clicked: $placementId'),
+                    onFailed: (placementId, error, message) =>
+                        print('Banner Ad $placementId failed: $error $message'),
+                  ),
                 )
               : const SizedBox(),
-              
         ],
       ),
     );

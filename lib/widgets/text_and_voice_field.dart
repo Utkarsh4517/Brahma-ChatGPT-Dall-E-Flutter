@@ -3,6 +3,7 @@ import 'package:brahma/constants/ads.dart';
 import 'package:brahma/models/chat_model.dart';
 import 'package:brahma/provider/chats_provider.dart';
 import 'package:brahma/screens/dalle_screen.dart';
+import 'package:brahma/services/ad_manager.dart';
 import 'package:brahma/services/ai_handler.dart';
 import 'package:brahma/services/voice_handler.dart';
 import 'package:brahma/widgets/toggle_button.dart';
@@ -11,6 +12,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:flutter/services.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:unity_ads_plugin/unity_ads_plugin.dart';
 
 enum InputMode {
   text,
@@ -25,8 +27,6 @@ class TextAndVoiceField extends ConsumerStatefulWidget {
 }
 
 class _TextAndVoiceFieldState extends ConsumerState<TextAndVoiceField> {
-  late InterstitialAd interstitialAd;
-  var adUnitIdInterstitial = inter;
   bool isInterstitialAdLoaded = false;
 
   InputMode _inputMode = InputMode.voice;
@@ -45,30 +45,11 @@ class _TextAndVoiceFieldState extends ConsumerState<TextAndVoiceField> {
   void initState() {
     voiceHandler.initSpeech();
     initTts();
-    initInterstitialAd();
     super.initState();
   }
 
   initTts() {
     flutterTts = FlutterTts();
-  }
-
-  initInterstitialAd() {
-    InterstitialAd.load(
-      adUnitId: adUnitIdInterstitial,
-      request: const AdRequest(),
-      adLoadCallback: InterstitialAdLoadCallback(
-        onAdLoaded: (ad) {
-          interstitialAd = ad;
-          setState(() {
-            isInterstitialAdLoaded = true;
-          });
-        },
-        onAdFailedToLoad: (error) {
-          interstitialAd.dispose();
-        },
-      ),
-    );
   }
 
   @override
@@ -139,13 +120,21 @@ class _TextAndVoiceFieldState extends ConsumerState<TextAndVoiceField> {
                   final message = _messageController.text;
                   _messageController.clear();
                   sendTextMessage(message);
-                  if (isInterstitialAdLoaded) {
-                    interstitialAd.show();
-                    setState(() {
-                      isInterstitialAdLoaded = false;
-                    });
-                    initInterstitialAd();
-                  }
+
+                  UnityAds.showVideoAd(
+                    placementId: 'Interstitial_Android',
+                    onStart: (placementId) =>
+                        print('Video Ad $placementId started'),
+                    onClick: (placementId) =>
+                        print('Video Ad $placementId click'),
+                    onSkipped: (placementId) =>
+                        print('Video Ad $placementId skipped'),
+                    onComplete: (placementId) {
+                      print('Video Ad $placementId completed');
+                    },
+                    onFailed: (placementId, error, message) =>
+                        print('Video Ad $placementId failed: $error $message'),
+                  );
                 },
                 sendVoiceMessage: sendVoiceMessage,
               ),

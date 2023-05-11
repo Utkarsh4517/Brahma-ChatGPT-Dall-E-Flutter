@@ -2,6 +2,7 @@ import 'package:animate_do/animate_do.dart';
 import 'package:brahma/constants/ads.dart';
 import 'package:brahma/provider/chats_provider.dart';
 import 'package:brahma/screens/auth_screens/login_page.dart';
+import 'package:brahma/services/ad_manager.dart';
 import 'package:brahma/widgets/body_text.dart';
 import 'package:brahma/widgets/chat_item.dart';
 import 'package:brahma/widgets/text_and_voice_field.dart';
@@ -9,6 +10,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:unity_ads_plugin/unity_ads_plugin.dart';
 
 String? apiKEY;
 
@@ -22,7 +24,7 @@ class ChatScreen extends StatefulWidget {
 class _ChatScreenState extends State<ChatScreen> {
   late BannerAd bannerAd;
   var adUnitId = banner1; // banner ad id
-
+  bool _showBanner = false;
   bool isAdLoaded = false;
   TextAndVoiceField textAndVoiceField = const TextAndVoiceField();
   final _scrollController = ScrollController();
@@ -36,29 +38,28 @@ class _ChatScreenState extends State<ChatScreen> {
 
   @override
   void initState() {
-    initBannerAd();
+    setState(() {
+      _showBanner = !_showBanner;
+    });
+    // initBannerAd();
+    initUnityAds();
+
     super.initState();
   }
-
-  initBannerAd() {
-    bannerAd = BannerAd(
-      size: AdSize.banner,
-      adUnitId: adUnitId,
-      listener: BannerAdListener(
-        onAdLoaded: (ad) {
-          setState(() {
-            isAdLoaded = true;
-          });
-        },
-        onAdFailedToLoad: (ad, error) {
-          ad.dispose();
-          print(error);
-        },
-      ),
-      request: const AdRequest(),
+  static initUnityAds(){
+    UnityAds.init(
+      gameId: AdManager.gameId,
+      testMode: true,
+      onComplete: () {
+        print('Initialization Complete');
+        AdManager.loadAd('Interstitial_Android');
+        AdManager.loadAd('Banner_Android');
+      },
+      onFailed: (error, message) =>
+          print('Initialization Failed: $error $message'),
     );
-    bannerAd.load();
   }
+
 
 
   @override
@@ -123,14 +124,19 @@ class _ChatScreenState extends State<ChatScreen> {
               child: TextAndVoiceField(),
             ),
             const BodyText(bodyText: 'Swipe right to Generate Image'),
-           isAdLoaded
+            _showBanner
                 ? SizedBox(
-                    height: bannerAd.size.height.toDouble(),
-                    width: bannerAd.size.width.toDouble(),
-                    child: AdWidget(ad: bannerAd),
+                    child: UnityBannerAd(
+                      placementId: 'Banner_Android',
+                      onLoad: (placementId) =>
+                          print('Banner loaded: $placementId'),
+                      onClick: (placementId) =>
+                          print('Banner clicked: $placementId'),
+                      onFailed: (placementId, error, message) => print(
+                          'Banner Ad $placementId failed: $error $message'),
+                    ),
                   )
                 : const SizedBox(),
-                
           ],
         ),
       ),
